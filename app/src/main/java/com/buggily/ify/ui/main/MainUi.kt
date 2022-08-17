@@ -1,4 +1,4 @@
-package com.buggily.skeleton.ui.main
+package com.buggily.ify.ui.main
 
 import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -7,8 +7,8 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.buggily.skeleton.ui.theme.SkeletonTheme
-import com.buggily.skeleton.ui.home.HomeScreen
+import com.buggily.ify.ui.theme.IfyTheme
+import com.buggily.ify.ui.home.HomeScreen
 
 @Composable
 fun MainScreen() {
@@ -19,7 +19,7 @@ fun MainScreen() {
         dynamicLightColorScheme(context)
     }
 
-    SkeletonTheme(colorScheme) {
+    IfyTheme(colorScheme) {
         HomeScreen()
     }
 }

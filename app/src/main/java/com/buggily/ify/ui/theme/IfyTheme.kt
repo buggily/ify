@@ -1,11 +1,11 @@
-package com.buggily.skeleton.ui.theme
+package com.buggily.ify.ui.theme
 
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 
 @Composable
-fun SkeletonTheme(
+fun IfyTheme(
     colorScheme: ColorScheme,
     content: @Composable () -> Unit,
 ) {

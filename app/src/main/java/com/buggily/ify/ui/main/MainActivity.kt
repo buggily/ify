@@ -1,4 +1,4 @@
-package com.buggily.skeleton.ui.main
+package com.buggily.ify.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

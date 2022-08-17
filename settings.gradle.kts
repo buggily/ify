@@ -1,4 +1,4 @@
-rootProject.name = "skeleton"
+rootProject.name = "ify"
 
 include(":app")
 include(":domain")
