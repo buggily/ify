@@ -1,25 +1,52 @@
 package com.buggily.ify.ui.main
 
-import android.content.Context
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
-import com.buggily.ify.ui.theme.IfyTheme
+import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.buggily.ify.ui.IfyDestination
 import com.buggily.ify.ui.home.HomeScreen
 
 @Composable
 fun MainScreen() {
-    val context: Context = LocalContext.current
-    val colorScheme: ColorScheme = if (isSystemInDarkTheme()) {
-        dynamicDarkColorScheme(context)
-    } else {
-        dynamicLightColorScheme(context)
+    Surface(
+        color = MaterialTheme.colorScheme.background,
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        MainContent(Modifier.fillMaxSize())
     }
+}
 
-    IfyTheme(colorScheme) {
-        HomeScreen()
+@Composable
+private fun MainContent(
+    modifier: Modifier = Modifier,
+) {
+    NavHost(
+        navController = rememberNavController(),
+        startDestination = IfyDestination.Home.route,
+        modifier = modifier,
+    ) {
+        composable(
+            route = IfyDestination.Home.route,
+            arguments = emptyList(),
+            deepLinks = emptyList(),
+        ) {
+            HomeScreen(
+                viewModel = hiltViewModel(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .imePadding()
+                    .statusBarsPadding()
+                    .navigationBarsPadding(),
+            )
+        }
     }
 }

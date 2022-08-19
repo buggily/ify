@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
 
-    id("kotlin-android")
-    id("kotlin-kapt")
+    kotlin("android")
+    kotlin("kapt")
 
     id("dagger.hilt.android.plugin")
 }
@@ -49,6 +49,17 @@ android {
 
     kotlinOptions {
         jvmTarget = Version.JAVA.toString()
+
+        val optIns: List<String> = listOf(
+            Build.OptIns.COMPOSE,
+            Build.OptIns.MATERIAL,
+            Build.OptIns.LIFECYCLE,
+            Build.OptIns.FLOW,
+        ).map {
+            "-opt-in=$it"
+        }
+
+        freeCompilerArgs = freeCompilerArgs + optIns
     }
 
     composeOptions {
@@ -57,6 +68,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
     implementation(project(":domain"))
     implementation(Dependency.Kotlin.Core.KTX)
 
@@ -65,17 +77,6 @@ dependencies {
 
     implementation(Dependency.Hilt.Android.NAVIGATION)
     kapt(Dependency.Hilt.Android.COMPILER)
-
-    implementation(Dependency.Room.IDENTITY)
-    kapt(Dependency.Room.COMPILER)
-
-    implementation(Dependency.Room.COROUTINES)
-    implementation(Dependency.Room.PAGING)
-
-    implementation(Dependency.Paging.IDENTITY)
-    implementation(Dependency.Paging.COMPOSE)
-
-    implementation(Dependency.Retrofit.IDENTITY)
 
     implementation(Dependency.Compose.ACTIVITY)
     implementation(Dependency.Compose.MATERIAL)

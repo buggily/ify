@@ -12,26 +12,17 @@ object Version {
     }
 
     object Hilt {
-        const val IDENTITY = "2.43.1"
+        const val IDENTITY = "2.43.2"
         const val ANDROID = "1.0.0"
-    }
-
-    object DataStore {
-        const val IDENTITY = "1.0.0"
-    }
-
-    object Room {
-        const val IDENTITY = "2.4.2"
-        const val PAGING = "2.5.0-alpha02"
-    }
-
-    object Paging {
-        const val IDENTITY = "3.1.1"
-        const val COMPOSE = "1.0.0-alpha15"
     }
 
     object Retrofit {
         const val IDENTITY = "2.9.0"
+        const val SERIALIZATION = "0.8.0"
+    }
+
+    object Serialization {
+        const val IDENTITY = "1.4.0-RC"
     }
 
     object Compose {

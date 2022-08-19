@@ -1,22 +1,35 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    id("com.android.library")
+    id("java-library")
+    id("org.jetbrains.kotlin.jvm")
 
-    id("kotlin-android")
-    id("kotlin-kapt")
+    kotlin("kapt")
+    kotlin("plugin.serialization") version "1.7.0"
 }
 
-android {
-    compileSdk = Build.Sdk.COMPILE
-
-    defaultConfig {
-        minSdk = Build.Sdk.MIN
-        targetSdk = Build.Sdk.TARGET
-    }
+java {
+    sourceCompatibility = Version.JAVA
+    targetCompatibility = Version.JAVA
 }
+
+
 
 dependencies {
-    implementation(Dependency.Hilt.IDENTITY)
-    kapt(Dependency.Hilt.COMPILER)
+    implementation(Dependency.Hilt.Core.IDENTITY)
+    kapt(Dependency.Hilt.Core.COMPILER)
 
-    implementation(Dependency.Paging.CORE)
+    implementation(Dependency.Retrofit.IDENTITY)
+    implementation(Dependency.Retrofit.CONVERTER)
+    implementation(Dependency.Serialization.IDENTITY)
+}
+
+tasks.withType(KotlinCompile::class).configureEach {
+    val optIns: List<String> = listOf(
+        Build.OptIns.SERIALIZATION,
+    ).map {
+        "-opt-in=$it"
+    }
+
+    kotlinOptions.freeCompilerArgs += optIns
 }

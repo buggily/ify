@@ -10,27 +10,27 @@ object Dependency {
         const val IDENTITY = "com.google.dagger:hilt-android:${Version.Hilt.IDENTITY}"
         const val COMPILER = "com.google.dagger:hilt-android-compiler:${Version.Hilt.IDENTITY}"
 
+        object Core {
+            const val IDENTITY = "com.google.dagger:hilt-core:${Version.Hilt.IDENTITY}"
+            const val COMPILER = "com.google.dagger:hilt-compiler:${Version.Hilt.IDENTITY}"
+        }
+
         object Android {
-            const val NAVIGATION = "androidx.hilt:hilt-navigation:${Version.Hilt.ANDROID}"
+            const val NAVIGATION = "androidx.hilt:hilt-navigation-compose:${Version.Hilt.ANDROID}"
             const val COMPILER = "androidx.hilt:hilt-compiler:${Version.Hilt.ANDROID}"
         }
     }
 
-    object Room {
-        const val IDENTITY = "androidx.room:room-runtime:${Version.Room.IDENTITY}"
-        const val COMPILER = "androidx.room:room-compiler:${Version.Room.IDENTITY}"
-        const val COROUTINES = "androidx.room:room-ktx:${Version.Room.IDENTITY}"
-        const val PAGING = "androidx.room:room-paging:${Version.Room.PAGING}"
-    }
-
-    object Paging {
-        const val IDENTITY = "androidx.paging:paging-runtime:${Version.Paging.IDENTITY}"
-        const val CORE = "androidx.paging:paging-common:${Version.Paging.IDENTITY}"
-        const val COMPOSE = "androidx.paging:paging-compose:${Version.Paging.COMPOSE}"
-    }
-
     object Retrofit {
         const val IDENTITY = "com.squareup.retrofit2:retrofit:${Version.Retrofit.IDENTITY}"
+
+        const val CONVERTER = "com.jakewharton.retrofit:" +
+                "retrofit2-kotlinx-serialization-converter:" +
+                Version.Retrofit.SERIALIZATION
+    }
+
+    object Serialization {
+        const val IDENTITY = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Version.Serialization.IDENTITY}"
     }
 
     object Compose {
@@ -43,7 +43,7 @@ object Dependency {
             const val IDENTITY = "androidx.compose.ui:ui:${Version.Compose.IDENTITY}"
 
             object Tooling {
-                const val IDENTITY =  "androidx.compose.ui:ui-tooling:${Version.Compose.Tooling.IDENTITY}"
+                const val IDENTITY = "androidx.compose.ui:ui-tooling:${Version.Compose.Tooling.IDENTITY}"
                 const val PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Version.Compose.Tooling.IDENTITY}"
             }
         }

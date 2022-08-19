@@ -2,11 +2,11 @@ package com.buggily.ify.ui
 
 sealed class IfyDestination {
 
-    abstract val name: String
+    abstract val route: String
 
-    object Default : IfyDestination() {
+    object Home : IfyDestination() {
 
-        override val name: String
-            get() = "default"
+        override val route: String
+            get() = "home"
     }
 }

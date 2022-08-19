@@ -8,4 +8,13 @@ object Build {
         const val COMPILE = 33
         const val TARGET = 32
     }
+
+    object OptIns {
+        const val COMPOSE = "androidx.compose.foundation.ExperimentalFoundationApi"
+        const val MATERIAL = "androidx.compose.material3.ExperimentalMaterial3Api"
+        const val LIFECYCLE = "androidx.lifecycle.compose.ExperimentalLifecycleComposeApi"
+
+        const val FLOW = "kotlinx.coroutines.FlowPreview"
+        const val SERIALIZATION = "kotlinx.serialization.ExperimentalSerializationApi"
+    }
 }
