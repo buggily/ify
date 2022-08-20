@@ -54,8 +54,8 @@ private fun NationalityState(
     val text: String = nationalityState.run {
         stringResource(
             R.string.nationality_body,
-            nameDisplay,
-            countriesDisplay ?: stringResource(R.string.nonexistant),
+            nameText,
+            countriesText ?: stringResource(R.string.nonexistant),
         )
     }
 
@@ -72,7 +72,7 @@ private fun NationalityError(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = nationalityState.errorDisplay,
+        text = nationalityState.errorText,
         color = MaterialTheme.colorScheme.error,
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,

@@ -54,9 +54,9 @@ private fun AgeSuccess(
     val text: String = ageState.run {
         stringResource(
             R.string.age_body,
-            nameDisplay,
-            ageDisplay,
-            countDisplay,
+            nameText,
+            ageText,
+            countText,
         )
     }
 
@@ -73,7 +73,7 @@ private fun AgeError(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = ageState.errorDisplay,
+        text = ageState.errorText,
         color = MaterialTheme.colorScheme.error,
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,

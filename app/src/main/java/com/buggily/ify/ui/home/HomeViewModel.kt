@@ -11,6 +11,8 @@ import com.buggily.ify.di.NameQualifier
 import com.buggily.ify.domain.use.age.GetAge
 import com.buggily.ify.domain.use.gender.GetGender
 import com.buggily.ify.domain.use.nationality.GetNationality
+import com.buggily.ify.use.FormatNumber
+import com.buggily.ify.use.Lowercase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -21,8 +23,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.text.NumberFormat
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,8 +32,8 @@ class HomeViewModel @Inject constructor(
     private val getAge: GetAge,
     private val getGender: GetGender,
     private val getNationality: GetNationality,
-    private val numberFormat: NumberFormat,
-    private val locale: Locale,
+    private val formatNumber: FormatNumber,
+    private val lowercase: Lowercase,
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<HomeState>
@@ -91,7 +91,7 @@ class HomeViewModel @Inject constructor(
         when (val age: AgeRest = getAge(name)) {
             is Rest.Success -> HomeState.AgeState.Success(
                 age = age.body,
-                numberFormat = numberFormat,
+                formatNumber = formatNumber,
             )
             is Rest.Error.Api -> HomeState.AgeState.Error(
                 error = age.errorBody.error,
@@ -111,8 +111,8 @@ class HomeViewModel @Inject constructor(
         when (val gender: GenderRest = getGender(name)) {
             is Rest.Success -> HomeState.GenderState.Success(
                 gender = gender.body,
-                numberFormat = numberFormat,
-                locale = locale,
+                formatNumber = formatNumber,
+                lowercase = lowercase,
             )
             is Rest.Error.Api -> HomeState.GenderState.Error(
                 error = gender.errorBody.error,

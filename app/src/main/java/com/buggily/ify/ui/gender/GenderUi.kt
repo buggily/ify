@@ -54,10 +54,10 @@ private fun GenderSuccess(
     val text: String = genderState.run {
         stringResource(
             R.string.gender_body,
-            nameDisplay,
-            genderDisplay,
-            percentageDisplay,
-            countDisplay,
+            nameText,
+            genderText,
+            percentageText,
+            countText,
         )
     }
 
@@ -74,7 +74,7 @@ private fun GenderError(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = genderState.errorDisplay,
+        text = genderState.errorText,
         color = MaterialTheme.colorScheme.error,
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,

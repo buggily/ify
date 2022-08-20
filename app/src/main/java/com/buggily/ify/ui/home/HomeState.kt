@@ -3,6 +3,8 @@ package com.buggily.ify.ui.home
 import com.buggily.ify.data.age.Age
 import com.buggily.ify.data.gender.Gender
 import com.buggily.ify.data.nationality.Nationality
+import com.buggily.ify.use.FormatNumber
+import com.buggily.ify.use.Lowercase
 import java.text.NumberFormat
 import java.util.Locale
 import kotlin.math.roundToInt
@@ -37,24 +39,24 @@ data class HomeState(
 
         data class Success(
             private val age: Age,
-            private val numberFormat: NumberFormat,
+            private val formatNumber: FormatNumber,
         ) : AgeState() {
 
-            val nameDisplay: String
+            val nameText: String
                 get() = age.name
 
-            val ageDisplay: String
+            val ageText: String
                 get() = age.age.toString()
 
-            val countDisplay: String
-                get() = numberFormat.format(age.count)
+            val countText: String
+                get() = formatNumber(age.count)
         }
 
         data class Error(
             private val error: String,
         ) : AgeState() {
 
-            val errorDisplay: String
+            val errorText: String
                 get() = error
         }
     }
@@ -66,21 +68,21 @@ data class HomeState(
 
         data class Success(
             private val gender: Gender,
-            private val numberFormat: NumberFormat,
-            private val locale: Locale,
+            private val formatNumber: FormatNumber,
+            private val lowercase: Lowercase,
         ) : GenderState() {
 
-            val nameDisplay: String
+            val nameText: String
                 get() = gender.name
 
-            val genderDisplay: String
-                get() = gender.gender.toString().lowercase(locale)
+            val genderText: String
+                get() = lowercase(gender.gender.toString())
 
-            val percentageDisplay: String
+            val percentageText: String
                 get() = percentage.toString()
 
-            val countDisplay: String
-                get() = numberFormat.format(gender.count)
+            val countText: String
+                get() = formatNumber(gender.count)
 
             private val percentage: Int
                 get() {
@@ -93,7 +95,7 @@ data class HomeState(
             private val error: String,
         ) : GenderState() {
 
-            val errorDisplay: String
+            val errorText: String
                 get() = error
         }
     }
@@ -107,15 +109,15 @@ data class HomeState(
             private val nationality: Nationality,
         ) : NationalityState() {
 
-            val nameDisplay: String
+            val nameText: String
                 get() = nationality.name
 
-            val countriesDisplay: String?
+            val countriesText: String?
                 get() = nationality.countries.takeIf { it.isNotEmpty() }?.joinToString {
                     val locale = Locale(String(), it.country)
                     val percentage: Float = it.probability * 100
-                    val percentageDisplay: Int = percentage.roundToInt()
-                    "${locale.displayCountry} ($percentageDisplay%)"
+                    val percentageText: Int = percentage.roundToInt()
+                    "${locale.displayCountry} ($percentageText%)"
                 }
         }
 
@@ -123,7 +125,7 @@ data class HomeState(
             private val error: String,
         ) : NationalityState() {
 
-            val errorDisplay: String
+            val errorText: String
                 get() = error
         }
     }
