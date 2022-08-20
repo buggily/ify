@@ -90,8 +90,6 @@ dependencies {
     implementation(Dependency.Compose.Lifecycle.KTX)
     implementation(Dependency.Compose.Lifecycle.ViewModel.IDENTITY)
     implementation(Dependency.Compose.Lifecycle.ViewModel.KTX)
-
-    implementation(Dependency.Coil.IDENTITY)
 }
 
 kapt {

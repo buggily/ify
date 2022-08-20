@@ -59,8 +59,4 @@ object Dependency {
             }
         }
     }
-
-    object Coil {
-        const val IDENTITY = "io.coil-kt:coil-compose:${Version.Coil.IDENTITY}"
-    }
 }
