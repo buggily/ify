@@ -21,12 +21,9 @@ ify demonstrates the following:
 
 Because none of the endpoints require API keys for infrequent users, setup simply involves cloning the repository. Run in [Android Studio][android studio] or any Android IDE.
 
-<img src="./res/ify_light.png" title="ify light" width=50%><img src="./res/ify_dark.png" alt="ify dark" width=50%>
+<img src="./res/ify_light.png" alt="ify light" width=50%><img src="./res/ify_dark.png" alt="ify dark" width=50%>
 
-*ify in light and dark mode*
-
-[ify light]: ./res/ify_light.png
-[ify dark]: ./res/ify_dark.png
+*ify in static light and dark modes*
 
 [agify]: https://agify.io/
 [genderize]: https://genderize.io/
