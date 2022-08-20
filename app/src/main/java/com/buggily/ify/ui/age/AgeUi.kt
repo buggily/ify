@@ -1,4 +1,4 @@
-package com.buggily.ify.ui.gender
+package com.buggily.ify.ui.age
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
@@ -13,33 +13,33 @@ import com.buggily.ify.ui.ext.EndpointBox
 import com.buggily.ify.ui.home.HomeState
 
 @Composable
-fun GenderScreen(
-    genderState: HomeState.GenderState,
+fun AgeScreen(
+    ageState: HomeState.AgeState,
     modifier: Modifier = Modifier,
 ) {
-    val color: Color = when (genderState) {
-        is HomeState.GenderState.Error -> MaterialTheme.colorScheme.error
-        else -> MaterialTheme.colorScheme.secondary
+    val color: Color = when (ageState) {
+        is HomeState.AgeState.Error -> MaterialTheme.colorScheme.error
+        else -> MaterialTheme.colorScheme.primary
     }
 
     EndpointBox(
-        text = stringResource(R.string.genderize),
+        text = stringResource(R.string.agify),
         color = color,
         modifier = modifier,
     ) {
-        when (genderState) {
-            is HomeState.GenderState.Success -> GenderSuccess(
-                genderState = genderState,
+        when (ageState) {
+            is HomeState.AgeState.Success -> AgeSuccess(
+                ageState = ageState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is HomeState.GenderState.Error -> GenderError(
-                genderState = genderState,
+            is HomeState.AgeState.Error -> AgeError(
+                ageState = ageState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is HomeState.GenderState.Loading -> GenderLoading(
+            is HomeState.AgeState.Loading -> AgeLoading(
                 modifier = Modifier,
             )
-            is HomeState.GenderState.Default -> GenderDefault(
+            is HomeState.AgeState.Default -> AgeDefault(
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -47,17 +47,16 @@ fun GenderScreen(
 }
 
 @Composable
-private fun GenderSuccess(
-    genderState: HomeState.GenderState.Success,
+private fun AgeSuccess(
+    ageState: HomeState.AgeState.Success,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = genderState.gender.run {
+    val text: String = ageState.run {
         stringResource(
-            R.string.gender_body,
-            name,
-            gender.toString(),
-            percentage.toString(),
-            count.toString(),
+            R.string.age_body,
+            nameDisplay,
+            ageDisplay,
+            countDisplay,
         )
     }
 
@@ -69,12 +68,12 @@ private fun GenderSuccess(
 }
 
 @Composable
-private fun GenderError(
-    genderState: HomeState.GenderState.Error,
+private fun AgeError(
+    ageState: HomeState.AgeState.Error,
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = genderState.error,
+        text = ageState.errorDisplay,
         color = MaterialTheme.colorScheme.error,
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
@@ -82,21 +81,21 @@ private fun GenderError(
 }
 
 @Composable
-private fun GenderLoading(
+private fun AgeLoading(
     modifier: Modifier = Modifier,
 ) {
     CircularProgressIndicator(
-        color = MaterialTheme.colorScheme.secondary,
+        color = MaterialTheme.colorScheme.primary,
         modifier = modifier,
     )
 }
 
 @Composable
-private fun GenderDefault(
+private fun AgeDefault(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = stringResource(R.string.enter, stringResource(R.string.gender)),
+        text = stringResource(R.string.enter, stringResource(R.string.age)),
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )

@@ -12,12 +12,6 @@ data class Gender(
     @SerialName(COUNT) val count: Int,
 ) {
 
-    val percentage: Int
-        get() {
-            val percentage: Float = probability * 100
-            return percentage.roundToInt()
-        }
-
     @Serializable
     enum class Gender {
 
@@ -26,11 +20,6 @@ data class Gender(
 
         @SerialName(FEMALE)
         Female;
-
-        override fun toString(): String = when (this) {
-            Male -> MALE
-            Female -> FEMALE
-        }
 
         private companion object {
             private const val MALE = "male"

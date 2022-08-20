@@ -51,15 +51,11 @@ private fun NationalityState(
     nationalityState: HomeState.NationalityState.Success,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = nationalityState.nationality.run {
-        val countriesText: String = countries.joinToString {
-            it.run { "${locale.displayCountry} (${percentage}%)" }
-        }.takeIf { it.isNotEmpty() } ?: stringResource(R.string.nonexistant)
-
+    val text: String = nationalityState.run {
         stringResource(
             R.string.nationality_body,
-            name,
-            countriesText,
+            nameDisplay,
+            countriesDisplay ?: stringResource(R.string.nonexistant),
         )
     }
 
@@ -76,7 +72,7 @@ private fun NationalityError(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = nationalityState.error,
+        text = nationalityState.errorDisplay,
         color = MaterialTheme.colorScheme.error,
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,

@@ -21,6 +21,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,6 +32,8 @@ class HomeViewModel @Inject constructor(
     private val getAge: GetAge,
     private val getGender: GetGender,
     private val getNationality: GetNationality,
+    private val numberFormat: NumberFormat,
+    private val locale: Locale,
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<HomeState>
@@ -85,8 +89,13 @@ class HomeViewModel @Inject constructor(
         }
 
         when (val age: AgeRest = getAge(name)) {
-            is Rest.Success -> HomeState.AgeState.Success(age.body)
-            is Rest.Error.Api -> HomeState.AgeState.Error(age.errorBody.error)
+            is Rest.Success -> HomeState.AgeState.Success(
+                age = age.body,
+                numberFormat = numberFormat,
+            )
+            is Rest.Error.Api -> HomeState.AgeState.Error(
+                error = age.errorBody.error,
+            )
             else -> HomeState.AgeState.Default
         }.let { setAgeState(it) }
     }
@@ -100,8 +109,14 @@ class HomeViewModel @Inject constructor(
         }
 
         when (val gender: GenderRest = getGender(name)) {
-            is Rest.Success -> HomeState.GenderState.Success(gender.body)
-            is Rest.Error.Api -> HomeState.GenderState.Error(gender.errorBody.error)
+            is Rest.Success -> HomeState.GenderState.Success(
+                gender = gender.body,
+                numberFormat = numberFormat,
+                locale = locale,
+            )
+            is Rest.Error.Api -> HomeState.GenderState.Error(
+                error = gender.errorBody.error,
+            )
             else -> HomeState.GenderState.Default
         }.let { setGenderState(it) }
     }
@@ -115,8 +130,12 @@ class HomeViewModel @Inject constructor(
         }
 
         when (val nationality: NationalityRest = getNationality(name)) {
-            is Rest.Success -> HomeState.NationalityState.Success(nationality.body)
-            is Rest.Error.Api -> HomeState.NationalityState.Error(nationality.errorBody.error)
+            is Rest.Success -> HomeState.NationalityState.Success(
+                nationality = nationality.body,
+            )
+            is Rest.Error.Api -> HomeState.NationalityState.Error(
+                error = nationality.errorBody.error,
+            )
             else -> HomeState.NationalityState.Default
         }.let { setNationalityState(it) }
     }

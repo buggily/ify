@@ -1,4 +1,4 @@
-package com.buggily.ify.ui.age
+package com.buggily.ify.ui.gender
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
@@ -8,44 +8,38 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import com.buggily.ify.R
-import com.buggily.ify.data.age.Age
 import com.buggily.ify.ui.ext.EndpointBox
 import com.buggily.ify.ui.home.HomeState
 
 @Composable
-fun AgeScreen(
-    ageState: HomeState.AgeState,
+fun GenderScreen(
+    genderState: HomeState.GenderState,
     modifier: Modifier = Modifier,
 ) {
-    val color: Color = when (ageState) {
-        is HomeState.AgeState.Error -> MaterialTheme.colorScheme.error
-        else -> MaterialTheme.colorScheme.primary
+    val color: Color = when (genderState) {
+        is HomeState.GenderState.Error -> MaterialTheme.colorScheme.error
+        else -> MaterialTheme.colorScheme.secondary
     }
 
     EndpointBox(
-        text = stringResource(R.string.agify),
+        text = stringResource(R.string.genderize),
         color = color,
         modifier = modifier,
     ) {
-        when (ageState) {
-            is HomeState.AgeState.Success -> AgeSuccess(
-                ageState = ageState,
+        when (genderState) {
+            is HomeState.GenderState.Success -> GenderSuccess(
+                genderState = genderState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is HomeState.AgeState.Error -> AgeError(
-                ageState = ageState,
+            is HomeState.GenderState.Error -> GenderError(
+                genderState = genderState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is HomeState.AgeState.Loading -> AgeLoading(
+            is HomeState.GenderState.Loading -> GenderLoading(
                 modifier = Modifier,
             )
-            is HomeState.AgeState.Default -> AgeDefault(
+            is HomeState.GenderState.Default -> GenderDefault(
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -53,16 +47,17 @@ fun AgeScreen(
 }
 
 @Composable
-private fun AgeSuccess(
-    ageState: HomeState.AgeState.Success,
+private fun GenderSuccess(
+    genderState: HomeState.GenderState.Success,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = ageState.age.run {
+    val text: String = genderState.run {
         stringResource(
-            R.string.age_body,
-            name,
-            age.toString(),
-            count.toString(),
+            R.string.gender_body,
+            nameDisplay,
+            genderDisplay,
+            percentageDisplay,
+            countDisplay,
         )
     }
 
@@ -74,12 +69,12 @@ private fun AgeSuccess(
 }
 
 @Composable
-private fun AgeError(
-    ageState: HomeState.AgeState.Error,
+private fun GenderError(
+    genderState: HomeState.GenderState.Error,
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = ageState.error,
+        text = genderState.errorDisplay,
         color = MaterialTheme.colorScheme.error,
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
@@ -87,21 +82,21 @@ private fun AgeError(
 }
 
 @Composable
-private fun AgeLoading(
+private fun GenderLoading(
     modifier: Modifier = Modifier,
 ) {
     CircularProgressIndicator(
-        color = MaterialTheme.colorScheme.primary,
+        color = MaterialTheme.colorScheme.secondary,
         modifier = modifier,
     )
 }
 
 @Composable
-private fun AgeDefault(
+private fun GenderDefault(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = stringResource(R.string.enter, stringResource(R.string.age)),
+        text = stringResource(R.string.enter, stringResource(R.string.gender)),
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
