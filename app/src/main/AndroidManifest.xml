@@ -7,9 +7,9 @@
     <application
         android:name="com.buggily.ify.ui.IfyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher"
         android:label="@string/ify"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/launcher_round"
         android:supportsRtl="true"
         android:theme="@style/theme">
 
