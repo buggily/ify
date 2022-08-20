@@ -17,22 +17,10 @@ import com.buggily.ify.ui.home.HomeScreen
 
 @Composable
 fun MainScreen() {
-    Surface(
-        color = MaterialTheme.colorScheme.background,
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        MainContent(Modifier.fillMaxSize())
-    }
-}
-
-@Composable
-private fun MainContent(
-    modifier: Modifier = Modifier,
-) {
     NavHost(
         navController = rememberNavController(),
         startDestination = IfyDestination.Home.route,
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
     ) {
         composable(
             route = IfyDestination.Home.route,
