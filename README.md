@@ -23,7 +23,7 @@ Because none of the endpoints require API keys for infrequent users, setup simpl
 
 <img src="./res/ify_light.png" alt="ify light" width=50%><img src="./res/ify_dark.png" alt="ify dark" width=50%>
 
-*ify in static light and dark modes*
+*ify in dynamic light and dark modes*
 
 [agify]: https://agify.io/
 [genderize]: https://genderize.io/
