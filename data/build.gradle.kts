@@ -13,8 +13,6 @@ java {
     targetCompatibility = Version.JAVA
 }
 
-
-
 dependencies {
     implementation(Dependency.Hilt.Core.IDENTITY)
     kapt(Dependency.Hilt.Core.COMPILER)
