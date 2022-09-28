@@ -19,16 +19,18 @@ class RestCallAdapterFactory<Body : Any, ErrorBody : Any> : CallAdapter.Factory(
         val isCall: Boolean = rawReturnType == Call::class.java
         if (!isCall) return null
 
+        val returnIndex = 0
         val returnParameterizedType: ParameterizedType = returnType as? ParameterizedType ?: return null
-        val responseType: Type = getParameterUpperBound(0, returnParameterizedType)
+        val responseType: Type = getParameterUpperBound(returnIndex, returnParameterizedType)
 
         val rawResponseType: Class<*> = getRawType(responseType)
         val isRest: Boolean = rawResponseType == Rest::class.java
         if (!isRest) return null
 
+        var responseIndex = 0
         val responseParameterizedType: ParameterizedType = responseType as? ParameterizedType ?: return null
-        val bodyType: Type = getParameterUpperBound(0, responseParameterizedType)
-        val errorBodyType: Type = getParameterUpperBound(1, responseParameterizedType)
+        val bodyType: Type = getParameterUpperBound(responseIndex++, responseParameterizedType)
+        val errorBodyType: Type = getParameterUpperBound(responseIndex, responseParameterizedType)
 
         val converter: Converter<ResponseBody, ErrorBody> = retrofit.nextResponseBodyConverter(
             null,
