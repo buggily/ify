@@ -14,6 +14,7 @@ import com.buggily.ify.domain.use.nationality.GetNationality
 import com.buggily.ify.use.FormatNumber
 import com.buggily.ify.use.Lowercase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -50,9 +51,10 @@ class HomeViewModel @Inject constructor(
         ).let { _state = MutableStateFlow(it) }
 
         viewModelScope.launch {
-            state.map {
-                it.nameState.name
-            }.debounce(debounce).stateIn(
+            val nameStateFlow: Flow<HomeState.NameState> = state.map { it.nameState }
+            val nameFlow: Flow<String> = nameStateFlow.map { it.name }
+
+            nameFlow.debounce(debounce).stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(),
                 initialValue = name,
