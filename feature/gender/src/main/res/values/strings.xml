@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gender">gender</string>
+    <string name="genderize">https://genderize.io/</string>
+
+    <string name="gender_body">
+        Given a person with the name %1$s,
+        the predicted gender is %2$s
+        with a probability of %3$s%%
+        across %4$s observations.
+    </string>
+</resources>

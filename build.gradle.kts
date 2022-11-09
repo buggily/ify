@@ -1,24 +1,15 @@
 buildscript {
-
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.2.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.43.2")
-    }
-}
-
-allprojects {
     repositories {
         google()
         mavenCentral()
     }
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+plugins {
+    alias(libs.plugins.android.application) apply false
+
+    alias(libs.plugins.kotlin) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+
+    alias(libs.plugins.hilt) apply false
 }

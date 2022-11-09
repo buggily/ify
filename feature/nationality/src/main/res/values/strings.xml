@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nationality">nationality</string>
+    <string name="nationalize">https://nationalize.io/</string>
+
+    <string name="nationality_body">
+        Given a person with the name %1$s,
+        the predicted nations are %2$s.
+    </string>
+</resources>

@@ -1,35 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ify">ify</string>
     <string name="name">name</string>
 
-    <string name="agify">https://agify.io/</string>
-    <string name="genderize">https://genderize.io/</string>
-    <string name="nationalize">https://nationalize.io/</string>
-
-    <string name="age">age</string>
-    <string name="gender">gender</string>
-    <string name="nationality">nationality</string>
-
     <string name="clear">clear</string>
-    <string name="submit">submit</string>
-    <string name="nonexistant">null</string>
-    <string name="enter">Enter a name to predict %1$s!</string>
-
-    <string name="age_body">
-        Given a person with the name %1$s,
-        the predicted age is %2$s
-        across %3$s observations.
-    </string>
-
-    <string name="gender_body">
-        Given a person with the name %1$s,
-        the predicted gender is %2$s
-        with a probability of %3$s%%
-        across %4$s observations.
-    </string>
-
-    <string name="nationality_body">
-        Given a person with the name %1$s,
-        the predicted nations are %2$s.
-    </string>
 </resources>

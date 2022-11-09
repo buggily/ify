@@ -2,17 +2,17 @@ package com.buggily.ify.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.buggily.ify.data.rest.Rest
-import com.buggily.ify.data.rest.age.AgeRest
-import com.buggily.ify.data.rest.gender.GenderRest
-import com.buggily.ify.data.rest.nationality.NationalityRest
-import com.buggily.ify.di.DebounceQualifier
-import com.buggily.ify.di.NameQualifier
-import com.buggily.ify.domain.use.age.GetAge
-import com.buggily.ify.domain.use.gender.GetGender
-import com.buggily.ify.domain.use.nationality.GetNationality
-import com.buggily.ify.use.FormatNumber
-import com.buggily.ify.use.Lowercase
+import com.buggily.ify.core.domain.use.Format
+import com.buggily.ify.core.model.Rest
+import com.buggily.ify.core.model.age.Age
+import com.buggily.ify.core.model.gender.Gender
+import com.buggily.ify.core.model.nationality.Nationality
+import com.buggily.ify.domain.age.use.GetAge
+import com.buggily.ify.domain.gender.use.GetGender
+import com.buggily.ify.domain.nationality.use.GetNationality
+import com.buggily.ify.feature.age.AgeState
+import com.buggily.ify.feature.gender.GenderState
+import com.buggily.ify.feature.nationality.NationalityState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,13 +28,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    @NameQualifier name: String,
-    @DebounceQualifier debounce: Long,
     private val getAge: GetAge,
     private val getGender: GetGender,
     private val getNationality: GetNationality,
-    private val formatNumber: FormatNumber,
-    private val lowercase: Lowercase,
+    private val format: Format,
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<HomeState>
@@ -43,21 +40,21 @@ class HomeViewModel @Inject constructor(
     init {
         HomeState.default.copy(
             nameState = HomeState.NameState.default.copy(
-                name = name,
+                name = "Adam",
                 onNameChange = ::onNameChange,
                 onNameClear = ::onNameClear,
             ),
-            ageState = HomeState.AgeState.Loading,
+            ageState = AgeState.Loading,
         ).let { _state = MutableStateFlow(it) }
 
-        viewModelScope.launch {
-            val nameStateFlow: Flow<HomeState.NameState> = state.map { it.nameState }
-            val nameFlow: Flow<String> = nameStateFlow.map { it.name }
+        val nameState: Flow<HomeState.NameState> = state.map { it.nameState }
+        val name: Flow<String> = nameState.map { it.name }
 
-            nameFlow.debounce(debounce).stateIn(
+        viewModelScope.launch {
+            name.debounce(1000).stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = name,
+                initialValue = state.value.nameState.name,
             ).collectLatest {
                 launch { setAge(it) }
                 launch { setGender(it) }
@@ -66,17 +63,19 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun onNameChange(name: String) = setNameOfNameState(
+    private fun onNameChange(name: String): Unit = setNameOfNameState(
         name = name,
     )
 
-    private fun onNameClear() = onNameChange(
+    private fun onNameClear(): Unit = onNameChange(
         name = HomeState.NameState.default.name,
     )
 
     private fun setNameOfNameState(name: String) = state.value.let {
+        val onNameClear: (() -> Unit)? = if (name.isNotEmpty()) ::onNameClear else null
         val nameState: HomeState.NameState = it.nameState.copy(
             name = name,
+            onNameClear = onNameClear,
         )
 
         setNameState(nameState)
@@ -84,61 +83,61 @@ class HomeViewModel @Inject constructor(
 
     private suspend fun setAge(name: String) {
         if (name == HomeState.NameState.default.name) {
-            setAgeState(HomeState.AgeState.Default)
+            setAgeState(AgeState.Default)
             return
         } else {
-            setAgeState(HomeState.AgeState.Loading)
+            setAgeState(AgeState.Loading)
         }
 
-        when (val age: AgeRest = getAge(name)) {
-            is Rest.Success -> HomeState.AgeState.Success(
+        when (val age: Rest<Age, Age.Error> = getAge(name)) {
+            is Rest.Success -> AgeState.Success(
                 age = age.body,
-                formatNumber = formatNumber,
+                formatNumber = format.formatNumber,
             )
-            is Rest.Error.Api -> HomeState.AgeState.Error(
+            is Rest.Error.Api -> AgeState.Error(
                 error = age.errorBody.error,
             )
-            else -> HomeState.AgeState.Default
+            else -> AgeState.Default
         }.let { setAgeState(it) }
     }
 
     private suspend fun setGender(name: String) {
         if (name == HomeState.NameState.default.name) {
-            setGenderState(HomeState.GenderState.Default)
+            setGenderState(GenderState.Default)
             return
         } else {
-            setGenderState(HomeState.GenderState.Loading)
+            setGenderState(GenderState.Loading)
         }
 
-        when (val gender: GenderRest = getGender(name)) {
-            is Rest.Success -> HomeState.GenderState.Success(
+        when (val gender: Rest<Gender, Gender.Error> = getGender(name)) {
+            is Rest.Success -> GenderState.Success(
                 gender = gender.body,
-                formatNumber = formatNumber,
-                lowercase = lowercase,
+                format = format,
             )
-            is Rest.Error.Api -> HomeState.GenderState.Error(
+            is Rest.Error.Api -> GenderState.Error(
                 error = gender.errorBody.error,
             )
-            else -> HomeState.GenderState.Default
+            else -> GenderState.Default
         }.let { setGenderState(it) }
     }
 
     private suspend fun setNationality(name: String) {
         if (name == HomeState.NameState.default.name) {
-            setNationalityState(HomeState.NationalityState.Default)
+            setNationalityState(NationalityState.Default)
             return
         } else {
-            setNationalityState(HomeState.NationalityState.Loading)
+            setNationalityState(NationalityState.Loading)
         }
 
-        when (val nationality: NationalityRest = getNationality(name)) {
-            is Rest.Success -> HomeState.NationalityState.Success(
+        when (val nationality: Rest<Nationality, Nationality.Error> = getNationality(name)) {
+            is Rest.Success -> NationalityState.Success(
                 nationality = nationality.body,
+                format = format,
             )
-            is Rest.Error.Api -> HomeState.NationalityState.Error(
+            is Rest.Error.Api -> NationalityState.Error(
                 error = nationality.errorBody.error,
             )
-            else -> HomeState.NationalityState.Default
+            else -> NationalityState.Default
         }.let { setNationalityState(it) }
     }
 
@@ -146,15 +145,15 @@ class HomeViewModel @Inject constructor(
         it.copy(nameState = nameState)
     }
 
-    private fun setAgeState(ageState: HomeState.AgeState) = _state.update {
+    private fun setAgeState(ageState: AgeState) = _state.update {
         it.copy(ageState = ageState)
     }
 
-    private fun setGenderState(genderState: HomeState.GenderState) = _state.update {
+    private fun setGenderState(genderState: GenderState) = _state.update {
         it.copy(genderState = genderState)
     }
 
-    private fun setNationalityState(nationalityState: HomeState.NationalityState) = _state.update {
+    private fun setNationalityState(nationalityState: NationalityState) = _state.update {
         it.copy(nationalityState = nationalityState)
     }
 }

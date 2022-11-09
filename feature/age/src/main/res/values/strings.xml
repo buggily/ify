@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="age">age</string>
+    <string name="agify">https://agify.io/</string>
+
+    <string name="age_body">
+        Given a person with the name %1$s,
+        the predicted age is %2$s
+        across %3$s observations.
+    </string>
+</resources>
