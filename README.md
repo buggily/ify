@@ -16,6 +16,7 @@ ify demonstrates the following:
 - JSON serialization via [kotlinx.serialization][serialization]
 - Declarative layouts via [Jetpack Compose][compose]
 - Unidirectional data flow via [MVVM][mvvm]
+- Modularization via [versions catalogs][versions] and [convention plugins][plugins]
 
 ### Setup
 
@@ -35,4 +36,7 @@ Because none of the endpoints require API keys for infrequent users, setup simpl
 [serialization]: https://github.com/Kotlin/kotlinx.serialization/
 [compose]: https://developer.android.com/jetpack/compose/
 [mvvm]: https://developer.android.com/topic/architecture/
+[versions]: https://docs.gradle.org/current/userguide/platforms.html
+[plugins]: https://docs.gradle.org/current/samples/sample_convention_plugins.html
+
 [android studio]: https://developer.android.com/studio
