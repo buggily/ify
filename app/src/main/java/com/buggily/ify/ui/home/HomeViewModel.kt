@@ -44,7 +44,6 @@ class HomeViewModel @Inject constructor(
                 onNameChange = ::onNameChange,
                 onNameClear = ::onNameClear,
             ),
-            ageState = AgeState.Loading,
         ).let { _state = MutableStateFlow(it) }
 
         val nameState: Flow<HomeState.NameState> = state.map { it.nameState }
