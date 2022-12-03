@@ -7,7 +7,3 @@ plugins {
 android {
     namespace = "com.buggily.ify.feature.age"
 }
-
-dependencies {
-    implementation(project(":domain:age"))
-}

@@ -7,7 +7,3 @@ plugins {
 android {
     namespace = "com.buggily.ify.feature.gender"
 }
-
-dependencies {
-    implementation(project(":domain:gender"))
-}

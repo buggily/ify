@@ -7,7 +7,3 @@ plugins {
 android {
     namespace = "com.buggily.ify.feature.nationality"
 }
-
-dependencies {
-    implementation(project(":domain:nationality"))
-}
