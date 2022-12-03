@@ -10,11 +10,13 @@
         android:label="@string/ify"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/theme">
+        android:theme="@style/Theme">
 
         <activity
             android:name="com.buggily.ify.ui.main.MainActivity"
             android:exported="true"
+            android:resizeableActivity="true"
+            android:theme="@style/Theme.Splash"
             android:windowSoftInputMode="adjustResize">
 
             <intent-filter>
