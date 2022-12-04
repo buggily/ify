@@ -25,7 +25,6 @@ class AndroidLibraryFeatureConventionPlugin : Plugin<Project> {
 
             add("implementation", libs.getLib("androidx.lifecycle.runtime.compose"))
             add("implementation", libs.getLib("androidx.lifecycle.viewModel.compose"))
-            add("implementation", libs.getLib("kotlinx.coroutines.android"))
 
             add("implementation", libs.getLib("androidx.compose.material3"))
         }
