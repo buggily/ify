@@ -1,9 +1,9 @@
 package com.buggily.ify
 
-import com.android.build.api.dsl.CommonExtension
 import getLib
 import getLibs
 import getVersion
+import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.VersionCatalog

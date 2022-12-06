@@ -9,7 +9,6 @@ class AndroidLibraryFeatureConventionPlugin : Plugin<Project> {
         with(pluginManager) {
             apply("ify.android.library")
             apply("ify.android.hilt")
-
             apply("org.jetbrains.kotlin.kapt")
         }
 
