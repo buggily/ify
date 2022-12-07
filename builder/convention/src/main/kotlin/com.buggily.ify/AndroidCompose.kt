@@ -1,14 +1,14 @@
 package com.buggily.ify
 
-import getLib
-import getLibs
-import getVersion
-import com.android.build.api.dsl.CommonExtension
+import ext.getLib
+import ext.getLibs
+import ext.getVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.dependencies
+import com.android.build.api.dsl.CommonExtension
 
 internal fun Project.configureAndroidCompose(
     commonExtension: CommonExtension<*, *, *, *>,
