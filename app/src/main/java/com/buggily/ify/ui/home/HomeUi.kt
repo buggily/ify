@@ -26,7 +26,7 @@ import com.buggily.ify.R
 import com.buggily.ify.feature.age.AgeScreen
 import com.buggily.ify.feature.gender.GenderScreen
 import com.buggily.ify.feature.nationality.NationalityScreen
-import com.buggily.ify.core.ui.R as RUi
+import com.buggily.ify.core.ui.R.dimen as dimens
 
 @Composable
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -49,9 +49,9 @@ private fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(dimensionResource(RUi.dimen.padding) * 2),
+        contentPadding = PaddingValues(dimensionResource(dimens.padding) * 2),
         verticalArrangement = Arrangement.spacedBy(
-            space = dimensionResource(RUi.dimen.padding),
+            space = dimensionResource(dimens.padding),
             alignment = Alignment.Top,
         ),
         horizontalAlignment = Alignment.Start,

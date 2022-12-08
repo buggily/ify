@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.buggily.ify.core.ui.EndpointBox
-import com.buggily.ify.core.ui.R as RUi
+import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
 fun NationalityScreen(
@@ -54,7 +54,7 @@ private fun NationalityState(
         stringResource(
             R.string.nationality_body,
             nameText,
-            countriesText ?: stringResource(RUi.string.nonexistant)
+            countriesText ?: stringResource(strings.nonexistent)
         )
     }
 
@@ -94,7 +94,7 @@ private fun NationalityDefault(
 ) {
     Text(
         text = stringResource(
-            RUi.string.enter,
+            strings.enter,
             stringResource(R.string.nationality)
         ),
         style = MaterialTheme.typography.bodyLarge,

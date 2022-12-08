@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.buggily.ify.core.ui.EndpointBox
-import com.buggily.ify.core.ui.R as RUi
+import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
 fun GenderScreen(
@@ -96,7 +96,7 @@ private fun GenderDefault(
 ) {
     Text(
         text = stringResource(
-            RUi.string.enter,
+            strings.enter,
             stringResource(R.string.gender)
         ),
         style = MaterialTheme.typography.bodyLarge,
