@@ -1,6 +1,12 @@
 # ify
 
-ify is a supplemental code sample written by @buggily.
+### What ify Is
+
+ify is a architecture reference and supplemental code sample written by @buggily for personal use.
+
+### What ify Is Not
+
+ify is not a data analysis tool.
 
 ### Overview
 
