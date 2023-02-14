@@ -6,5 +6,9 @@ class NationalityRepository(
     private val source: NationalitySourceable,
 ) : NationalityRepositable {
 
-    override suspend fun get(name: String) = source.get(name)
+    override suspend fun get(
+        name: String,
+    ) = source.get(
+        name = name,
+    )
 }

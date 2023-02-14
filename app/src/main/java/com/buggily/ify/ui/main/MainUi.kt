@@ -1,9 +1,7 @@
 package com.buggily.ify.ui.main
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -14,24 +12,20 @@ import com.buggily.ify.ui.IfyDestination
 import com.buggily.ify.ui.home.HomeScreen
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    modifier: Modifier = Modifier,
+) {
     NavHost(
         navController = rememberNavController(),
-        startDestination = IfyDestination.Home.route,
-        modifier = Modifier.fillMaxSize(),
+        startDestination = IfyDestination.startDestination.route,
+        modifier = modifier,
     ) {
-        composable(
-            route = IfyDestination.Home.route,
-            arguments = emptyList(),
-            deepLinks = emptyList(),
-        ) {
+        composable(IfyDestination.Home.route) {
             HomeScreen(
                 viewModel = hiltViewModel(),
                 modifier = Modifier
                     .fillMaxSize()
-                    .imePadding()
-                    .statusBarsPadding()
-                    .navigationBarsPadding(),
+                    .safeContentPadding(),
             )
         }
     }

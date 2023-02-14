@@ -9,25 +9,11 @@ sealed class AgeState {
     object Loading : AgeState()
 
     data class Success(
-        private val age: Age,
-        private val formatNumber: FormatNumber,
-    ) : AgeState() {
-
-        val nameText: String
-            get() = age.name
-
-        val ageText: String
-            get() = age.age.toString()
-
-        val countText: String
-            get() = formatNumber(age.count)
-    }
+        val age: Age,
+        val formatNumber: FormatNumber,
+    ) : AgeState()
 
     data class Error(
-        private val error: String,
-    ) : AgeState() {
-
-        val errorText: String
-            get() = error
-    }
+        val error: String,
+    ) : AgeState()
 }

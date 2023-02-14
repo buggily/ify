@@ -1,14 +1,16 @@
 package com.buggily.ify.feature.nationality
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import com.buggily.ify.core.ui.DefaultText
 import com.buggily.ify.core.ui.EndpointBox
+import com.buggily.ify.core.ui.ErrorText
+import com.buggily.ify.core.ui.LoadingIndicator
+import com.buggily.ify.core.ui.SuccessText
 import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
@@ -27,7 +29,7 @@ fun NationalityScreen(
         modifier = modifier,
     ) {
         when (nationalityState) {
-            is NationalityState.Success -> NationalityState(
+            is NationalityState.Success -> NationalitySuccess(
                 nationalityState = nationalityState,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -46,21 +48,20 @@ fun NationalityScreen(
 }
 
 @Composable
-private fun NationalityState(
+private fun NationalitySuccess(
     nationalityState: NationalityState.Success,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = nationalityState.run {
+    val text: String = with(nationalityState) {
         stringResource(
             R.string.nationality_body,
             nameText,
-            countriesText ?: stringResource(strings.nonexistent)
+            nationsText ?: stringResource(strings.unknown)
         )
     }
 
-    Text(
+    SuccessText(
         text = text,
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }
@@ -70,10 +71,8 @@ private fun NationalityError(
     nationalityState: NationalityState.Error,
     modifier: Modifier = Modifier,
 ) {
-    Text(
+    ErrorText(
         text = nationalityState.errorText,
-        color = MaterialTheme.colorScheme.error,
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }
@@ -82,7 +81,7 @@ private fun NationalityError(
 private fun NationalityLoading(
     modifier: Modifier = Modifier,
 ) {
-    CircularProgressIndicator(
+    LoadingIndicator(
         color = MaterialTheme.colorScheme.tertiary,
         modifier = modifier,
     )
@@ -92,12 +91,11 @@ private fun NationalityLoading(
 private fun NationalityDefault(
     modifier: Modifier = Modifier,
 ) {
-    Text(
+    DefaultText(
         text = stringResource(
             strings.enter,
             stringResource(R.string.nationality)
         ),
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }

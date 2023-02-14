@@ -14,6 +14,7 @@ import com.buggily.ify.feature.age.AgeState
 import com.buggily.ify.feature.gender.GenderState
 import com.buggily.ify.feature.nationality.NationalityState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,6 +28,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
+@OptIn(FlowPreview::class)
 class HomeViewModel @Inject constructor(
     private val getAge: GetAge,
     private val getGender: GetGender,
@@ -41,8 +43,8 @@ class HomeViewModel @Inject constructor(
         HomeState.default.copy(
             nameState = HomeState.NameState.default.copy(
                 name = "Adam",
-                onNameChange = ::onNameChange,
-                onNameClear = ::onNameClear,
+                onChange = ::onNameChange,
+                onClear = ::onNameClear,
             ),
         ).let { _state = MutableStateFlow(it) }
 
@@ -71,10 +73,11 @@ class HomeViewModel @Inject constructor(
     )
 
     private fun setNameOfNameState(name: String) = state.value.let {
-        val onNameClear: (() -> Unit)? = if (name.isNotEmpty()) ::onNameClear else null
+        val onClear: (() -> Unit)? = if (name.isNotEmpty()) ::onNameClear else null
+
         val nameState: HomeState.NameState = it.nameState.copy(
             name = name,
-            onNameClear = onNameClear,
+            onClear = onClear,
         )
 
         setNameState(nameState)

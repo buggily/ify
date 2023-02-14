@@ -9,7 +9,9 @@ class GenderSource(
     private val service: GenderServiceable,
 ) : GenderSourceable {
 
-    override suspend fun get(name: String) = when (val rest = service.get(name)) {
+    override suspend fun get(
+        name: String,
+    ) = when (val rest = service.get(name)) {
         is Rest.Success -> with(rest) {
             val body: Gender = with(body) {
                 val gender: Gender.Gender? = when (gender) {

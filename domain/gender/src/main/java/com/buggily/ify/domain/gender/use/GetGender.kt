@@ -6,5 +6,9 @@ class GetGender(
     private val repository: GenderRepositable,
 ) {
 
-    suspend operator fun invoke(name: String) = repository.get(name)
+    suspend operator fun invoke(
+        name: String,
+    ) = repository.get(
+        name = name,
+    )
 }

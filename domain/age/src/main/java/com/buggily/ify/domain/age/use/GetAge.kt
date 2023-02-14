@@ -6,5 +6,9 @@ class GetAge(
     private val repository: AgeRepositable,
 ) {
 
-    suspend operator fun invoke(name: String) = repository.get(name)
+    suspend operator fun invoke(
+        name: String,
+    ) = repository.get(
+        name = name,
+    )
 }

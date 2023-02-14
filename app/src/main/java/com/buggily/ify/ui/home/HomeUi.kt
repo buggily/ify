@@ -49,7 +49,7 @@ private fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(dimensionResource(dimens.padding) * 2),
+        contentPadding = PaddingValues(dimensionResource(dimens.padding)),
         verticalArrangement = Arrangement.spacedBy(
             space = dimensionResource(dimens.padding),
             alignment = Alignment.Top,
@@ -57,6 +57,10 @@ private fun HomeScreen(
         horizontalAlignment = Alignment.Start,
         modifier = modifier,
     ) {
+        val contentModifier: Modifier = Modifier
+            .fillMaxWidth()
+            .animateContentSize()
+
         stickyHeader {
             HomeBar(
                 state = state,
@@ -67,27 +71,21 @@ private fun HomeScreen(
         item {
             AgeScreen(
                 ageState = state.ageState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .animateContentSize(),
+                modifier = contentModifier,
             )
         }
 
         item {
             GenderScreen(
                 genderState = state.genderState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .animateContentSize(),
+                modifier = contentModifier,
             )
         }
 
         item {
             NationalityScreen(
                 nationalityState = state.nationalityState,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .animateContentSize(),
+                modifier = contentModifier,
             )
         }
     }
@@ -117,7 +115,7 @@ private fun HomeTextField(
 ) {
     OutlinedTextField(
         value = nameState.name,
-        onValueChange = nameState.onNameChange,
+        onValueChange = nameState.onChange,
         label = { HomeTextFieldLabel() },
         trailingIcon = { HomeTextFieldTrailingIcon(nameState) },
         modifier = modifier,
@@ -140,7 +138,7 @@ private fun HomeTextFieldTrailingIcon(
     nameState: HomeState.NameState,
     modifier: Modifier = Modifier,
 ) {
-    val onClick: () -> Unit = nameState.onNameClear ?: return
+    val onClick: () -> Unit = nameState.onClear ?: return
 
     IconButton(
         onClick = onClick,

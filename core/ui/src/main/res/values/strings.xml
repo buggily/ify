@@ -1,4 +1,4 @@
 <resources>
     <string name="enter">Enter a name to predict %1$s!</string>
-    <string name="nonexistent">null</string>
+    <string name="unknown">unknown</string>
 </resources>

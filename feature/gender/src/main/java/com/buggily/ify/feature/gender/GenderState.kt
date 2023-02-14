@@ -9,28 +9,11 @@ sealed class GenderState {
     object Loading : GenderState()
 
     data class Success(
-        private val gender: Gender,
-        private val format: Format,
-    ) : GenderState() {
-
-        val nameText: String
-            get() = gender.name
-
-        val genderText: String
-            get() = format.formatLowercase(gender.gender.toString())
-
-        val percentageText: String
-            get() = format.formatProbability(gender.probability)
-
-        val countText: String
-            get() = format.formatNumber(gender.count)
-    }
+        val gender: Gender,
+        val format: Format,
+    ) : GenderState()
 
     data class Error(
-        private val error: String,
-    ) : GenderState() {
-
-        val errorText: String
-            get() = error
-    }
+        val error: String,
+    ) : GenderState()
 }

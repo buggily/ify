@@ -1,14 +1,16 @@
 package com.buggily.ify.feature.gender
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import com.buggily.ify.core.ui.DefaultText
 import com.buggily.ify.core.ui.EndpointBox
+import com.buggily.ify.core.ui.ErrorText
+import com.buggily.ify.core.ui.LoadingIndicator
+import com.buggily.ify.core.ui.SuccessText
 import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
@@ -50,19 +52,18 @@ private fun GenderSuccess(
     genderState: GenderState.Success,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = genderState.run {
+    val text: String = with(genderState) {
         stringResource(
             R.string.gender_body,
             nameText,
-            genderText,
+            genderText ?: stringResource(strings.unknown),
             percentageText,
             countText
         )
     }
 
-    Text(
+    SuccessText(
         text = text,
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }
@@ -72,10 +73,8 @@ private fun GenderError(
     genderState: GenderState.Error,
     modifier: Modifier = Modifier,
 ) {
-    Text(
+    ErrorText(
         text = genderState.errorText,
-        color = MaterialTheme.colorScheme.error,
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }
@@ -84,7 +83,7 @@ private fun GenderError(
 private fun GenderLoading(
     modifier: Modifier = Modifier,
 ) {
-    CircularProgressIndicator(
+    LoadingIndicator(
         color = MaterialTheme.colorScheme.secondary,
         modifier = modifier,
     )
@@ -94,12 +93,11 @@ private fun GenderLoading(
 private fun GenderDefault(
     modifier: Modifier = Modifier,
 ) {
-    Text(
+    DefaultText(
         text = stringResource(
             strings.enter,
             stringResource(R.string.gender)
         ),
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }

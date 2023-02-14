@@ -13,16 +13,16 @@ data class HomeState(
 
     data class NameState(
         val name: String,
-        val onNameChange: (String) -> Unit,
-        val onNameClear: (() -> Unit)?,
+        val onChange: (String) -> Unit,
+        val onClear: (() -> Unit)?,
     ) {
 
         companion object {
             val default: NameState
                 get() = NameState(
                     name = String(),
-                    onNameChange = {},
-                    onNameClear = null,
+                    onChange = {},
+                    onClear = null,
                 )
         }
     }

@@ -6,5 +6,9 @@ class GenderRepository(
     private val source: GenderSourceable,
 ) : GenderRepositable {
 
-    override suspend fun get(name: String) = source.get(name)
+    override suspend fun get(
+        name: String,
+    ) = source.get(
+        name = name,
+    )
 }

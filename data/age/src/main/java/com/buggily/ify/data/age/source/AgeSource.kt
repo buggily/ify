@@ -8,7 +8,9 @@ class AgeSource(
     private val service: AgeServiceable,
 ) : AgeSourceable {
 
-    override suspend fun get(name: String) = when (val rest = service.get(name)) {
+    override suspend fun get(
+        name: String,
+    ) = when (val rest = service.get(name)) {
         is Rest.Success -> with(rest) {
             val body: Age = with(body) {
                 Age(
