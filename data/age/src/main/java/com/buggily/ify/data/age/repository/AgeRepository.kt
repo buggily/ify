@@ -6,5 +6,9 @@ class AgeRepository(
     private val source: AgeSourceable,
 ) : AgeRepositable {
 
-    override suspend fun get(name: String) = source.get(name)
+    override suspend fun get(
+        name: String,
+    ) = source.get(
+        name = name,
+    )
 }

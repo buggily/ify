@@ -8,7 +8,9 @@ class NationalitySource(
     private val service: NationalityServiceable,
 ) : NationalitySourceable {
 
-    override suspend fun get(name: String) = when (val rest = service.get(name)) {
+    override suspend fun get(
+        name: String,
+    ) = when (val rest = service.get(name)) {
         is Rest.Success -> with(rest) {
             val body: Nationality = with(body) {
                 val countries: List<Nationality.Country> = countries.map {

@@ -6,5 +6,9 @@ class GetNationality(
     private val repository: NationalityRepositable,
 ) {
 
-    suspend operator fun invoke(name: String) = repository.get(name)
+    suspend operator fun invoke(
+        name: String,
+    ) = repository.get(
+        name = name,
+    )
 }

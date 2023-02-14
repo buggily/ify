@@ -9,26 +9,11 @@ sealed class NationalityState {
     object Loading : NationalityState()
 
     data class Success(
-        private val nationality: Nationality,
-        private val format: Format,
-    ) : NationalityState() {
-
-        val nameText: String
-            get() = nationality.name
-
-        val countriesText: String?
-            get() = nationality.countries.takeUnless { it.isEmpty() }?.joinToString {
-                val countryText: String = it.locale.getDisplayCountry(format.locale)
-                val percentageText: String = format.formatProbability(it.probability)
-                it.run { "$countryText ($percentageText%)" }
-            }
-    }
+        val nationality: Nationality,
+        val format: Format,
+    ) : NationalityState()
 
     data class Error(
-        private val error: String,
-    ) : NationalityState() {
-
-        val errorText: String
-            get() = error
-    }
+        val error: String,
+    ) : NationalityState()
 }

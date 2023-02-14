@@ -1,14 +1,20 @@
 package com.buggily.ify.feature.age
 
+import ageText
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import com.buggily.ify.core.ui.DefaultText
 import com.buggily.ify.core.ui.EndpointBox
+import com.buggily.ify.core.ui.ErrorText
+import com.buggily.ify.core.ui.LoadingIndicator
+import com.buggily.ify.core.ui.SuccessText
+import countText
+import errorText
+import nameText
 import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
@@ -50,18 +56,17 @@ private fun AgeSuccess(
     ageState: AgeState.Success,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = ageState.run {
+    val text: String = with(ageState) {
         stringResource(
             R.string.age_body,
             nameText,
-            ageText,
+            ageText ?: stringResource(strings.unknown),
             countText
         )
     }
 
-    Text(
+    SuccessText(
         text = text,
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }
@@ -71,10 +76,8 @@ private fun AgeError(
     ageState: AgeState.Error,
     modifier: Modifier = Modifier,
 ) {
-    Text(
+    ErrorText(
         text = ageState.errorText,
-        color = MaterialTheme.colorScheme.error,
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }
@@ -83,7 +86,7 @@ private fun AgeError(
 private fun AgeLoading(
     modifier: Modifier = Modifier,
 ) {
-    CircularProgressIndicator(
+    LoadingIndicator(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier,
     )
@@ -93,12 +96,11 @@ private fun AgeLoading(
 private fun AgeDefault(
     modifier: Modifier = Modifier,
 ) {
-    Text(
+    DefaultText(
         text = stringResource(
             strings.enter,
             stringResource(R.string.age)
         ),
-        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }

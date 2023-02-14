@@ -9,4 +9,9 @@ sealed class IfyDestination {
         override val route: String
             get() = "home"
     }
+
+    companion object {
+        val startDestination: IfyDestination
+            get() = IfyDestination.Home
+    }
 }
