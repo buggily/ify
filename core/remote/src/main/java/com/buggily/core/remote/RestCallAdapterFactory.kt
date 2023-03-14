@@ -9,37 +9,35 @@ import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-class RestCallAdapterFactory<Body : Any, ErrorBody : Any> : CallAdapter.Factory() {
+class RestCallAdapterFactory : CallAdapter.Factory() {
 
     override fun get(
         returnType: Type,
         annotations: Array<out Annotation>,
         retrofit: Retrofit,
-    ): CallAdapter<*, *>? {
+    ): CallAdapter<*, *> {
         val rawReturnType: Class<*> = getRawType(returnType)
-        val isCall: Boolean = rawReturnType == Call::class.java
-        if (!isCall) return null
+        require(rawReturnType == Call::class.java)
 
         val returnIndex = 0
-        val returnParameterizedType: ParameterizedType = returnType as? ParameterizedType ?: return null
+        val returnParameterizedType = requireNotNull(returnType as? ParameterizedType)
         val responseType: Type = getParameterUpperBound(returnIndex, returnParameterizedType)
 
         val rawResponseType: Class<*> = getRawType(responseType)
-        val isRest: Boolean = rawResponseType == Rest::class.java
-        if (!isRest) return null
+        require(rawResponseType == Rest::class.java)
 
         var responseIndex = 0
-        val responseParameterizedType: ParameterizedType = responseType as? ParameterizedType ?: return null
+        val responseParameterizedType = requireNotNull(responseType as? ParameterizedType)
         val bodyType: Type = getParameterUpperBound(responseIndex++, responseParameterizedType)
         val errorBodyType: Type = getParameterUpperBound(responseIndex, responseParameterizedType)
 
-        val converter: Converter<ResponseBody, ErrorBody> = retrofit.nextResponseBodyConverter(
+        val converter: Converter<ResponseBody, Any> = retrofit.nextResponseBodyConverter(
             null,
             errorBodyType,
             annotations
         )
 
-        return RestAdapter<Body, ErrorBody>(
+        return RestAdapter<Any, Any>(
             bodyType = bodyType,
             converter = converter,
         )
