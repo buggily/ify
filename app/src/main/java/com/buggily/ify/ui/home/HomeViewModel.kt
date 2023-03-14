@@ -52,7 +52,9 @@ class HomeViewModel @Inject constructor(
         val name: Flow<String> = nameState.map { it.name }
 
         viewModelScope.launch {
-            name.debounce(1000).stateIn(
+            name.debounce(1000).map {
+                it.takeUnless { it.isBlank() } ?: HomeState.NameState.default.name
+            }.stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(),
                 initialValue = state.value.nameState.name,
@@ -84,12 +86,14 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun setAge(name: String) {
-        if (name == HomeState.NameState.default.name) {
-            setAgeState(AgeState.Default)
-            return
+        val ageState: AgeState = if (name == HomeState.NameState.default.name) {
+            AgeState.Default
         } else {
-            setAgeState(AgeState.Loading)
+            AgeState.Loading
         }
+
+        setAgeState(ageState)
+        if (ageState is AgeState.Default) return
 
         when (val age: Rest<Age, Age.Error> = getAge(name)) {
             is Rest.Success -> AgeState.Success(
@@ -104,12 +108,14 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun setGender(name: String) {
-        if (name == HomeState.NameState.default.name) {
-            setGenderState(GenderState.Default)
-            return
+        val genderState: GenderState = if (name == HomeState.NameState.default.name) {
+            GenderState.Default
         } else {
-            setGenderState(GenderState.Loading)
+            GenderState.Loading
         }
+
+        setGenderState(genderState)
+        if (genderState is GenderState.Default) return
 
         when (val gender: Rest<Gender, Gender.Error> = getGender(name)) {
             is Rest.Success -> GenderState.Success(
@@ -124,12 +130,14 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun setNationality(name: String) {
-        if (name == HomeState.NameState.default.name) {
-            setNationalityState(NationalityState.Default)
-            return
+        val nationalityState: NationalityState = if (name == HomeState.NameState.default.name) {
+            NationalityState.Default
         } else {
-            setNationalityState(NationalityState.Loading)
+            NationalityState.Loading
         }
+
+        setNationalityState(nationalityState)
+        if (nationalityState is NationalityState.Default) return
 
         when (val nationality: Rest<Nationality, Nationality.Error> = getNationality(name)) {
             is Rest.Success -> NationalityState.Success(

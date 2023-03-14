@@ -6,6 +6,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Converter
 import retrofit2.Response
+import retrofit2.http.Body
 import java.io.IOException
 
 class RestCallback<Body : Any, ErrorBody : Any>(
@@ -17,60 +18,45 @@ class RestCallback<Body : Any, ErrorBody : Any>(
     override fun onResponse(
         call: Call<Body>,
         response: Response<Body>,
-    ) {
-        val isSuccessful: Boolean = response.isSuccessful
-        val isUnsuccessful: Boolean = !isSuccessful
+    ) = if (response.isSuccessful) {
+        onSuccess(response)
+    } else {
+        onFailure(response)
+    }
 
+    private fun onSuccess(response: Response<Body>) = try {
         val body: Body? = response.body()
-        val code: Rest.Code = Rest.Code.get(response.code())
-
-        if (isUnsuccessful) {
-            val errorBody: ErrorBody? = try {
-                response.errorBody()?.let { converter.convert(it) }
-            } catch (e: IOException) {
-                null
-            }
-
-            if (errorBody == null) {
-                Rest.Error.Else(
-                    throwable = IOException(),
-                ).let { onResponse(it) }
-
-                return
-            }
-
-            Rest.Error.Api(
-                errorBody = errorBody,
-                code = code,
-            ).let { onResponse(it) }
-
-            return
-        }
-
-        if (body == null) {
-            Rest.Error.Else(
-                throwable = NullPointerException(),
-            ).let { onResponse(it) }
-
-            return
-        }
+        checkNotNull(body)
 
         Rest.Success(
-            code = code,
             body = body,
-        ).let { onResponse(it) }
-    }
+            code = Rest.Code.get(response.code()),
+        )
+    } catch (t: Throwable) {
+        Rest.Error.Else(t)
+    }.let { onResponse(it) }
+
+    private fun onFailure(response: Response<Body>) = try {
+        val responseBody: ResponseBody? = response.errorBody()
+        checkNotNull(responseBody)
+
+        val errorBody: ErrorBody? = converter.convert(responseBody)
+        checkNotNull(errorBody)
+
+        Rest.Error.Api(
+            errorBody = errorBody,
+            code = Rest.Code.get(response.code()),
+        )
+    } catch (t: Throwable) {
+        Rest.Error.Else(t)
+    }.let { onResponse(it) }
 
     override fun onFailure(
         call: Call<Body>,
         t: Throwable,
     ) = when (t) {
-        is IOException -> Rest.Error.Network(
-            exception = t,
-        )
-        else -> Rest.Error.Else(
-            throwable = t,
-        )
+        is IOException -> Rest.Error.Network(t)
+        else -> Rest.Error.Else(t)
     }.let { onResponse(it) }
 
     private fun onResponse(
