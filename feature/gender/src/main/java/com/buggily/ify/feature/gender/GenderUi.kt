@@ -15,11 +15,11 @@ import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
 fun GenderScreen(
-    genderState: GenderState,
+    uiState: GenderUiState,
     modifier: Modifier = Modifier,
 ) {
-    val color: Color = when (genderState) {
-        is GenderState.Error -> MaterialTheme.colorScheme.error
+    val color: Color = when (uiState) {
+        is GenderUiState.Error -> MaterialTheme.colorScheme.error
         else -> MaterialTheme.colorScheme.secondary
     }
 
@@ -28,19 +28,19 @@ fun GenderScreen(
         color = color,
         modifier = modifier,
     ) {
-        when (genderState) {
-            is GenderState.Success -> GenderSuccess(
-                genderState = genderState,
+        when (uiState) {
+            is GenderUiState.Success -> GenderSuccess(
+                uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is GenderState.Error -> GenderError(
-                genderState = genderState,
+            is GenderUiState.Error -> GenderError(
+                uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is GenderState.Loading -> GenderLoading(
+            is GenderUiState.Loading -> GenderLoading(
                 modifier = Modifier,
             )
-            is GenderState.Default -> GenderDefault(
+            is GenderUiState.Default -> GenderDefault(
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -49,10 +49,10 @@ fun GenderScreen(
 
 @Composable
 private fun GenderSuccess(
-    genderState: GenderState.Success,
+    uiState: GenderUiState.Success,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = with(genderState) {
+    val text: String = with(uiState) {
         stringResource(
             R.string.gender_body,
             nameText,
@@ -70,11 +70,17 @@ private fun GenderSuccess(
 
 @Composable
 private fun GenderError(
-    genderState: GenderState.Error,
+    uiState: GenderUiState.Error,
     modifier: Modifier = Modifier,
 ) {
+    val text: String = when (uiState) {
+        is GenderUiState.Error.Api -> uiState.errorText
+        is GenderUiState.Error.Network -> stringResource(strings.error_network)
+        is GenderUiState.Error.Else -> stringResource(strings.error_else)
+    }
+
     ErrorText(
-        text = genderState.errorText,
+        text = text,
         modifier = modifier,
     )
 }

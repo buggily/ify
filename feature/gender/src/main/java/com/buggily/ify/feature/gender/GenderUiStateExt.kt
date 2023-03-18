@@ -1,16 +1,16 @@
 package com.buggily.ify.feature.gender
 
-val GenderState.Success.nameText: String
+val GenderUiState.Success.nameText: String
     get() = gender.name
 
-val GenderState.Success.genderText: String?
+val GenderUiState.Success.genderText: String?
     get() = gender.gender?.let { format.formatLowercase(it.toString()) }
 
-val GenderState.Success.percentageText: String
+val GenderUiState.Success.percentageText: String
     get() = format.formatProbability(gender.probability)
 
-val GenderState.Success.countText: String
+val GenderUiState.Success.countText: String
     get() = format.formatNumber(gender.count)
 
-val GenderState.Error.errorText: String
+val GenderUiState.Error.Api.errorText: String
     get() = error

@@ -6,11 +6,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Converter
 import retrofit2.Response
-import retrofit2.http.Body
 import java.io.IOException
 
 class RestCallback<Body : Any, ErrorBody : Any>(
-    private val restCall: RestCall<Body, ErrorBody>,
+    private val call: RestCall<Body, ErrorBody>,
     private val callback: Callback<Rest<Body, ErrorBody>>,
     private val converter: Converter<ResponseBody, ErrorBody>,
 ) : Callback<Body> {
@@ -25,30 +24,26 @@ class RestCallback<Body : Any, ErrorBody : Any>(
     }
 
     private fun onSuccess(response: Response<Body>) = try {
-        val body: Body? = response.body()
-        checkNotNull(body)
+        val body: Body = checkNotNull(response.body())
 
         Rest.Success(
             body = body,
             code = Rest.Code.get(response.code()),
         )
-    } catch (t: Throwable) {
-        Rest.Error.Else(t)
+    } catch (e: IllegalStateException) {
+        Rest.Error.Else(e)
     }.let { onResponse(it) }
 
     private fun onFailure(response: Response<Body>) = try {
-        val responseBody: ResponseBody? = response.errorBody()
-        checkNotNull(responseBody)
-
-        val errorBody: ErrorBody? = converter.convert(responseBody)
-        checkNotNull(errorBody)
+        val responseBody: ResponseBody = checkNotNull(response.errorBody())
+        val errorBody: ErrorBody = checkNotNull(converter.convert(responseBody))
 
         Rest.Error.Api(
             errorBody = errorBody,
             code = Rest.Code.get(response.code()),
         )
-    } catch (t: Throwable) {
-        Rest.Error.Else(t)
+    } catch (e: Exception) {
+        Rest.Error.Else(e)
     }.let { onResponse(it) }
 
     override fun onFailure(
@@ -62,7 +57,7 @@ class RestCallback<Body : Any, ErrorBody : Any>(
     private fun onResponse(
         rest: Rest<Body, ErrorBody>,
     ) = callback.onResponse(
-        restCall,
+        call,
         Response.success(rest),
     )
 }

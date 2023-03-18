@@ -8,7 +8,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Converter
 import retrofit2.Response
-import retrofit2.http.Body
 
 class RestCall<Body : Any, ErrorBody : Any>(
     private val call: Call<Body>,
@@ -16,7 +15,7 @@ class RestCall<Body : Any, ErrorBody : Any>(
 ) : Call<Rest<Body, ErrorBody>> {
 
     override fun enqueue(callback: Callback<Rest<Body, ErrorBody>>) = RestCallback(
-        restCall = this,
+        call = this,
         callback = callback,
         converter = converter,
     ).let { call.enqueue(it) }

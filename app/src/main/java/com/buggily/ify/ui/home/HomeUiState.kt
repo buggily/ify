@@ -1,14 +1,14 @@
 package com.buggily.ify.ui.home
 
-import com.buggily.ify.feature.age.AgeState
-import com.buggily.ify.feature.gender.GenderState
-import com.buggily.ify.feature.nationality.NationalityState
+import com.buggily.ify.feature.age.AgeUiState
+import com.buggily.ify.feature.gender.GenderUiState
+import com.buggily.ify.feature.nationality.NationalityUiState
 
-data class HomeState(
+data class HomeUiState(
     val nameState: NameState,
-    val ageState: AgeState,
-    val genderState: GenderState,
-    val nationalityState: NationalityState,
+    val ageState: AgeUiState,
+    val genderState: GenderUiState,
+    val nationalityState: NationalityUiState,
 ) {
 
     data class NameState(
@@ -28,12 +28,12 @@ data class HomeState(
     }
 
     companion object {
-        val default: HomeState
-            get() = HomeState(
+        val default: HomeUiState
+            get() = HomeUiState(
                 nameState = NameState.default,
-                ageState = AgeState.Default,
-                genderState = GenderState.Default,
-                nationalityState = NationalityState.Default,
+                ageState = AgeUiState.Default,
+                genderState = GenderUiState.Default,
+                nationalityState = NationalityUiState.Default,
             )
     }
 }
