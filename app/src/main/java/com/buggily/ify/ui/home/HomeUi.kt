@@ -3,7 +3,9 @@ package com.buggily.ify.ui.home
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,24 +22,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.buggily.ify.R
 import com.buggily.ify.feature.age.AgeScreen
+import com.buggily.ify.feature.age.AgeUiState
 import com.buggily.ify.feature.gender.GenderScreen
+import com.buggily.ify.feature.gender.GenderUiState
 import com.buggily.ify.feature.nationality.NationalityScreen
+import com.buggily.ify.feature.nationality.NationalityUiState
 import com.buggily.ify.core.ui.R.dimen as dimens
 
 @Composable
-@OptIn(ExperimentalLifecycleComposeApi::class)
 fun HomeScreen(
     viewModel: HomeViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val state: HomeState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState: HomeUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    Box(modifier) {
+        HomeScreen(
+            uiState = uiState,
+            modifier = Modifier.fillMaxSize(),
+        )
+    }
+}
+
+@Composable
+private fun HomeScreen(
+    uiState: HomeUiState,
+    modifier: Modifier,
+) {
     HomeScreen(
-        state = state,
+        nameState = uiState.nameState,
+        ageUiState = uiState.ageState,
+        genderUiState = uiState.genderState,
+        nationalityUiState = uiState.nationalityState,
         modifier = modifier,
     )
 }
@@ -45,7 +64,10 @@ fun HomeScreen(
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 private fun HomeScreen(
-    state: HomeState,
+    nameState: HomeUiState.NameState,
+    ageUiState: AgeUiState,
+    genderUiState: GenderUiState,
+    nationalityUiState: NationalityUiState,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -63,28 +85,28 @@ private fun HomeScreen(
 
         stickyHeader {
             HomeBar(
-                state = state,
+                nameState = nameState,
                 modifier = Modifier.fillMaxWidth(),
             )
         }
 
         item {
             AgeScreen(
-                ageState = state.ageState,
+                uiState = ageUiState,
                 modifier = contentModifier,
             )
         }
 
         item {
             GenderScreen(
-                genderState = state.genderState,
+                uiState = genderUiState,
                 modifier = contentModifier,
             )
         }
 
         item {
             NationalityScreen(
-                nationalityState = state.nationalityState,
+                uiState = nationalityUiState,
                 modifier = contentModifier,
             )
         }
@@ -93,7 +115,7 @@ private fun HomeScreen(
 
 @Composable
 private fun HomeBar(
-    state: HomeState,
+    nameState: HomeUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -101,7 +123,7 @@ private fun HomeBar(
         modifier = modifier,
     ) {
         HomeTextField(
-            nameState = state.nameState,
+            nameState = nameState,
             modifier = Modifier.fillMaxWidth(),
         )
     }
@@ -110,7 +132,7 @@ private fun HomeBar(
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun HomeTextField(
-    nameState: HomeState.NameState,
+    nameState: HomeUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
     OutlinedTextField(
@@ -135,7 +157,7 @@ private fun HomeTextFieldLabel(
 
 @Composable
 private fun HomeTextFieldTrailingIcon(
-    nameState: HomeState.NameState,
+    nameState: HomeUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
     val onClick: () -> Unit = nameState.onClear ?: return

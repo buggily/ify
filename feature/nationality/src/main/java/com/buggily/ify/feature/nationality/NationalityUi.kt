@@ -15,11 +15,11 @@ import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
 fun NationalityScreen(
-    nationalityState: NationalityState,
+    uiState: NationalityUiState,
     modifier: Modifier = Modifier,
 ) {
-    val color: Color = when (nationalityState) {
-        is NationalityState.Error -> MaterialTheme.colorScheme.error
+    val color: Color = when (uiState) {
+        is NationalityUiState.Error -> MaterialTheme.colorScheme.error
         else -> MaterialTheme.colorScheme.tertiary
     }
 
@@ -28,19 +28,19 @@ fun NationalityScreen(
         color = color,
         modifier = modifier,
     ) {
-        when (nationalityState) {
-            is NationalityState.Success -> NationalitySuccess(
-                nationalityState = nationalityState,
+        when (uiState) {
+            is NationalityUiState.Success -> NationalitySuccess(
+                uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is NationalityState.Error -> NationalityError(
-                nationalityState = nationalityState,
+            is NationalityUiState.Error -> NationalityError(
+                uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is NationalityState.Loading -> NationalityLoading(
+            is NationalityUiState.Loading -> NationalityLoading(
                 modifier = Modifier,
             )
-            is NationalityState.Default -> NationalityDefault(
+            is NationalityUiState.Default -> NationalityDefault(
                 modifier = Modifier.fillMaxWidth(),
             )
         }
@@ -49,10 +49,10 @@ fun NationalityScreen(
 
 @Composable
 private fun NationalitySuccess(
-    nationalityState: NationalityState.Success,
+    uiState: NationalityUiState.Success,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = with(nationalityState) {
+    val text: String = with(uiState) {
         stringResource(
             R.string.nationality_body,
             nameText,
@@ -68,11 +68,17 @@ private fun NationalitySuccess(
 
 @Composable
 private fun NationalityError(
-    nationalityState: NationalityState.Error,
+    uiState: NationalityUiState.Error,
     modifier: Modifier = Modifier,
 ) {
+    val text: String = when (uiState) {
+        is NationalityUiState.Error.Api -> uiState.errorText
+        is NationalityUiState.Error.Network -> stringResource(strings.error_network)
+        is NationalityUiState.Error.Else -> stringResource(strings.error_else)
+    }
+
     ErrorText(
-        text = nationalityState.errorText,
+        text = text,
         modifier = modifier,
     )
 }

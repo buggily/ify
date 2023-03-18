@@ -15,7 +15,7 @@ class RestCallAdapterFactory : CallAdapter.Factory() {
         returnType: Type,
         annotations: Array<out Annotation>,
         retrofit: Retrofit,
-    ): CallAdapter<*, *> {
+    ): CallAdapter<*, *>? = try {
         val rawReturnType: Class<*> = getRawType(returnType)
         require(rawReturnType == Call::class.java)
 
@@ -28,18 +28,20 @@ class RestCallAdapterFactory : CallAdapter.Factory() {
 
         var responseIndex = 0
         val responseParameterizedType = requireNotNull(responseType as? ParameterizedType)
-        val bodyType: Type = getParameterUpperBound(responseIndex++, responseParameterizedType)
-        val errorBodyType: Type = getParameterUpperBound(responseIndex, responseParameterizedType)
+        val responseBodyType: Type = getParameterUpperBound(responseIndex++, responseParameterizedType)
+        val responseErrorBodyType: Type = getParameterUpperBound(responseIndex, responseParameterizedType)
 
         val converter: Converter<ResponseBody, Any> = retrofit.nextResponseBodyConverter(
             null,
-            errorBodyType,
+            responseErrorBodyType,
             annotations
         )
 
-        return RestAdapter<Any, Any>(
-            bodyType = bodyType,
+        RestAdapter<Any, Any>(
+            responseType = responseBodyType,
             converter = converter,
         )
+    } catch (e: IllegalArgumentException) {
+        null
     }
 }

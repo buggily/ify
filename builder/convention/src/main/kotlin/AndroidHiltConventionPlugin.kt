@@ -1,8 +1,8 @@
+
 import ext.getLib
 import ext.getLibs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.kotlin.dsl.dependencies
 
 class AndroidHiltConventionPlugin : Plugin<Project> {
@@ -13,11 +13,11 @@ class AndroidHiltConventionPlugin : Plugin<Project> {
             apply("dagger.hilt.android.plugin")
         }
 
-        val libs: VersionCatalog = getLibs()
-
         dependencies {
-            add("implementation", libs.getLib("hilt.android"))
-            add("kapt", libs.getLib("hilt.android.compiler"))
+            with(getLibs()) {
+                add("implementation", getLib("hilt.android"))
+                add("kapt", getLib("hilt.android.compiler"))
+            }
         }
     }
 }

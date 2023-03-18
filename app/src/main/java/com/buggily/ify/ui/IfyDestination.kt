@@ -12,6 +12,6 @@ sealed class IfyDestination {
 
     companion object {
         val startDestination: IfyDestination
-            get() = IfyDestination.Home
+            get() = Home
     }
 }

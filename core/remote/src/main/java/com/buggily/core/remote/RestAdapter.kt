@@ -8,7 +8,7 @@ import retrofit2.Converter
 import java.lang.reflect.Type
 
 class RestAdapter<Body : Any, ErrorBody : Any>(
-    private val bodyType: Type,
+    private val responseType: Type,
     private val converter: Converter<ResponseBody, ErrorBody>,
 ) : CallAdapter<Body, Call<Rest<Body, ErrorBody>>> {
 
@@ -19,5 +19,5 @@ class RestAdapter<Body : Any, ErrorBody : Any>(
         converter = converter,
     )
 
-    override fun responseType(): Type = bodyType
+    override fun responseType(): Type = responseType
 }
