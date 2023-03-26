@@ -1,12 +1,11 @@
-
 import com.android.build.api.dsl.ApplicationExtension
 import com.buggily.ify.configureAndroidCompose
 import ext.getLib
 import ext.getLibs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 
 class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
 
@@ -15,8 +14,9 @@ class AndroidApplicationComposeConventionPlugin : Plugin<Project> {
             apply("com.android.application")
         }
 
-        val extension: ApplicationExtension = extensions.getByType()
-        configureAndroidCompose(extension)
+        extensions.configure<ApplicationExtension> {
+            configureAndroidCompose(this)
+        }
 
         dependencies {
             with(getLibs()) {

@@ -2,7 +2,7 @@ import com.android.build.gradle.LibraryExtension
 import com.buggily.ify.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.configure
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
 
@@ -12,11 +12,9 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             apply("org.jetbrains.kotlin.android")
         }
 
-        val extension: LibraryExtension = extensions.getByType()
-        configureKotlinAndroid(extension)
-
-        extension.defaultConfig {
-            targetSdk = 33
+        extensions.configure<LibraryExtension> {
+            configureKotlinAndroid(this)
+            defaultConfig.targetSdk = 33
         }
     }
 }
