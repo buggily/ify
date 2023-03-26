@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 package com.buggily.ify
 
 import com.android.build.api.dsl.CommonExtension

@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("ify.android.application")
     id("ify.android.application.compose")
