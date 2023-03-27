@@ -4,9 +4,11 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -71,7 +73,7 @@ private fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(dimensionResource(dimens.padding)),
+        contentPadding = WindowInsets.safeContent.asPaddingValues(),
         verticalArrangement = Arrangement.spacedBy(
             space = dimensionResource(dimens.padding),
             alignment = Alignment.Top,
