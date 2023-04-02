@@ -1,6 +1,6 @@
 package com.buggily.ify.remote.age.di
 
-import com.buggily.ify.remote.age.AgeServiceable
+import com.buggily.ify.remote.age.RemoteAgeServiceable
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +13,7 @@ object AgeServiceableProvider {
 
     @Provides
     fun provides(
-        @AgeRetrofitQualifier retrofit: Retrofit,
-    ): AgeServiceable = retrofit.create(AgeServiceable::class.java)
+        @AgeRetrofitQualifier
+        retrofit: Retrofit,
+    ): RemoteAgeServiceable = retrofit.create(RemoteAgeServiceable::class.java)
 }

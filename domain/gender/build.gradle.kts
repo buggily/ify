@@ -1,6 +1,9 @@
 plugins {
-    id("ify.kotlin.library")
-    id("ify.kotlin.library.domain")
+    id("ify.android.library.domain")
+}
+
+android {
+    namespace = "com.buggily.ify.domain.gender"
 }
 
 dependencies {

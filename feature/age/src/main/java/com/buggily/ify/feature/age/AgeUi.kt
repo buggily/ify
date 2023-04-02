@@ -9,11 +9,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.buggily.ify.core.ui.DefaultText
 import com.buggily.ify.core.ui.EndpointBox
-import com.buggily.ify.core.ui.ErrorText
+import com.buggily.ify.core.ui.FailureText
 import com.buggily.ify.core.ui.LoadingIndicator
-import com.buggily.ify.core.ui.SuccessText
+import com.buggily.ify.core.ui.ResponseText
 import countText
-import errorText
+import failureText
 import nameText
 import com.buggily.ify.core.ui.R.string as strings
 
@@ -23,7 +23,7 @@ fun AgeScreen(
     modifier: Modifier = Modifier,
 ) {
     val color: Color = when (uiState) {
-        is AgeUiState.Error -> MaterialTheme.colorScheme.error
+        is AgeUiState.Failure -> MaterialTheme.colorScheme.error
         else -> MaterialTheme.colorScheme.primary
     }
 
@@ -33,11 +33,11 @@ fun AgeScreen(
         modifier = modifier,
     ) {
         when (uiState) {
-            is AgeUiState.Success -> AgeSuccess(
+            is AgeUiState.Response -> AgeResponse(
                 uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is AgeUiState.Error -> AgeError(
+            is AgeUiState.Failure -> AgeFailure(
                 uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -52,8 +52,8 @@ fun AgeScreen(
 }
 
 @Composable
-private fun AgeSuccess(
-    uiState: AgeUiState.Success,
+private fun AgeResponse(
+    uiState: AgeUiState.Response,
     modifier: Modifier = Modifier,
 ) {
     val text: String = with(uiState) {
@@ -65,24 +65,24 @@ private fun AgeSuccess(
         )
     }
 
-    SuccessText(
+    ResponseText(
         text = text,
         modifier = modifier,
     )
 }
 
 @Composable
-private fun AgeError(
-    uiState: AgeUiState.Error,
+private fun AgeFailure(
+    uiState: AgeUiState.Failure,
     modifier: Modifier = Modifier,
 ) {
     val text: String = when (uiState) {
-        is AgeUiState.Error.Api -> uiState.errorText
-        is AgeUiState.Error.Network -> stringResource(strings.error_network)
-        is AgeUiState.Error.Else -> stringResource(strings.error_else)
+        is AgeUiState.Failure.Remote.Api -> uiState.failureText
+        is AgeUiState.Failure.Remote.Network -> stringResource(strings.error_network)
+        is AgeUiState.Failure.Else -> stringResource(strings.error_else)
     }
 
-    ErrorText(
+    FailureText(
         text = text,
         modifier = modifier,
     )

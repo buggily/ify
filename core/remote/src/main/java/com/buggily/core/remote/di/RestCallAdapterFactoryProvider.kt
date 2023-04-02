@@ -1,6 +1,6 @@
 package com.buggily.core.remote.di
 
-import com.buggily.core.remote.RestCallAdapterFactory
+import com.buggily.core.remote.ApiResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,5 +13,5 @@ object RestCallAdapterFactoryProvider {
 
     @Provides
     @RestCallAdapterFactoryQualifier
-    fun provides(): CallAdapter.Factory = RestCallAdapterFactory()
+    fun provides(): CallAdapter.Factory = ApiResultCallAdapterFactory()
 }

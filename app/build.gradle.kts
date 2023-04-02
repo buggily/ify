@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:model"))
+    implementation(project(":core:data"))
     implementation(project(":core:domain"))
 
     implementation(project(":feature:age"))
@@ -49,6 +49,10 @@ dependencies {
     implementation(project(":domain:age"))
     implementation(project(":domain:gender"))
     implementation(project(":domain:nationality"))
+
+    implementation(project(":data:age"))
+    implementation(project(":data:gender"))
+    implementation(project(":data:nationality"))
 
     implementation(libs.kotlin)
     implementation(libs.kotlinx.coroutines.android)

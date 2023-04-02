@@ -1,25 +1,29 @@
 package com.buggily.ify.feature.gender
 
-import com.buggily.ify.core.domain.use.Format
-import com.buggily.ify.core.model.gender.Gender
+import com.buggily.ify.core.domain.Format
+import com.buggily.ify.data.gender.Gender
 
 sealed class GenderUiState {
 
     object Default : GenderUiState()
     object Loading : GenderUiState()
 
-    data class Success(
+    data class Response(
         val gender: Gender,
         val format: Format,
     ) : GenderUiState()
 
-    sealed class Error : GenderUiState() {
+    sealed class Failure : GenderUiState() {
 
-        data class Api(
-            val error: String,
-        ) : Error()
+        sealed class Remote : Failure() {
 
-        object Network : Error()
-        object Else : Error()
+            data class Api(
+                val message: String,
+            ) : Remote()
+
+            object Network : Remote()
+        }
+
+        object Else : Failure()
     }
 }

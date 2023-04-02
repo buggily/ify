@@ -1,6 +1,6 @@
 package com.buggily.ify.remote.nationality.di
 
-import com.buggily.ify.remote.nationality.NationalityServiceable
+import com.buggily.ify.remote.nationality.RemoteNationalityServiceable
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +13,7 @@ object NationalityServiceableProvider {
 
     @Provides
     fun provides(
-        @NationalityRetrofitQualifier retrofit: Retrofit,
-    ): NationalityServiceable = retrofit.create(NationalityServiceable::class.java)
+        @NationalityRetrofitQualifier
+        retrofit: Retrofit,
+    ): RemoteNationalityServiceable = retrofit.create(RemoteNationalityServiceable::class.java)
 }

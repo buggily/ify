@@ -14,7 +14,10 @@ object AgeRetrofitProvider {
     @Provides
     @AgeRetrofitQualifier
     fun provides(
-        @AgeBaseUrlQualifier baseUrl: HttpUrl,
+
+        @AgeBaseUrlQualifier
+        baseUrl: HttpUrl,
+
         builder: Retrofit.Builder,
     ): Retrofit = builder
         .baseUrl(baseUrl)

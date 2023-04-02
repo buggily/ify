@@ -1,6 +1,6 @@
 package com.buggily.ify.remote.gender.di
 
-import com.buggily.ify.remote.gender.GenderServiceable
+import com.buggily.ify.remote.gender.RemoteGenderServiceable
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +13,7 @@ object GenderServiceableProvider {
 
     @Provides
     fun provides(
-        @GenderRetrofitQualifier retrofit: Retrofit,
-    ): GenderServiceable = retrofit.create(GenderServiceable::class.java)
+        @GenderRetrofitQualifier
+        retrofit: Retrofit,
+    ): RemoteGenderServiceable = retrofit.create(RemoteGenderServiceable::class.java)
 }

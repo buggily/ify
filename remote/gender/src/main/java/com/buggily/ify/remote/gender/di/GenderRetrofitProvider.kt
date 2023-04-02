@@ -14,7 +14,10 @@ object GenderRetrofitProvider {
     @Provides
     @GenderRetrofitQualifier
     fun provides(
-        @GenderBaseUrlQualifier baseUrl: HttpUrl,
+
+        @GenderBaseUrlQualifier
+        baseUrl: HttpUrl,
+
         builder: Retrofit.Builder,
     ): Retrofit = builder
         .baseUrl(baseUrl)

@@ -12,5 +12,8 @@ object AgeBaseUrlProvider {
 
     @Provides
     @AgeBaseUrlQualifier
-    fun provides(): HttpUrl = HttpUrl.get("https://api.agify.io/")
+    fun provides(): HttpUrl = HttpUrl.Builder()
+        .scheme("https")
+        .host("api.agify.io")
+        .build()
 }

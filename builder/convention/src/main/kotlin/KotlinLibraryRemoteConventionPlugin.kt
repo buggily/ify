@@ -16,8 +16,6 @@ class KotlinLibraryRemoteConventionPlugin : Plugin<Project> {
         }
 
         dependencies {
-            add("implementation", project(":core:model"))
-
             with(getLibs()) {
                 add("implementation", getLib("retrofit"))
                 add("implementation", getLib("retrofit.kotlin.serialization"))

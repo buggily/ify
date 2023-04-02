@@ -14,7 +14,10 @@ object NationalityRetrofitProvider {
     @Provides
     @NationalityRetrofitQualifier
     fun provides(
-        @NationalityBaseUrlQualifier baseUrl: HttpUrl,
+
+        @NationalityBaseUrlQualifier
+        baseUrl: HttpUrl,
+
         builder: Retrofit.Builder,
     ): Retrofit = builder
         .baseUrl(baseUrl)
