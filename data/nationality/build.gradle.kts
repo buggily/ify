@@ -1,8 +1,12 @@
 plugins {
-    id("ify.kotlin.library")
-    id("ify.kotlin.library.data")
+    id("ify.android.library.data")
+}
+
+android {
+    namespace = "com.buggily.ify.data.nationality"
 }
 
 dependencies {
+    implementation(project(":local:nationality"))
     implementation(project(":remote:nationality"))
 }

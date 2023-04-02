@@ -1,13 +1,13 @@
 import com.buggily.ify.feature.age.AgeUiState
 
-val AgeUiState.Success.nameText: String
+val AgeUiState.Response.nameText: String
     get() = age.name
 
-val AgeUiState.Success.ageText: String?
+val AgeUiState.Response.ageText: String?
     get() = age.age?.toString()
 
-val AgeUiState.Success.countText: String
+val AgeUiState.Response.countText: String
     get() = formatNumber(age.count)
 
-val AgeUiState.Error.Api.errorText: String
-    get() = error
+val AgeUiState.Failure.Remote.Api.failureText: String
+    get() = message

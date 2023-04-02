@@ -8,9 +8,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.buggily.ify.core.ui.DefaultText
 import com.buggily.ify.core.ui.EndpointBox
-import com.buggily.ify.core.ui.ErrorText
+import com.buggily.ify.core.ui.FailureText
 import com.buggily.ify.core.ui.LoadingIndicator
-import com.buggily.ify.core.ui.SuccessText
+import com.buggily.ify.core.ui.ResponseText
+import com.buggily.ify.data.gender.Gender
 import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
@@ -19,7 +20,7 @@ fun GenderScreen(
     modifier: Modifier = Modifier,
 ) {
     val color: Color = when (uiState) {
-        is GenderUiState.Error -> MaterialTheme.colorScheme.error
+        is GenderUiState.Failure -> MaterialTheme.colorScheme.error
         else -> MaterialTheme.colorScheme.secondary
     }
 
@@ -29,11 +30,11 @@ fun GenderScreen(
         modifier = modifier,
     ) {
         when (uiState) {
-            is GenderUiState.Success -> GenderSuccess(
+            is GenderUiState.Response -> GenderResponse(
                 uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is GenderUiState.Error -> GenderError(
+            is GenderUiState.Failure -> GenderFailure(
                 uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -48,38 +49,48 @@ fun GenderScreen(
 }
 
 @Composable
-private fun GenderSuccess(
-    uiState: GenderUiState.Success,
+private fun GenderResponse(
+    uiState: GenderUiState.Response,
     modifier: Modifier = Modifier,
 ) {
+    val genderStringResId: Int? = when (uiState.gender.gender) {
+        is Gender.Gender.Male -> R.string.gender_male
+        is Gender.Gender.Female -> R.string.gender_female
+        else -> null
+    }
+
     val text: String = with(uiState) {
+        val genderText: String = genderStringResId?.let {
+            getGenderText(stringResource(it))
+        } ?: stringResource(strings.unknown)
+
         stringResource(
             R.string.gender_body,
             nameText,
-            genderText ?: stringResource(strings.unknown),
+            genderText,
             percentageText,
             countText
         )
     }
 
-    SuccessText(
+    ResponseText(
         text = text,
         modifier = modifier,
     )
 }
 
 @Composable
-private fun GenderError(
-    uiState: GenderUiState.Error,
+private fun GenderFailure(
+    uiState: GenderUiState.Failure,
     modifier: Modifier = Modifier,
 ) {
     val text: String = when (uiState) {
-        is GenderUiState.Error.Api -> uiState.errorText
-        is GenderUiState.Error.Network -> stringResource(strings.error_network)
-        is GenderUiState.Error.Else -> stringResource(strings.error_else)
+        is GenderUiState.Failure.Remote.Api -> uiState.failureText
+        is GenderUiState.Failure.Remote.Network -> stringResource(strings.error_network)
+        is GenderUiState.Failure.Else -> stringResource(strings.error_else)
     }
 
-    ErrorText(
+    FailureText(
         text = text,
         modifier = modifier,
     )

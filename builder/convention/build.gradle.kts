@@ -28,13 +28,25 @@ gradlePlugin {
             id = "ify.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
         }
+        register("androidLibraryCompose") {
+            id = "ify.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
+        register("androidLibraryData") {
+            id = "ify.android.library.data"
+            implementationClass = "AndroidLibraryDataConventionPlugin"
+        }
+        register("androidLibraryDomain") {
+            id = "ify.android.library.domain"
+            implementationClass = "AndroidLibraryDomainConventionPlugin"
+        }
         register("androidLibraryFeature") {
             id = "ify.android.library.feature"
             implementationClass = "AndroidLibraryFeatureConventionPlugin"
         }
-        register("androidLibraryCompose") {
-            id = "ify.android.library.compose"
-            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        register("androidLibraryLocal") {
+            id = "ify.android.library.local"
+            implementationClass = "AndroidLibraryLocalConventionPlugin"
         }
         register("androidLibrary") {
             id = "ify.android.library"
@@ -47,14 +59,6 @@ gradlePlugin {
         register("kotlinLibrary") {
             id = "ify.kotlin.library"
             implementationClass = "KotlinLibraryConventionPlugin"
-        }
-        register("kotlinLibraryData") {
-            id = "ify.kotlin.library.data"
-            implementationClass = "KotlinLibraryDataConventionPlugin"
-        }
-        register("kotlinLibraryDomain") {
-            id = "ify.kotlin.library.domain"
-            implementationClass = "KotlinLibraryDomainConventionPlugin"
         }
         register("kotlinLibraryRemote") {
             id = "ify.kotlin.library.remote"

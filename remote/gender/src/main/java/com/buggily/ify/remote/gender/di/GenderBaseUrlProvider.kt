@@ -12,5 +12,8 @@ object GenderBaseUrlProvider {
 
     @Provides
     @GenderBaseUrlQualifier
-    fun provides(): HttpUrl = HttpUrl.get("https://api.genderize.io/")
+    fun provides(): HttpUrl = HttpUrl.Builder()
+        .scheme("https")
+        .host("api.genderize.io")
+        .build()
 }

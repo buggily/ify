@@ -1,25 +1,29 @@
 package com.buggily.ify.feature.nationality
 
-import com.buggily.ify.core.domain.use.Format
-import com.buggily.ify.core.model.nationality.Nationality
+import com.buggily.ify.core.domain.Format
+import com.buggily.ify.data.nationality.Nationality
 
 sealed class NationalityUiState {
 
     object Default : NationalityUiState()
     object Loading : NationalityUiState()
 
-    data class Success(
+    data class Response(
         val nationality: Nationality,
         val format: Format,
     ) : NationalityUiState()
 
-    sealed class Error : NationalityUiState() {
+    sealed class Failure : NationalityUiState() {
 
-        data class Api(
-            val error: String,
-        ) : Error()
+        sealed class Remote : Failure() {
 
-        object Network : Error()
-        object Else : Error()
+            data class Api(
+                val message: String,
+            ) : Remote()
+
+            object Network : Remote()
+        }
+
+        object Else : Failure()
     }
 }

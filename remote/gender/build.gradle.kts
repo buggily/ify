@@ -1,5 +1,4 @@
 plugins {
-    id("ify.kotlin.library")
     id("ify.kotlin.library.remote")
 }
 

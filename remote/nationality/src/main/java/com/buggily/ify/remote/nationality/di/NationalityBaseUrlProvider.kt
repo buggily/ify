@@ -12,5 +12,8 @@ object NationalityBaseUrlProvider {
 
     @Provides
     @NationalityBaseUrlQualifier
-    fun provides(): HttpUrl = HttpUrl.get("https://api.nationalize.io/")
+    fun provides(): HttpUrl = HttpUrl.Builder()
+        .scheme("https")
+        .host("api.nationalize.io")
+        .build()
 }

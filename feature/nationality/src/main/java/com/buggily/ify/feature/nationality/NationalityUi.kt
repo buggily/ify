@@ -8,9 +8,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.buggily.ify.core.ui.DefaultText
 import com.buggily.ify.core.ui.EndpointBox
-import com.buggily.ify.core.ui.ErrorText
+import com.buggily.ify.core.ui.FailureText
 import com.buggily.ify.core.ui.LoadingIndicator
-import com.buggily.ify.core.ui.SuccessText
+import com.buggily.ify.core.ui.ResponseText
 import com.buggily.ify.core.ui.R.string as strings
 
 @Composable
@@ -19,7 +19,7 @@ fun NationalityScreen(
     modifier: Modifier = Modifier,
 ) {
     val color: Color = when (uiState) {
-        is NationalityUiState.Error -> MaterialTheme.colorScheme.error
+        is NationalityUiState.Failure -> MaterialTheme.colorScheme.error
         else -> MaterialTheme.colorScheme.tertiary
     }
 
@@ -29,11 +29,11 @@ fun NationalityScreen(
         modifier = modifier,
     ) {
         when (uiState) {
-            is NationalityUiState.Success -> NationalitySuccess(
+            is NationalityUiState.Response -> NationalityResponse(
                 uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
-            is NationalityUiState.Error -> NationalityError(
+            is NationalityUiState.Failure -> NationalityFailure(
                 uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -48,8 +48,8 @@ fun NationalityScreen(
 }
 
 @Composable
-private fun NationalitySuccess(
-    uiState: NationalityUiState.Success,
+private fun NationalityResponse(
+    uiState: NationalityUiState.Response,
     modifier: Modifier = Modifier,
 ) {
     val text: String = with(uiState) {
@@ -60,24 +60,24 @@ private fun NationalitySuccess(
         )
     }
 
-    SuccessText(
+    ResponseText(
         text = text,
         modifier = modifier,
     )
 }
 
 @Composable
-private fun NationalityError(
-    uiState: NationalityUiState.Error,
+private fun NationalityFailure(
+    uiState: NationalityUiState.Failure,
     modifier: Modifier = Modifier,
 ) {
     val text: String = when (uiState) {
-        is NationalityUiState.Error.Api -> uiState.errorText
-        is NationalityUiState.Error.Network -> stringResource(strings.error_network)
-        is NationalityUiState.Error.Else -> stringResource(strings.error_else)
+        is NationalityUiState.Failure.Remote.Api -> uiState.failureText
+        is NationalityUiState.Failure.Remote.Network -> stringResource(strings.error_network)
+        is NationalityUiState.Failure.Else -> stringResource(strings.error_else)
     }
 
-    ErrorText(
+    FailureText(
         text = text,
         modifier = modifier,
     )

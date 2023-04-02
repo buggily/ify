@@ -9,4 +9,7 @@
         with a probability of %3$s%%
         across %4$s observations.
     </string>
+
+    <string name="gender_male">male</string>
+    <string name="gender_female">female</string>
 </resources>

@@ -14,8 +14,12 @@ object RetrofitBuilderProvider {
 
     @Provides
     fun provides(
-        @JsonConverterFactoryQualifier converterFactory: Converter.Factory,
-        @RestCallAdapterFactoryQualifier callAdapterFactory: CallAdapter.Factory,
+
+        @JsonConverterFactoryQualifier
+        converterFactory: Converter.Factory,
+
+        @RestCallAdapterFactoryQualifier
+        callAdapterFactory: CallAdapter.Factory,
     ): Retrofit.Builder = Retrofit.Builder()
         .addConverterFactory(converterFactory)
         .addCallAdapterFactory(callAdapterFactory)

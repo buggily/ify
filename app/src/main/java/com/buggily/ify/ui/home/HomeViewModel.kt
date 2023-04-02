@@ -2,14 +2,14 @@ package com.buggily.ify.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.buggily.ify.core.domain.use.Format
-import com.buggily.ify.core.model.Rest
-import com.buggily.ify.core.model.age.Age
-import com.buggily.ify.core.model.gender.Gender
-import com.buggily.ify.core.model.nationality.Nationality
-import com.buggily.ify.domain.age.use.GetAge
-import com.buggily.ify.domain.gender.use.GetGender
-import com.buggily.ify.domain.nationality.use.GetNationality
+import com.buggily.ify.core.domain.Format
+import com.buggily.ify.core.model.DataResult
+import com.buggily.ify.data.age.Age
+import com.buggily.ify.data.gender.Gender
+import com.buggily.ify.data.nationality.Nationality
+import com.buggily.ify.domain.age.GetAgeByName
+import com.buggily.ify.domain.gender.GetGenderByName
+import com.buggily.ify.domain.nationality.GetNationalityByName
 import com.buggily.ify.feature.age.AgeUiState
 import com.buggily.ify.feature.gender.GenderUiState
 import com.buggily.ify.feature.nationality.NationalityUiState
@@ -30,9 +30,9 @@ import javax.inject.Inject
 @HiltViewModel
 @OptIn(FlowPreview::class)
 class HomeViewModel @Inject constructor(
-    private val getAge: GetAge,
-    private val getGender: GetGender,
-    private val getNationality: GetNationality,
+    private val getAgeByName: GetAgeByName,
+    private val getGenderByName: GetGenderByName,
+    private val getNationalityByName: GetNationalityByName,
     private val format: Format,
 ) : ViewModel() {
 
@@ -95,16 +95,17 @@ class HomeViewModel @Inject constructor(
         setAgeState(ageState)
         if (ageState is AgeUiState.Default) return
 
-        when (val age: Rest<Age, Age.Error> = getAge(name)) {
-            is Rest.Success -> AgeUiState.Success(
-                age = age.body,
+        when (val result: DataResult<Age> = getAgeByName(name)) {
+            is DataResult.Response -> AgeUiState.Response(
+                age = result.value,
                 formatNumber = format.formatNumber,
             )
-            is Rest.Error.Api -> AgeUiState.Error.Api(
-                error = age.errorBody.error,
+            is DataResult.Failure.Remote.Api -> AgeUiState.Failure.Remote.Api(
+                message = result.message,
             )
-            is Rest.Error.Network -> AgeUiState.Error.Network
-            is Rest.Error.Else -> AgeUiState.Error.Else
+            is DataResult.Failure.Remote.Network -> AgeUiState.Failure.Remote.Network
+            is DataResult.Failure.Remote.Else,
+            DataResult.Failure.Local -> AgeUiState.Failure.Else
         }.let { setAgeState(it) }
     }
 
@@ -118,16 +119,17 @@ class HomeViewModel @Inject constructor(
         setGenderState(genderState)
         if (genderState is GenderUiState.Default) return
 
-        when (val gender: Rest<Gender, Gender.Error> = getGender(name)) {
-            is Rest.Success -> GenderUiState.Success(
-                gender = gender.body,
+        when (val result: DataResult<Gender> = getGenderByName(name)) {
+            is DataResult.Response -> GenderUiState.Response(
+                gender = result.value,
                 format = format,
             )
-            is Rest.Error.Api -> GenderUiState.Error.Api(
-                error = gender.errorBody.error,
+            is DataResult.Failure.Remote.Api -> GenderUiState.Failure.Remote.Api(
+                message = result.message,
             )
-            is Rest.Error.Network -> GenderUiState.Error.Network
-            is Rest.Error.Else -> GenderUiState.Error.Else
+            is DataResult.Failure.Remote.Network -> GenderUiState.Failure.Remote.Network
+            is DataResult.Failure.Remote.Else,
+            DataResult.Failure.Local -> GenderUiState.Failure.Else
         }.let { setGenderState(it) }
     }
 
@@ -141,17 +143,17 @@ class HomeViewModel @Inject constructor(
         setNationalityState(nationalityState)
         if (nationalityState is NationalityUiState.Default) return
 
-        when (val nationality: Rest<Nationality, Nationality.Error> = getNationality(name)) {
-            is Rest.Success -> NationalityUiState.Success(
-                nationality = nationality.body,
+        when (val result: DataResult<Nationality> = getNationalityByName(name)) {
+            is DataResult.Response -> NationalityUiState.Response(
+                nationality = result.value,
                 format = format,
             )
-            is Rest.Error.Api -> NationalityUiState.Error.Api(
-                error = nationality.errorBody.error,
+            is DataResult.Failure.Remote.Api -> NationalityUiState.Failure.Remote.Api(
+                message = result.message,
             )
-            is Rest.Error.Network -> NationalityUiState.Error.Network
-            is Rest.Error.Else -> NationalityUiState.Error.Else
-            else -> NationalityUiState.Default
+            is DataResult.Failure.Remote.Network -> NationalityUiState.Failure.Remote.Network
+            is DataResult.Failure.Remote.Else,
+            DataResult.Failure.Local -> NationalityUiState.Failure.Else
         }.let { setNationalityState(it) }
     }
 
