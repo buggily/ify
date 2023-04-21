@@ -4,5 +4,5 @@ import com.buggily.ify.core.model.DataResult
 
 
 interface GenderRepositable {
-    suspend fun get(name: String): DataResult<Gender>
+    suspend fun getByName(name: String): DataResult<Gender>
 }
