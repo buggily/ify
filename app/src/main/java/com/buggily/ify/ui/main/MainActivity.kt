@@ -1,14 +1,18 @@
 package com.buggily.ify.ui.main
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -36,10 +40,13 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val isLight: Boolean = !isSystemInDarkTheme()
-            val colorScheme: ColorScheme = if (isLight) {
-                dynamicLightColorScheme(this)
-            } else {
-                dynamicDarkColorScheme(this)
+
+            val colorScheme: ColorScheme = remember(isLight) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    if (isLight) dynamicLightColorScheme(this) else dynamicDarkColorScheme(this)
+                } else {
+                    if (isLight) lightColorScheme() else darkColorScheme()
+                }
             }
 
             LaunchedEffect(isLight) {
