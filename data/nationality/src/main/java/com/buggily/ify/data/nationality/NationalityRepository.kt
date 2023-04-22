@@ -14,7 +14,7 @@ class NationalityRepository(
     private val localNationalityCountrySource: LocalNationalityCountrySourceable
 ) : NationalityRepositable {
 
-    override suspend fun get(name: String): DataResult<Nationality> {
+    override suspend fun getByName(name: String): DataResult<Nationality> {
         localNationalitySource.getByName(name).firstOrNull()?.let {
             return DataResult.Response.Local(it.to())
         }

@@ -8,7 +8,7 @@ class GetNationalityByName(
 
     suspend operator fun invoke(
         name: String,
-    ) = nationalityRepository.get(
+    ) = nationalityRepository.getByName(
         name = name,
     )
 }

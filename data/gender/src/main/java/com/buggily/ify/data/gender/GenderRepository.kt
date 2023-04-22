@@ -12,7 +12,7 @@ class GenderRepository(
     private val localGenderSource: LocalGenderSourceable,
 ) : GenderRepositable {
 
-    override suspend fun get(name: String): DataResult<Gender> {
+    override suspend fun getByName(name: String): DataResult<Gender> {
         localGenderSource.getByName(name).firstOrNull()?.let {
             return DataResult.Response.Local(it.to())
         }

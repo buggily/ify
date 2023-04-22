@@ -10,7 +10,7 @@ class GetGenderByName(
 
     suspend operator fun invoke(
         name: String,
-    ): DataResult<Gender> = genderRepository.get(
+    ): DataResult<Gender> = genderRepository.getByName(
         name = name,
     )
 }
