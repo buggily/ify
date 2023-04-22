@@ -21,7 +21,7 @@ retrofitKotlinxSerialization = "0.8.0"
 
 room = "2.5.0"
 
-androidGradlePlugin = "7.4.2"
+androidGradlePlugin = "8.0.0"
 
 [libraries]
 
