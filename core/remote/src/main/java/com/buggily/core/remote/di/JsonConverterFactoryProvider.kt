@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import retrofit2.Converter
@@ -16,7 +15,6 @@ object JsonConverterFactoryProvider {
 
     @Provides
     @JsonConverterFactoryQualifier
-    @OptIn(ExperimentalSerializationApi::class)
     fun provides(
         @JsonContentTypeQualifier contentType: MediaType,
     ): Converter.Factory = Json.asConverterFactory(

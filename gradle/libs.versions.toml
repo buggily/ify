@@ -3,7 +3,7 @@
 androidx = "1.9.0"
 androidxActivity = "1.6.1"
 androidxSplashscreen = "1.0.0"
-androidxComposeBom = "2023.01.00"
+androidxComposeBom = "2023.05.00"
 androidxComposeCompiler = "1.4.3"
 androidxComposeNavigation = "2.5.3"
 androidxHilt = "1.0.0"
@@ -17,7 +17,7 @@ kotlinxCoroutines = "1.6.4"
 kotlinxSerialization = "1.4.1"
 
 retrofit = "2.9.0"
-retrofitKotlinxSerialization = "0.8.0"
+retrofitKotlinxSerialization = "1.0.0"
 
 room = "2.5.0"
 

@@ -1,4 +1,4 @@
-package com.buggily.ify.core.ui
+package com.buggily.ify.core.ui.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
+import com.buggily.ify.core.ui.R
 
 @Composable
 fun EndpointBox(

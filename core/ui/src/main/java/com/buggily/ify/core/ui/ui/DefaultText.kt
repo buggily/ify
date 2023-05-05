@@ -1,4 +1,4 @@
-package com.buggily.ify.core.ui
+package com.buggily.ify.core.ui.ui
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ResponseText(
+fun DefaultText(
     text: String,
     modifier: Modifier = Modifier,
 ) {

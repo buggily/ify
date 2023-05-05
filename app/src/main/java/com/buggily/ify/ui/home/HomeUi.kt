@@ -18,20 +18,28 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import com.buggily.ify.R
 import com.buggily.ify.feature.age.AgeScreen
-import com.buggily.ify.feature.age.AgeUiState
+import com.buggily.ify.feature.age.AgeViewModel
 import com.buggily.ify.feature.gender.GenderScreen
-import com.buggily.ify.feature.gender.GenderUiState
+import com.buggily.ify.feature.gender.GenderViewModel
 import com.buggily.ify.feature.nationality.NationalityScreen
-import com.buggily.ify.feature.nationality.NationalityUiState
+import com.buggily.ify.feature.nationality.NationalityViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import com.buggily.ify.core.ui.R.dimen as dimens
 
 @Composable
@@ -40,6 +48,21 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     val uiState: HomeUiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+    val lifecycle: Lifecycle = lifecycleOwner.lifecycle
+
+    val ageViewModel: AgeViewModel = hiltViewModel()
+    val genderViewModel: GenderViewModel = hiltViewModel()
+    val nationalityViewModel: NationalityViewModel = hiltViewModel()
+
+    LaunchedEffect(Unit) {
+        viewModel.name.flowWithLifecycle(lifecycle).collectLatest {
+            launch { ageViewModel.onNameChange(it) }
+            launch { genderViewModel.onNameChange(it) }
+            launch { nationalityViewModel.onNameChange(it) }
+        }
+    }
 
     Box(modifier) {
         HomeScreen(
@@ -56,9 +79,6 @@ private fun HomeScreen(
 ) {
     HomeScreen(
         nameState = uiState.nameState,
-        ageUiState = uiState.ageState,
-        genderUiState = uiState.genderState,
-        nationalityUiState = uiState.nationalityState,
         modifier = modifier,
     )
 }
@@ -67,9 +87,6 @@ private fun HomeScreen(
 @OptIn(ExperimentalFoundationApi::class)
 private fun HomeScreen(
     nameState: HomeUiState.NameState,
-    ageUiState: AgeUiState,
-    genderUiState: GenderUiState,
-    nationalityUiState: NationalityUiState,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -94,21 +111,21 @@ private fun HomeScreen(
 
         item {
             AgeScreen(
-                uiState = ageUiState,
+                viewModel = hiltViewModel(),
                 modifier = contentModifier,
             )
         }
 
         item {
             GenderScreen(
-                uiState = genderUiState,
+                viewModel = hiltViewModel(),
                 modifier = contentModifier,
             )
         }
 
         item {
             NationalityScreen(
-                uiState = nationalityUiState,
+                viewModel = hiltViewModel(),
                 modifier = contentModifier,
             )
         }
