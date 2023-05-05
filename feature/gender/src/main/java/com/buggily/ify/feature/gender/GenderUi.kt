@@ -1,18 +1,36 @@
 package com.buggily.ify.feature.gender
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import com.buggily.ify.core.ui.DefaultText
-import com.buggily.ify.core.ui.EndpointBox
-import com.buggily.ify.core.ui.FailureText
-import com.buggily.ify.core.ui.LoadingIndicator
-import com.buggily.ify.core.ui.ResponseText
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.buggily.ify.core.ui.ui.DefaultText
+import com.buggily.ify.core.ui.ui.EndpointBox
+import com.buggily.ify.core.ui.ui.FailureText
+import com.buggily.ify.core.ui.ui.LoadingIndicator
+import com.buggily.ify.core.ui.ui.ResponseText
 import com.buggily.ify.data.gender.Gender
 import com.buggily.ify.core.ui.R.string as strings
+
+@Composable
+fun GenderScreen(
+    viewModel: GenderViewModel,
+    modifier: Modifier = Modifier,
+) {
+    val uiState: GenderUiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    Box(modifier) {
+        GenderScreen(
+            uiState = uiState,
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
+}
 
 @Composable
 fun GenderScreen(

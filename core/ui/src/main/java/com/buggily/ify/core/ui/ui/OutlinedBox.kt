@@ -1,4 +1,4 @@
-package com.buggily.ify.core.ui
+package com.buggily.ify.core.ui.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border

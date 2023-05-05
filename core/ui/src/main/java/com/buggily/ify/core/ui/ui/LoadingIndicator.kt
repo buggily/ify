@@ -1,4 +1,4 @@
-package com.buggily.ify.core.ui
+package com.buggily.ify.core.ui.ui
 
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
