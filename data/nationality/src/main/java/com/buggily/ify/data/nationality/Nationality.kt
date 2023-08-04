@@ -5,6 +5,7 @@ import java.util.Locale
 data class Nationality(
     val name: String,
     val countries: List<Country>,
+    val count: Int,
 ) {
 
     data class Country(

@@ -18,6 +18,9 @@ data class RemoteNationality(
 
     @SerialName(COUNTRIES)
     val countries: List<Country>,
+
+    @SerialName(COUNT)
+    val count: Int,
 ) {
 
     @Serializable
@@ -51,6 +54,7 @@ data class RemoteNationality(
     private companion object {
         private const val NAME = "name"
         private const val COUNTRIES = "country"
+        private const val COUNT = "count"
     }
 
     private object LocaleSerializer : KSerializer<Locale> {

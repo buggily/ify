@@ -15,6 +15,9 @@ data class LocalNationality(
     @PrimaryKey
     @ColumnInfo(name = NAME)
     val name: String,
+
+    @ColumnInfo(name = COUNT)
+    val count: Int,
 ) {
 
     data class WithCountries(
@@ -32,5 +35,6 @@ data class LocalNationality(
 
     companion object {
         const val NAME = "name"
+        const val COUNT = "count"
     }
 }

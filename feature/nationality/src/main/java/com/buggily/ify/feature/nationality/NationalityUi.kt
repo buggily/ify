@@ -74,7 +74,8 @@ private fun NationalityResponse(
         stringResource(
             R.string.nationality_body,
             nameText,
-            nationsText ?: stringResource(strings.unknown)
+            nationsText ?: stringResource(strings.unknown),
+            countText,
         )
     }
 
