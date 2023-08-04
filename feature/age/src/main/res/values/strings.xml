@@ -5,7 +5,7 @@
 
     <string name="age_body">
         Given a person with the name %1$s,
-        the predicted age is %2$s
+        the age prediction is %2$s
         across %3$s observations.
     </string>
 </resources>

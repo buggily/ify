@@ -17,7 +17,14 @@ object JsonConverterFactoryProvider {
     @JsonConverterFactoryQualifier
     fun provides(
         @JsonContentTypeQualifier contentType: MediaType,
-    ): Converter.Factory = Json.asConverterFactory(
-        contentType = contentType,
-    )
+    ): Converter.Factory {
+        val json = Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+        }
+
+        return json.asConverterFactory(
+            contentType = contentType,
+        )
+    }
 }

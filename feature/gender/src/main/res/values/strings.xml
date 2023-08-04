@@ -5,7 +5,7 @@
 
     <string name="gender_body">
         Given a person with the name %1$s,
-        the predicted gender is %2$s
+        the gender prediction is %2$s
         with a probability of %3$s%%
         across %4$s observations.
     </string>
