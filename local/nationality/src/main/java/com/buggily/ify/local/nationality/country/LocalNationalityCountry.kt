@@ -12,7 +12,7 @@ import java.util.Locale
 
     primaryKeys = [
         LocalNationalityCountry.NATIONALITY_NAME,
-        LocalNationalityCountry.PROBABILITY
+        LocalNationalityCountry.LOCALE,
     ],
 )
 
