@@ -7,10 +7,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.buggily.ify.local.nationality.country.LocalNationalityCountry
 
-@Entity(
-    tableName = LocalNationalityDao.tableName,
-)
-
+@Entity(tableName = LocalNationalityDao.tableName)
 data class LocalNationality(
     @PrimaryKey
     @ColumnInfo(name = NAME)

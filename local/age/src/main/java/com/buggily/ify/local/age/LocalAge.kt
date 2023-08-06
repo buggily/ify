@@ -4,10 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = LocalAgeDao.tableName,
-)
-
+@Entity(tableName = LocalAgeDao.tableName)
 data class LocalAge(
 
     @PrimaryKey
