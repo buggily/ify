@@ -3,27 +3,27 @@ package com.buggily.ify.feature.nationality
 import com.buggily.ify.core.domain.Format
 import com.buggily.ify.data.nationality.Nationality
 
-sealed class NationalityUiState {
+sealed interface NationalityUiState {
 
-    object Default : NationalityUiState()
-    object Loading : NationalityUiState()
+    data object Default : NationalityUiState
+    data object Loading : NationalityUiState
 
     data class Response(
         val nationality: Nationality,
         val format: Format,
-    ) : NationalityUiState()
+    ) : NationalityUiState
 
-    sealed class Failure : NationalityUiState() {
+    sealed interface Failure : NationalityUiState {
 
-        sealed class Remote : Failure() {
+        sealed interface Remote : Failure {
 
             data class Api(
                 val message: String,
-            ) : Remote()
+            ) : Remote
 
-            object Network : Remote()
+            data object Network : Remote
         }
 
-        object Else : Failure()
+        data object Else : Failure
     }
 }

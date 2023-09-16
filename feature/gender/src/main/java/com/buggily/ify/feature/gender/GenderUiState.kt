@@ -3,27 +3,27 @@ package com.buggily.ify.feature.gender
 import com.buggily.ify.core.domain.Format
 import com.buggily.ify.data.gender.Gender
 
-sealed class GenderUiState {
+sealed interface GenderUiState {
 
-    object Default : GenderUiState()
-    object Loading : GenderUiState()
+    data object Default : GenderUiState
+    data object Loading : GenderUiState
 
     data class Response(
         val gender: Gender,
         val format: Format,
-    ) : GenderUiState()
+    ) : GenderUiState
 
-    sealed class Failure : GenderUiState() {
+    sealed interface Failure : GenderUiState {
 
-        sealed class Remote : Failure() {
+        sealed interface Remote : Failure {
 
             data class Api(
                 val message: String,
-            ) : Remote()
+            ) : Remote
 
-            object Network : Remote()
+            data object Network : Remote
         }
 
-        object Else : Failure()
+        data object Else : Failure
     }
 }

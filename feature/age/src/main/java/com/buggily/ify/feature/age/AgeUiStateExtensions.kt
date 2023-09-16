@@ -1,4 +1,4 @@
-import com.buggily.ify.feature.age.AgeUiState
+package com.buggily.ify.feature.age
 
 val AgeUiState.Response.nameText: String
     get() = age.name

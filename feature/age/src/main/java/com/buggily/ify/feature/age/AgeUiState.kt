@@ -3,27 +3,27 @@ package com.buggily.ify.feature.age
 import com.buggily.ify.core.domain.FormatNumber
 import com.buggily.ify.data.age.Age
 
-sealed class AgeUiState {
+sealed interface AgeUiState {
 
-    object Default : AgeUiState()
-    object Loading : AgeUiState()
+    data object Default : AgeUiState
+    data object Loading : AgeUiState
 
     data class Response(
         val age: Age,
         val formatNumber: FormatNumber,
-    ) : AgeUiState()
+    ) : AgeUiState
 
-    sealed class Failure : AgeUiState() {
+    sealed interface Failure : AgeUiState {
 
-        sealed class Remote : Failure() {
+        sealed interface Remote : Failure {
 
             data class Api(
                 val message: String,
-            ) : Remote()
+            ) : Remote
 
-            object Network : Remote()
+            data object Network : Remote
         }
 
-        object Else : Failure()
+        data object Else : Failure
     }
 }

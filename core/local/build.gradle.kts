@@ -13,6 +13,6 @@ dependencies {
     implementation(project(":local:nationality"))
 
     implementation(libs.androidx.room)
-    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
 }

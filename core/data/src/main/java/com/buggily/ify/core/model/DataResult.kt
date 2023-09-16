@@ -1,43 +1,39 @@
 package com.buggily.ify.core.model
 
-sealed class DataResult<out Value> {
+sealed interface DataResult<out Value> {
 
-    sealed class Response<Value>(
-        open val value: Value
-    ) : DataResult<Value>() {
+    sealed interface Response<Value> : DataResult<Value> {
+
+        val value: Value
 
         data class Remote<Value>(
             override val value: Value,
-        ) : Response<Value>(
-            value = value,
-        )
+        ) : Response<Value>
 
         data class Local<Value>(
             override val value: Value,
-        ) : Response<Value>(
-            value = value,
-        )
+        ) : Response<Value>
     }
 
-    sealed class Failure : DataResult<Nothing>() {
+    sealed interface Failure : DataResult<Nothing> {
 
-        object Local : Failure()
+        data object Local : Failure
 
-        sealed class Remote : Failure() {
+        sealed interface Remote : Failure {
 
-            abstract val message: String?
+            val message: String?
 
             data class Api(
                 override val message: String,
-            ) : Remote()
+            ) : Remote
 
             data class Network(
                 override val message: String?,
-            ) : Remote()
+            ) : Remote
 
             data class Else(
                 override val message: String?,
-            ) : Remote()
+            ) : Remote
         }
     }
 }
