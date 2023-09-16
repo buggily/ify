@@ -1,4 +1,4 @@
-package com.buggily.ify.ui.home
+package com.buggily.ify.ui
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -44,11 +44,11 @@ import kotlinx.coroutines.launch
 import com.buggily.ify.core.ui.R.dimen as dimens
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel,
+fun IfyScreen(
+    viewModel: IfyViewModel,
     modifier: Modifier = Modifier,
 ) {
-    val uiState: HomeUiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState: IfyUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
     val lifecycle: Lifecycle = lifecycleOwner.lifecycle
@@ -66,7 +66,7 @@ fun HomeScreen(
     }
 
     Box(modifier) {
-        HomeScreen(
+        IfyScreen(
             uiState = uiState,
             modifier = Modifier.fillMaxSize(),
         )
@@ -74,11 +74,11 @@ fun HomeScreen(
 }
 
 @Composable
-private fun HomeScreen(
-    uiState: HomeUiState,
+private fun IfyScreen(
+    uiState: IfyUiState,
     modifier: Modifier,
 ) {
-    HomeScreen(
+    IfyScreen(
         nameState = uiState.nameState,
         modifier = modifier,
     )
@@ -86,8 +86,8 @@ private fun HomeScreen(
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
-private fun HomeScreen(
-    nameState: HomeUiState.NameState,
+private fun IfyScreen(
+    nameState: IfyUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -106,7 +106,7 @@ private fun HomeScreen(
             .animateContentSize()
 
         stickyHeader {
-            HomeBar(
+            IfyBar(
                 nameState = nameState,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -136,15 +136,15 @@ private fun HomeScreen(
 }
 
 @Composable
-private fun HomeBar(
-    nameState: HomeUiState.NameState,
+private fun IfyBar(
+    nameState: IfyUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
     Surface(
         color = MaterialTheme.colorScheme.background,
         modifier = modifier,
     ) {
-        HomeTextField(
+        IfyTextField(
             nameState = nameState,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -152,21 +152,21 @@ private fun HomeBar(
 }
 
 @Composable
-private fun HomeTextField(
-    nameState: HomeUiState.NameState,
+private fun IfyTextField(
+    nameState: IfyUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
     OutlinedTextField(
         value = nameState.name,
         onValueChange = nameState.onChange,
-        label = { HomeTextFieldLabel() },
-        trailingIcon = { HomeTextFieldTrailingIcon(nameState) },
+        label = { IfyTextFieldLabel() },
+        trailingIcon = { IfyTextFieldTrailingIcon(nameState) },
         modifier = modifier,
     )
 }
 
 @Composable
-private fun HomeTextFieldLabel(
+private fun IfyTextFieldLabel(
     modifier: Modifier = Modifier,
 ) {
     Text(
@@ -177,8 +177,8 @@ private fun HomeTextFieldLabel(
 }
 
 @Composable
-private fun HomeTextFieldTrailingIcon(
-    nameState: HomeUiState.NameState,
+private fun IfyTextFieldTrailingIcon(
+    nameState: IfyUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
     val onClick: () -> Unit = nameState.onClear ?: return

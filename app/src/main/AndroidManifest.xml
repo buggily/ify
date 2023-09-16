@@ -13,7 +13,7 @@
         android:theme="@style/Theme">
 
         <activity
-            android:name="com.buggily.ify.ui.main.MainActivity"
+            android:name="com.buggily.ify.ui.IfyActivity"
             android:exported="true"
             android:resizeableActivity="true"
             android:theme="@style/Theme.Splash"

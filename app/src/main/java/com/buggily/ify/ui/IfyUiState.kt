@@ -1,6 +1,6 @@
-package com.buggily.ify.ui.home
+package com.buggily.ify.ui
 
-data class HomeUiState(
+data class IfyUiState(
     val nameState: NameState,
 ) {
 

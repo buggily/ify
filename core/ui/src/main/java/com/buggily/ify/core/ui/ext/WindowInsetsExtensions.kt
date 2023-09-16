@@ -1,4 +1,4 @@
-package com.buggily.ify.ui.theme
+package com.buggily.ify.core.ui.ext
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.ui.unit.dp
