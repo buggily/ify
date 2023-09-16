@@ -1,17 +1,14 @@
 package com.buggily.ify.ui
 
-sealed class IfyDestination {
+sealed interface IfyDestination {
 
-    abstract val route: String
+    val route: String
 
-    object Home : IfyDestination() {
-
-        override val route: String
-            get() = "home"
+    data object Home : IfyDestination {
+        override val route: String = "home"
     }
 
     companion object {
-        val startDestination: IfyDestination
-            get() = Home
+        val startDestination: IfyDestination = Home
     }
 }

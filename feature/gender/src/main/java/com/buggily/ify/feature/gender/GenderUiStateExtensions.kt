@@ -1,9 +1,9 @@
 package com.buggily.ify.feature.gender
 
+fun GenderUiState.Response.getGenderText(string: String): String = format.formatLowercase(string)
+
 val GenderUiState.Response.nameText: String
     get() = gender.name
-
-fun GenderUiState.Response.getGenderText(string: String): String = format.formatLowercase(string)
 
 val GenderUiState.Response.percentageText: String
     get() = format.formatProbability(gender.probability)

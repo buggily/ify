@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +32,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import com.buggily.ify.R
+import com.buggily.ify.core.ui.ext.coerceAtLeast
 import com.buggily.ify.feature.age.AgeScreen
 import com.buggily.ify.feature.age.AgeViewModel
 import com.buggily.ify.feature.gender.GenderScreen
@@ -56,7 +57,7 @@ fun HomeScreen(
     val genderViewModel: GenderViewModel = hiltViewModel()
     val nationalityViewModel: NationalityViewModel = hiltViewModel()
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(viewModel) {
         viewModel.name.flowWithLifecycle(lifecycle).collectLatest {
             launch { ageViewModel.onNameChange(it) }
             launch { genderViewModel.onNameChange(it) }
@@ -90,13 +91,15 @@ private fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        contentPadding = WindowInsets.safeContent.asPaddingValues(),
+        contentPadding = WindowInsets.safeContent.asPaddingValues().coerceAtLeast(
+            padding = dimensionResource(dimens.padding),
+        ),
         verticalArrangement = Arrangement.spacedBy(
             space = dimensionResource(dimens.padding),
             alignment = Alignment.Top,
         ),
         horizontalAlignment = Alignment.Start,
-        modifier = modifier,
+        modifier = modifier.consumeWindowInsets(WindowInsets.safeContent),
     ) {
         val contentModifier: Modifier = Modifier
             .fillMaxWidth()
@@ -149,7 +152,6 @@ private fun HomeBar(
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 private fun HomeTextField(
     nameState: HomeUiState.NameState,
     modifier: Modifier = Modifier,

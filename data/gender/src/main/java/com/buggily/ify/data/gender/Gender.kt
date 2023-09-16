@@ -7,8 +7,8 @@ data class Gender(
     val count: Int,
 ) {
 
-    sealed class Gender {
-        object Male : Gender()
-        object Female : Gender()
+    sealed interface Gender {
+        data object Male : Gender
+        data object Female : Gender
     }
 }

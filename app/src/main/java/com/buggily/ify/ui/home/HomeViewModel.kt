@@ -21,8 +21,8 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     val name: StateFlow<String>
 
     init {
-        HomeUiState.default.copy(
-            nameState = HomeUiState.NameState.default.copy(
+        HomeUiState(
+            nameState = HomeUiState.NameState(
                 name = "Adam",
                 onChange = ::onNameChange,
                 onClear = ::onNameClear,
@@ -36,12 +36,12 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         )
     }
 
-    private fun onNameChange(name: String): Unit = setNameOfNameState(
+    private fun onNameChange(name: String) = setNameOfNameState(
         name = name,
     )
 
     private fun onNameClear(): Unit = onNameChange(
-        name = HomeUiState.NameState.default.name,
+        name = String(),
     )
 
     private fun setNameOfNameState(name: String) = uiState.value.let {

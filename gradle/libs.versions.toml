@@ -1,27 +1,26 @@
 [versions]
 
-androidx = "1.10.1"
+androidx = "1.12.0"
 androidxActivity = "1.7.2"
 androidxSplashscreen = "1.0.1"
-androidxComposeBom = "2023.06.01"
-androidxComposeCompiler = "1.4.8"
-androidxComposeNavigation = "2.6.0"
+androidxComposeBom = "2023.09.00"
+androidxComposeCompiler = "1.5.3"
+androidxComposeNavigation = "2.7.2"
 androidxHilt = "1.0.0"
-androidxLifecycle = "2.6.1"
-androidxWindowManager = "1.1.1"
+androidxLifecycle = "2.6.2"
 
-googleDagger = "2.47"
+googleDagger = "2.48"
 
-kotlin = "1.8.22"
-kotlinxCoroutines = "1.7.1"
+kotlin = "1.9.10"
+kotlinxCoroutines = "1.7.3"
 kotlinxSerialization = "1.5.1"
 
 retrofit = "2.9.0"
 retrofitKotlinxSerialization = "1.0.0"
 
-room = "2.5.2"
+room = "2.6.0-beta01"
 
-androidGradlePlugin = "8.0.2"
+androidGradlePlugin = "8.1.1"
 
 [libraries]
 
@@ -36,16 +35,16 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxComposeNavigation" }
 
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx" }
+androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidx" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxSplashscreen" }
 
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
-androidx-lifecycle-viewModel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewModel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewModel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 
-androidx-room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 
 hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "googleDagger" }
 hilt-core-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "googleDagger" }

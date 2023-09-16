@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     id("ify.android.application")
     id("ify.android.application.compose")
@@ -58,6 +56,8 @@ dependencies {
     implementation(libs.kotlin)
     implementation(libs.kotlinx.coroutines.android)
 
-    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core)
     implementation(libs.androidx.core.splashscreen)
+
+    implementation(libs.androidx.lifecycle.viewModel)
 }

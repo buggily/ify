@@ -1,6 +1,5 @@
 package com.buggily.ify.feature.age
 
-import ageText
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
@@ -15,9 +14,6 @@ import com.buggily.ify.core.ui.ui.EndpointBox
 import com.buggily.ify.core.ui.ui.FailureText
 import com.buggily.ify.core.ui.ui.LoadingIndicator
 import com.buggily.ify.core.ui.ui.ResponseText
-import countText
-import failureText
-import nameText
 import com.buggily.ify.core.ui.R.string as strings
 
 @Composable

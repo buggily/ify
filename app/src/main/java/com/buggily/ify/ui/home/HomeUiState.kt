@@ -8,22 +8,5 @@ data class HomeUiState(
         val name: String,
         val onChange: (String) -> Unit,
         val onClear: (() -> Unit)?,
-    ) {
-
-        companion object {
-            val default: NameState
-                get() = NameState(
-                    name = String(),
-                    onChange = {},
-                    onClear = null,
-                )
-        }
-    }
-
-    companion object {
-        val default: HomeUiState
-            get() = HomeUiState(
-                nameState = NameState.default,
-            )
-    }
+    )
 }

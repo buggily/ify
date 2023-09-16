@@ -16,7 +16,7 @@ class AndroidLibraryLocalConventionPlugin : Plugin<Project> {
         dependencies {
             with(getLibs()) {
                 add("implementation", getLib("androidx.room"))
-                add("implementation", getLib("androidx.room.ktx"))
+                add("implementation", getLib("androidx.room.runtime"))
                 add("kapt", getLib("androidx.room.compiler"))
             }
         }
