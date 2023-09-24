@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ify">ify</string>
+    <string name="app">ify</string>
     <string name="name">name</string>
 
     <string name="clear">clear</string>

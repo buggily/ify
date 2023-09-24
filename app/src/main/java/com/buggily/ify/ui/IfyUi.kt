@@ -41,7 +41,7 @@ import com.buggily.ify.feature.nationality.NationalityScreen
 import com.buggily.ify.feature.nationality.NationalityViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.buggily.ify.core.ui.R.dimen as dimens
+import com.buggily.ify.core.ui.R as CR
 
 @Composable
 fun IfyScreen(
@@ -92,10 +92,10 @@ private fun IfyScreen(
 ) {
     LazyColumn(
         contentPadding = WindowInsets.safeContent.asPaddingValues().coerceAtLeast(
-            padding = dimensionResource(dimens.padding),
+            padding = dimensionResource(CR.dimen.padding),
         ),
         verticalArrangement = Arrangement.spacedBy(
-            space = dimensionResource(dimens.padding),
+            space = dimensionResource(CR.dimen.padding),
             alignment = Alignment.Top,
         ),
         horizontalAlignment = Alignment.Start,
@@ -144,7 +144,7 @@ private fun IfyBar(
         color = MaterialTheme.colorScheme.background,
         modifier = modifier,
     ) {
-        IfyTextField(
+        IfyBarTextField(
             nameState = nameState,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -152,21 +152,21 @@ private fun IfyBar(
 }
 
 @Composable
-private fun IfyTextField(
+private fun IfyBarTextField(
     nameState: IfyUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
     OutlinedTextField(
         value = nameState.name,
         onValueChange = nameState.onChange,
-        label = { IfyTextFieldLabel() },
-        trailingIcon = { IfyTextFieldTrailingIcon(nameState) },
+        label = { IfyBarTextFieldLabel() },
+        trailingIcon = { IfyBarTextFieldTrailingIcon(nameState) },
         modifier = modifier,
     )
 }
 
 @Composable
-private fun IfyTextFieldLabel(
+private fun IfyBarTextFieldLabel(
     modifier: Modifier = Modifier,
 ) {
     Text(
@@ -177,7 +177,7 @@ private fun IfyTextFieldLabel(
 }
 
 @Composable
-private fun IfyTextFieldTrailingIcon(
+private fun IfyBarTextFieldTrailingIcon(
     nameState: IfyUiState.NameState,
     modifier: Modifier = Modifier,
 ) {

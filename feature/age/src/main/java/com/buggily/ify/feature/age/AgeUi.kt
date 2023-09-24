@@ -14,7 +14,7 @@ import com.buggily.ify.core.ui.ui.EndpointBox
 import com.buggily.ify.core.ui.ui.FailureText
 import com.buggily.ify.core.ui.ui.LoadingIndicator
 import com.buggily.ify.core.ui.ui.ResponseText
-import com.buggily.ify.core.ui.R.string as strings
+import com.buggily.ify.core.ui.R as CR
 
 @Composable
 fun AgeScreen(
@@ -74,7 +74,7 @@ private fun AgeResponse(
         stringResource(
             R.string.age_body,
             nameText,
-            ageText ?: stringResource(strings.unknown),
+            ageText ?: stringResource(CR.string.unknown),
             countText
         )
     }
@@ -92,8 +92,8 @@ private fun AgeFailure(
 ) {
     val text: String = when (uiState) {
         is AgeUiState.Failure.Remote.Api -> uiState.failureText
-        is AgeUiState.Failure.Remote.Network -> stringResource(strings.error_network)
-        is AgeUiState.Failure.Else -> stringResource(strings.error_else)
+        is AgeUiState.Failure.Remote.Network -> stringResource(CR.string.error_network)
+        is AgeUiState.Failure.Else -> stringResource(CR.string.error_else)
     }
 
     FailureText(
@@ -118,7 +118,7 @@ private fun AgeDefault(
 ) {
     DefaultText(
         text = stringResource(
-            strings.enter,
+            CR.string.enter,
             stringResource(R.string.age)
         ),
         modifier = modifier,
