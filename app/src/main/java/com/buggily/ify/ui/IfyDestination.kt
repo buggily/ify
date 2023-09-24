@@ -4,11 +4,11 @@ sealed interface IfyDestination {
 
     val route: String
 
-    data object Home : IfyDestination {
-        override val route: String = "home"
+    data object Ify : IfyDestination {
+        override val route: String = "ify"
     }
 
     companion object {
-        val startDestination: IfyDestination = Home
+        val startDestination: IfyDestination = Ify
     }
 }

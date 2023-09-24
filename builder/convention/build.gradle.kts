@@ -43,10 +43,6 @@ gradlePlugin {
             id = "ify.android.library.feature"
             implementationClass = "AndroidLibraryFeatureConventionPlugin"
         }
-        register("androidLibraryLocal") {
-            id = "ify.android.library.local"
-            implementationClass = "AndroidLibraryLocalConventionPlugin"
-        }
         register("androidLibrary") {
             id = "ify.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
@@ -58,6 +54,10 @@ gradlePlugin {
         register("kotlinLibrary") {
             id = "ify.kotlin.library"
             implementationClass = "KotlinLibraryConventionPlugin"
+        }
+        register("kotlinLibraryLocal") {
+            id = "ify.kotlin.library.local"
+            implementationClass = "KotlinLibraryLocalConventionPlugin"
         }
         register("kotlinLibraryRemote") {
             id = "ify.kotlin.library.remote"

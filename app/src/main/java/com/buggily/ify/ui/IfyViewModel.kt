@@ -1,4 +1,4 @@
-package com.buggily.ify.ui.home
+package com.buggily.ify.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class IfyViewModel @Inject constructor() : ViewModel() {
 
-    private val _uiState: MutableStateFlow<HomeUiState>
-    val uiState: StateFlow<HomeUiState> get() = _uiState
+    private val _uiState: MutableStateFlow<IfyUiState>
+    val uiState: StateFlow<IfyUiState> get() = _uiState
 
     val name: StateFlow<String>
 
     init {
-        HomeUiState(
-            nameState = HomeUiState.NameState(
+        IfyUiState(
+            nameState = IfyUiState.NameState(
                 name = "Adam",
                 onChange = ::onNameChange,
                 onClear = ::onNameClear,
@@ -47,7 +47,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     private fun setNameOfNameState(name: String) = uiState.value.let {
         val onClear: (() -> Unit)? = if (name.isNotEmpty()) ::onNameClear else null
 
-        val nameState: HomeUiState.NameState = it.nameState.copy(
+        val nameState: IfyUiState.NameState = it.nameState.copy(
             name = name,
             onClear = onClear,
         )
@@ -55,7 +55,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         setNameState(nameState)
     }
 
-    private fun setNameState(nameState: HomeUiState.NameState) = _uiState.update {
+    private fun setNameState(nameState: IfyUiState.NameState) = _uiState.update {
         it.copy(nameState = nameState)
     }
 }

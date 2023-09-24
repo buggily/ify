@@ -15,7 +15,7 @@ import com.buggily.ify.core.ui.ui.FailureText
 import com.buggily.ify.core.ui.ui.LoadingIndicator
 import com.buggily.ify.core.ui.ui.ResponseText
 import com.buggily.ify.data.gender.Gender
-import com.buggily.ify.core.ui.R.string as strings
+import com.buggily.ify.core.ui.R as CR
 
 @Composable
 fun GenderScreen(
@@ -80,7 +80,7 @@ private fun GenderResponse(
     val text: String = with(uiState) {
         val genderText: String = genderStringResId?.let {
             getGenderText(stringResource(it))
-        } ?: stringResource(strings.unknown)
+        } ?: stringResource(CR.string.unknown)
 
         stringResource(
             R.string.gender_body,
@@ -104,8 +104,8 @@ private fun GenderFailure(
 ) {
     val text: String = when (uiState) {
         is GenderUiState.Failure.Remote.Api -> uiState.failureText
-        is GenderUiState.Failure.Remote.Network -> stringResource(strings.error_network)
-        is GenderUiState.Failure.Else -> stringResource(strings.error_else)
+        is GenderUiState.Failure.Remote.Network -> stringResource(CR.string.error_network)
+        is GenderUiState.Failure.Else -> stringResource(CR.string.error_else)
     }
 
     FailureText(
@@ -130,7 +130,7 @@ private fun GenderDefault(
 ) {
     DefaultText(
         text = stringResource(
-            strings.enter,
+            CR.string.enter,
             stringResource(R.string.gender)
         ),
         modifier = modifier,

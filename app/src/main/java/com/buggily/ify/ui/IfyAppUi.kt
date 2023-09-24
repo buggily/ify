@@ -1,4 +1,4 @@
-package com.buggily.ify.ui.main
+package com.buggily.ify.ui
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
@@ -12,15 +12,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.buggily.ify.ui.IfyDestination
-import com.buggily.ify.ui.home.HomeScreen
-import com.buggily.ify.ui.theme.ZERO
+import com.buggily.ify.core.ui.ext.ZERO
 
 @Composable
 @OptIn(ExperimentalLayoutApi::class)
-fun MainScreen(
-    modifier: Modifier = Modifier,
-) {
+fun IfyApp(modifier: Modifier = Modifier) {
     Scaffold(
         contentWindowInsets = WindowInsets.ZERO,
         modifier = modifier,
@@ -34,11 +30,11 @@ fun MainScreen(
                 .consumeWindowInsets(it),
         ) {
             composable(
-                route = IfyDestination.Home.route,
+                route = IfyDestination.Ify.route,
                 arguments = emptyList(),
                 deepLinks = emptyList(),
             ) {
-                HomeScreen(
+                IfyScreen(
                     viewModel = hiltViewModel(),
                     modifier = Modifier.fillMaxSize(),
                 )
