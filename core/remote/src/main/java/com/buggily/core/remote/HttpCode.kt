@@ -24,6 +24,6 @@ enum class HttpCode {
         }
 
     companion object {
-        fun get(code: Int?): HttpCode = values().find { it.code == code } ?: Default
+        fun get(code: Int?): HttpCode = entries.find { it.code == code } ?: Default
     }
 }
