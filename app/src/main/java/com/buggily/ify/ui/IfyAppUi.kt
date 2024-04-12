@@ -1,6 +1,5 @@
 package com.buggily.ify.ui
 
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +14,6 @@ import androidx.navigation.compose.rememberNavController
 import com.buggily.ify.core.ui.ext.ZERO
 
 @Composable
-@OptIn(ExperimentalLayoutApi::class)
 fun IfyApp(modifier: Modifier = Modifier) {
     Scaffold(
         contentWindowInsets = WindowInsets.ZERO,
