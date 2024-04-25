@@ -34,7 +34,7 @@ class GenderRepository(
         }.let { localGenderSource.insert(it.toLocal()) }
 
         localGenderSource.getByName(name).firstOrNull()?.let {
-            return DataResult.Response.Local(it.to())
+            return DataResult.Response.Remote(it.to())
         }
 
         return DataResult.Failure.Local

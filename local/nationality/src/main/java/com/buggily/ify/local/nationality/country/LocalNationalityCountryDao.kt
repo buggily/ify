@@ -12,6 +12,6 @@ interface LocalNationalityCountryDao {
     suspend fun insert(countries: List<LocalNationalityCountry>)
 
     companion object {
-        const val tableName = "${LocalNationalityDao.tableName}_country"
+        const val TABLE_NAME = "${LocalNationalityDao.TABLE_NAME}_country"
     }
 }

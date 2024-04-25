@@ -9,5 +9,4 @@ android {
 
 dependencies {
     implementation(project(":domain:gender"))
-    implementation(project(":data:gender"))
 }

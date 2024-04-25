@@ -8,7 +8,7 @@ import java.util.Locale
 
 @Entity(
 
-    tableName = LocalNationalityCountryDao.tableName,
+    tableName = LocalNationalityCountryDao.TABLE_NAME,
 
     primaryKeys = [
         LocalNationalityCountry.NATIONALITY_NAME,
@@ -33,7 +33,7 @@ data class LocalNationalityCountry(
 ) {
 
     companion object {
-        const val NATIONALITY_NAME = "${LocalNationalityDao.tableName}_name"
+        const val NATIONALITY_NAME = "${LocalNationalityDao.TABLE_NAME}_name"
         const val PROBABILITY = "probability"
         const val LOCALE = "locale"
     }

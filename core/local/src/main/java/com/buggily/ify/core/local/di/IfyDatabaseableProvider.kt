@@ -21,8 +21,8 @@ object IfyDatabaseableProvider {
     ): IfyDatabaseable = Room.databaseBuilder(
         context = context,
         klass = IfyDatabase::class.java,
-        name = name,
+        name = NAME,
     ).build()
 
-    private const val name = "ify.db"
+    private const val NAME = "ify.db"
 }

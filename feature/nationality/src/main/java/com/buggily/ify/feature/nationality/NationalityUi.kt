@@ -70,7 +70,7 @@ private fun NationalityResponse(
     uiState: NationalityUiState.Response,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = with(uiState) {
+    val text: String = with(uiState.nationality) {
         stringResource(
             R.string.nationality_body,
             nameText,
@@ -91,7 +91,7 @@ private fun NationalityFailure(
     modifier: Modifier = Modifier,
 ) {
     val text: String = when (uiState) {
-        is NationalityUiState.Failure.Remote.Api -> uiState.failureText
+        is NationalityUiState.Failure.Remote.Api -> uiState.message
         is NationalityUiState.Failure.Remote.Network -> stringResource(CR.string.error_network)
         is NationalityUiState.Failure.Else -> stringResource(CR.string.error_else)
     }

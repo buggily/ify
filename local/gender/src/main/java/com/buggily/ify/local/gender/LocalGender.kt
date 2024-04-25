@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = LocalGenderDao.tableName)
+@Entity(tableName = LocalGenderDao.TABLE_NAME)
 data class LocalGender(
 
     @PrimaryKey
