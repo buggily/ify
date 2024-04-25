@@ -1,7 +1,6 @@
 package com.buggily.ify.feature.age
 
-import com.buggily.ify.core.domain.FormatNumber
-import com.buggily.ify.data.age.Age
+import com.buggily.ify.domain.age.AgeUi
 
 sealed interface AgeUiState {
 
@@ -9,8 +8,7 @@ sealed interface AgeUiState {
     data object Loading : AgeUiState
 
     data class Response(
-        val age: Age,
-        val formatNumber: FormatNumber,
+        val age: AgeUi,
     ) : AgeUiState
 
     sealed interface Failure : AgeUiState {

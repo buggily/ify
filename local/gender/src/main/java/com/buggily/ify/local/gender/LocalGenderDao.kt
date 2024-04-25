@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface LocalGenderDao {
 
-    @Query("SELECT * FROM $tableName WHERE ${LocalGender.NAME} = :name")
+    @Query("SELECT * FROM $TABLE_NAME WHERE ${LocalGender.NAME} = :name")
     fun getByName(name: String): Flow<LocalGender?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(gender: LocalGender)
 
     companion object {
-        const val tableName = "gender"
+        const val TABLE_NAME = "gender"
     }
 }

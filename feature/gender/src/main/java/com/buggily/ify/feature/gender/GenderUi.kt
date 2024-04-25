@@ -14,7 +14,7 @@ import com.buggily.ify.core.ui.ui.EndpointBox
 import com.buggily.ify.core.ui.ui.FailureText
 import com.buggily.ify.core.ui.ui.LoadingIndicator
 import com.buggily.ify.core.ui.ui.ResponseText
-import com.buggily.ify.data.gender.Gender
+import com.buggily.ify.domain.gender.GenderUi
 import com.buggily.ify.core.ui.R as CR
 
 @Composable
@@ -52,13 +52,16 @@ fun GenderScreen(
                 uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
+
             is GenderUiState.Failure -> GenderFailure(
                 uiState = uiState,
                 modifier = Modifier.fillMaxWidth(),
             )
+
             is GenderUiState.Loading -> GenderLoading(
                 modifier = Modifier,
             )
+
             is GenderUiState.Default -> GenderDefault(
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -72,22 +75,22 @@ private fun GenderResponse(
     modifier: Modifier = Modifier,
 ) {
     val genderStringResId: Int? = when (uiState.gender.gender) {
-        is Gender.Gender.Male -> R.string.gender_male
-        is Gender.Gender.Female -> R.string.gender_female
+        is GenderUi.Gender.Male -> R.string.gender_male
+        is GenderUi.Gender.Female -> R.string.gender_female
         else -> null
     }
 
-    val text: String = with(uiState) {
+    val text: String = with(uiState.gender) {
         val genderText: String = genderStringResId?.let {
-            getGenderText(stringResource(it))
+            stringResource(it)
         } ?: stringResource(CR.string.unknown)
 
         stringResource(
             R.string.gender_body,
             nameText,
             genderText,
-            percentageText,
-            countText
+            probabilityText,
+            countText,
         )
     }
 
@@ -103,7 +106,7 @@ private fun GenderFailure(
     modifier: Modifier = Modifier,
 ) {
     val text: String = when (uiState) {
-        is GenderUiState.Failure.Remote.Api -> uiState.failureText
+        is GenderUiState.Failure.Remote.Api -> uiState.message
         is GenderUiState.Failure.Remote.Network -> stringResource(CR.string.error_network)
         is GenderUiState.Failure.Else -> stringResource(CR.string.error_else)
     }

@@ -1,7 +1,6 @@
 package com.buggily.ify.feature.gender
 
-import com.buggily.ify.core.domain.Format
-import com.buggily.ify.data.gender.Gender
+import com.buggily.ify.domain.gender.GenderUi
 
 sealed interface GenderUiState {
 
@@ -9,8 +8,7 @@ sealed interface GenderUiState {
     data object Loading : GenderUiState
 
     data class Response(
-        val gender: Gender,
-        val format: Format,
+        val gender: GenderUi,
     ) : GenderUiState
 
     sealed interface Failure : GenderUiState {

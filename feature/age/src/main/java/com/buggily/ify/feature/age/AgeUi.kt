@@ -70,7 +70,7 @@ private fun AgeResponse(
     uiState: AgeUiState.Response,
     modifier: Modifier = Modifier,
 ) {
-    val text: String = with(uiState) {
+    val text: String = with(uiState.age) {
         stringResource(
             R.string.age_body,
             nameText,
@@ -91,7 +91,7 @@ private fun AgeFailure(
     modifier: Modifier = Modifier,
 ) {
     val text: String = when (uiState) {
-        is AgeUiState.Failure.Remote.Api -> uiState.failureText
+        is AgeUiState.Failure.Remote.Api -> uiState.message
         is AgeUiState.Failure.Remote.Network -> stringResource(CR.string.error_network)
         is AgeUiState.Failure.Else -> stringResource(CR.string.error_else)
     }

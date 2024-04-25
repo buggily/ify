@@ -9,5 +9,4 @@ android {
 
 dependencies {
     implementation(project(":domain:age"))
-    implementation(project(":data:age"))
 }

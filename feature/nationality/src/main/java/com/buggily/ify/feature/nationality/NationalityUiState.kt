@@ -1,7 +1,6 @@
 package com.buggily.ify.feature.nationality
 
-import com.buggily.ify.core.domain.Format
-import com.buggily.ify.data.nationality.Nationality
+import com.buggily.ify.domain.nationality.NationalityUi
 
 sealed interface NationalityUiState {
 
@@ -9,8 +8,7 @@ sealed interface NationalityUiState {
     data object Loading : NationalityUiState
 
     data class Response(
-        val nationality: Nationality,
-        val format: Format,
+        val nationality: NationalityUi,
     ) : NationalityUiState
 
     sealed interface Failure : NationalityUiState {

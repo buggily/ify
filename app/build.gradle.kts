@@ -49,10 +49,6 @@ dependencies {
     implementation(project(":domain:gender"))
     implementation(project(":domain:nationality"))
 
-    implementation(project(":data:age"))
-    implementation(project(":data:gender"))
-    implementation(project(":data:nationality"))
-
     implementation(libs.kotlin)
     implementation(libs.kotlinx.coroutines.android)
 
