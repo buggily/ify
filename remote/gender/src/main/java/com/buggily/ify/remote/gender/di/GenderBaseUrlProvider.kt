@@ -8,7 +8,7 @@ import okhttp3.HttpUrl
 
 @Module
 @InstallIn(SingletonComponent::class)
-object GenderBaseUrlProvider {
+internal object GenderBaseUrlProvider {
 
     @Provides
     @GenderBaseUrlQualifier

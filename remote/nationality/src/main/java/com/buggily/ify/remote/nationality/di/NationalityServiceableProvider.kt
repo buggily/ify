@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NationalityServiceableProvider {
+internal object NationalityServiceableProvider {
 
     @Provides
     fun provides(

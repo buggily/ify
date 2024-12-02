@@ -1,6 +1,6 @@
 package com.buggily.ify.remote.nationality
 
-class RemoteNationalitySource(
+internal class RemoteNationalitySource(
     private val remoteNationalityService: RemoteNationalityServiceable,
 ) : RemoteNationalitySourceable {
 

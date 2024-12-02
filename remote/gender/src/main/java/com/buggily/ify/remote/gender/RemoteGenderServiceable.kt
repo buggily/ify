@@ -4,7 +4,7 @@ import com.buggily.core.remote.ApiResult
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface RemoteGenderServiceable {
+internal interface RemoteGenderServiceable {
 
     @GET(GET_BY_NAME)
     suspend fun getByName(

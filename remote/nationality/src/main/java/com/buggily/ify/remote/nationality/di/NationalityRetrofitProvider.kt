@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NationalityRetrofitProvider {
+internal object NationalityRetrofitProvider {
 
     @Provides
     @NationalityRetrofitQualifier

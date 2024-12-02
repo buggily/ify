@@ -8,7 +8,7 @@ import com.buggily.ify.remote.nationality.RemoteNationality
 import com.buggily.ify.remote.nationality.RemoteNationalitySourceable
 import kotlinx.coroutines.flow.firstOrNull
 
-class NationalityRepository(
+internal class NationalityRepository(
     private val remoteNationalitySource: RemoteNationalitySourceable,
     private val localNationalitySource: LocalNationalitySourceable,
     private val localNationalityCountrySource: LocalNationalityCountrySourceable

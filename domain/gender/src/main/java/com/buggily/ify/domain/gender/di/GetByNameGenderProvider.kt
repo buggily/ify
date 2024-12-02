@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object GetByNameGenderProvider {
+internal object GetByNameGenderProvider {
 
     @Provides
     fun provides(

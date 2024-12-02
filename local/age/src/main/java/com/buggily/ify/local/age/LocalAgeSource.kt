@@ -2,7 +2,7 @@ package com.buggily.ify.local.age
 
 import kotlinx.coroutines.flow.Flow
 
-class LocalAgeSource(
+internal class LocalAgeSource(
     private val localAgeDao: LocalAgeDao,
 ) : LocalAgeSourceable {
 

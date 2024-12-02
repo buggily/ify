@@ -2,7 +2,7 @@ package com.buggily.ify.local.nationality
 
 import kotlinx.coroutines.flow.Flow
 
-class LocalNationalitySource(
+internal class LocalNationalitySource(
     private val localNationalityDao: LocalNationalityDao,
 ) : LocalNationalitySourceable {
 

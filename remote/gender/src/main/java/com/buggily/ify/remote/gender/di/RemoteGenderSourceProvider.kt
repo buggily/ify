@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RemoteGenderSourceProvider {
+internal object RemoteGenderSourceProvider {
 
     @Provides
     fun provides(

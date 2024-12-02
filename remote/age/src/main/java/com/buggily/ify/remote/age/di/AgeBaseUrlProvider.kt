@@ -8,7 +8,7 @@ import okhttp3.HttpUrl
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AgeBaseUrlProvider {
+internal object AgeBaseUrlProvider {
 
     @Provides
     @AgeBaseUrlQualifier

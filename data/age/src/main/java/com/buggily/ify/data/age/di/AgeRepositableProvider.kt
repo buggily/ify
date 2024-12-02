@@ -11,7 +11,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AgeRepositableProvider {
+internal object AgeRepositableProvider {
 
     @Provides
     fun provides(

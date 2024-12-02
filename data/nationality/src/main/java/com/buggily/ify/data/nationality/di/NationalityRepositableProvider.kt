@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NationalityRepositableProvider {
+internal object NationalityRepositableProvider {
 
     @Provides
     fun provides(

@@ -1,6 +1,6 @@
 package com.buggily.ify.remote.age
 
-class RemoteAgeSource(
+internal class RemoteAgeSource(
     private val remoteAgeService: RemoteAgeServiceable,
 ) : RemoteAgeSourceable {
 

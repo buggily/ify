@@ -93,7 +93,7 @@ private fun AgeFailure(
     val text: String = when (uiState) {
         is AgeUiState.Failure.Remote.Api -> uiState.message
         is AgeUiState.Failure.Remote.Network -> stringResource(CR.string.error_network)
-        is AgeUiState.Failure.Else -> stringResource(CR.string.error_else)
+        is AgeUiState.Failure.Else -> stringResource(CR.string.error_unknown)
     }
 
     FailureText(

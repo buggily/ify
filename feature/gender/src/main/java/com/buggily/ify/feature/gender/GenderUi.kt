@@ -108,7 +108,7 @@ private fun GenderFailure(
     val text: String = when (uiState) {
         is GenderUiState.Failure.Remote.Api -> uiState.message
         is GenderUiState.Failure.Remote.Network -> stringResource(CR.string.error_network)
-        is GenderUiState.Failure.Else -> stringResource(CR.string.error_else)
+        is GenderUiState.Failure.Else -> stringResource(CR.string.error_unknown)
     }
 
     FailureText(

@@ -8,7 +8,7 @@ import java.util.Locale
 
 @Module
 @InstallIn(SingletonComponent::class)
-object LocaleProvider {
+internal object LocaleProvider {
 
     @Provides
     fun provides(): Locale = Locale.getDefault()

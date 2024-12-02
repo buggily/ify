@@ -8,7 +8,7 @@ import okhttp3.MediaType
 
 @Module
 @InstallIn(SingletonComponent::class)
-object JsonContentTypeProvider {
+internal object JsonContentTypeProvider {
 
     @Provides
     @JsonContentTypeQualifier

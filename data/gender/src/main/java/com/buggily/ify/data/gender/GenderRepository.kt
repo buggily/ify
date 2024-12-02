@@ -7,7 +7,7 @@ import com.buggily.ify.remote.gender.RemoteGender
 import com.buggily.ify.remote.gender.RemoteGenderSourceable
 import kotlinx.coroutines.flow.firstOrNull
 
-class GenderRepository(
+internal class GenderRepository(
     private val remoteGenderSource: RemoteGenderSourceable,
     private val localGenderSource: LocalGenderSourceable,
 ) : GenderRepositable {

@@ -11,7 +11,7 @@ import retrofit2.Converter
 
 @Module
 @InstallIn(SingletonComponent::class)
-object JsonConverterFactoryProvider {
+internal object JsonConverterFactoryProvider {
 
     @Provides
     @JsonConverterFactoryQualifier

@@ -9,7 +9,7 @@ import java.text.NumberFormat
 
 @Module
 @InstallIn(SingletonComponent::class)
-object FormatNumberProvider {
+internal object FormatNumberProvider {
 
     @Provides
     fun provides(

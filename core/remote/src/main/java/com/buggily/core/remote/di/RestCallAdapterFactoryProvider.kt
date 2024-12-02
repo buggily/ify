@@ -9,7 +9,7 @@ import retrofit2.CallAdapter
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RestCallAdapterFactoryProvider {
+internal object RestCallAdapterFactoryProvider {
 
     @Provides
     @RestCallAdapterFactoryQualifier
