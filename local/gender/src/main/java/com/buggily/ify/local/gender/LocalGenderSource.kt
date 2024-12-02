@@ -2,7 +2,7 @@ package com.buggily.ify.local.gender
 
 import kotlinx.coroutines.flow.Flow
 
-class LocalGenderSource(
+internal class LocalGenderSource(
     private val localGenderDao: LocalGenderDao,
 ) : LocalGenderSourceable {
 

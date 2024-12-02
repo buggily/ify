@@ -1,6 +1,6 @@
 package com.buggily.ify.local.nationality.country
 
-class LocalNationalityCountrySource(
+internal class LocalNationalityCountrySource(
     private val localNationalityCountryDao: LocalNationalityCountryDao,
 ) : LocalNationalityCountrySourceable {
 

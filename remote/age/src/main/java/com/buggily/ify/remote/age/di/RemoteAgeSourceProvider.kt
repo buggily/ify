@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RemoteAgeSourceProvider {
+internal object RemoteAgeSourceProvider {
 
     @Provides
     fun provides(

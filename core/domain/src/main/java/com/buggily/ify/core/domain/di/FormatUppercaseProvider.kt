@@ -1,18 +1,20 @@
 package com.buggily.ify.core.domain.di
 
+import com.buggily.ify.core.domain.FormatUppercase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import java.text.NumberFormat
 import java.util.Locale
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object NumberFormatProvider {
+internal object FormatUppercaseProvider {
 
     @Provides
     fun provides(
         locale: Locale,
-    ): NumberFormat = NumberFormat.getInstance(locale)
+    ): FormatUppercase = FormatUppercase(
+        locale = locale,
+    )
 }

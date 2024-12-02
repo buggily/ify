@@ -9,7 +9,7 @@ import java.util.Locale
 
 @Module
 @InstallIn(SingletonComponent::class)
-object FormatLowercaseProvider {
+internal object FormatLowercaseProvider {
 
     @Provides
     fun provides(

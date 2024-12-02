@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object LocalGenderSourceableProvider {
+internal object LocalGenderSourceableProvider {
 
     @Provides
     fun provides(

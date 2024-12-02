@@ -1,6 +1,6 @@
 package com.buggily.ify.remote.gender
 
-class RemoteGenderSource(
+internal class RemoteGenderSource(
     private val remoteGenderService: RemoteGenderServiceable,
 ) : RemoteGenderSourceable {
 

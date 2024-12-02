@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object LocalAgeSourceableProvider {
+internal object LocalAgeSourceableProvider {
 
     @Provides
     fun provides(

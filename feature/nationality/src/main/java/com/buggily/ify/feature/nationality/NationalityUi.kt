@@ -93,7 +93,7 @@ private fun NationalityFailure(
     val text: String = when (uiState) {
         is NationalityUiState.Failure.Remote.Api -> uiState.message
         is NationalityUiState.Failure.Remote.Network -> stringResource(CR.string.error_network)
-        is NationalityUiState.Failure.Else -> stringResource(CR.string.error_else)
+        is NationalityUiState.Failure.Else -> stringResource(CR.string.error_unknown)
     }
 
     FailureText(

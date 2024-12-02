@@ -8,7 +8,7 @@ import okhttp3.HttpUrl
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NationalityBaseUrlProvider {
+internal object NationalityBaseUrlProvider {
 
     @Provides
     @NationalityBaseUrlQualifier

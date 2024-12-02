@@ -8,7 +8,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object FormatProbabilityProvider {
+internal object FormatProbabilityProvider {
 
     @Provides
     fun provides(): FormatProbability = FormatProbability()

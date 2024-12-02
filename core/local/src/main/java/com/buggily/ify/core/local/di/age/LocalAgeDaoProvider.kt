@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object LocalAgeDaoProvider {
+internal object LocalAgeDaoProvider {
 
     @Provides
     fun provides(

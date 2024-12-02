@@ -7,7 +7,7 @@ import com.buggily.ify.remote.age.RemoteAge
 import com.buggily.ify.remote.age.RemoteAgeSourceable
 import kotlinx.coroutines.flow.firstOrNull
 
-class AgeRepository(
+internal class AgeRepository(
     private val remoteAgeSource: RemoteAgeSourceable,
     private val localAgeSource: LocalAgeSourceable,
 ) : AgeRepositable {

@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface RemoteAgeSourceableBinder {
+internal interface RemoteAgeSourceableBinder {
 
     @Binds
     fun binds(

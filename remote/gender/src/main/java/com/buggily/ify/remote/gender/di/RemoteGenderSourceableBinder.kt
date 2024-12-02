@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface RemoteGenderSourceableBinder {
+internal interface RemoteGenderSourceableBinder {
 
     @Binds
     fun binds(
