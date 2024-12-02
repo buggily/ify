@@ -1,18 +1,18 @@
 [versions]
 
-androidx = "1.12.0"
-androidxActivity = "1.8.2"
+androidx = "1.15.0"
+androidxActivity = "1.9.3"
 androidxSplashscreen = "1.0.1"
-androidxComposeBom = "2024.04.00"
+androidxComposeBom = "2024.11.00"
 androidxComposeCompiler = "1.5.10"
-androidxComposeNavigation = "2.7.7"
+androidxComposeNavigation = "2.8.4"
 androidxHilt = "1.2.0"
-androidxLifecycle = "2.7.0"
+androidxLifecycle = "2.8.7"
 
 googleDagger = "2.51"
 
-kotlin = "1.9.22"
-kotlinxCoroutines = "1.8.0"
+kotlin = "2.0.21"
+kotlinxCoroutines = "1.9.0"
 kotlinxSerialization = "1.5.1"
 
 retrofit = "2.11.0"
@@ -20,7 +20,7 @@ retrofitKotlinxSerialization = "1.0.0"
 
 room = "2.6.1"
 
-androidGradlePlugin = "8.3.2"
+androidGradlePlugin = "8.7.2"
 
 [libraries]
 
@@ -76,3 +76,4 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "googleDagger" }
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme" parent="android:Theme.DeviceDefault.NoActionBar" />
+    <style name="Theme" parent="android:Theme.Material.NoActionBar" />
 
     <style name="Theme.Splash" parent="Theme.SplashScreen">
         <item name="postSplashScreenTheme">@style/Theme</item>
