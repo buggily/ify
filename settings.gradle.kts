@@ -26,6 +26,7 @@ include(":core:domain")
 include(":core:remote")
 include(":core:data")
 include(":core:local")
+include(":core:test")
 
 include(":feature:age")
 include(":feature:gender")

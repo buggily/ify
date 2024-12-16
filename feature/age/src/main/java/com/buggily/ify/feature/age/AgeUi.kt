@@ -3,17 +3,15 @@ package com.buggily.ify.feature.age
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.buggily.ify.core.ui.ui.DefaultText
 import com.buggily.ify.core.ui.ui.EndpointBox
-import com.buggily.ify.core.ui.ui.FailureText
 import com.buggily.ify.core.ui.ui.LoadingIndicator
-import com.buggily.ify.core.ui.ui.ResponseText
 import com.buggily.ify.core.ui.R as CR
 
 @Composable
@@ -42,7 +40,7 @@ fun AgeScreen(
     }
 
     EndpointBox(
-        text = stringResource(R.string.agify),
+        endpointText = stringResource(R.string.agify),
         color = color,
         modifier = modifier,
     ) {
@@ -79,8 +77,9 @@ private fun AgeResponse(
         )
     }
 
-    ResponseText(
+    Text(
         text = text,
+        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }
@@ -96,8 +95,10 @@ private fun AgeFailure(
         is AgeUiState.Failure.Else -> stringResource(CR.string.error_unknown)
     }
 
-    FailureText(
+    Text(
         text = text,
+        color = MaterialTheme.colorScheme.error,
+        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }
@@ -116,11 +117,12 @@ private fun AgeLoading(
 private fun AgeDefault(
     modifier: Modifier = Modifier,
 ) {
-    DefaultText(
+    Text(
         text = stringResource(
             CR.string.enter,
             stringResource(R.string.age)
         ),
+        style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
 }

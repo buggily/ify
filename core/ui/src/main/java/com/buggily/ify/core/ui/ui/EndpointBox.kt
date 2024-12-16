@@ -17,7 +17,7 @@ import com.buggily.ify.core.ui.R
 
 @Composable
 fun EndpointBox(
-    text: String,
+    endpointText: String,
     color: Color,
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit,
@@ -39,7 +39,7 @@ fun EndpointBox(
             content()
 
             Text(
-                text = text,
+                text = endpointText,
                 color = color,
                 textAlign = TextAlign.End,
                 style = MaterialTheme.typography.bodySmall,

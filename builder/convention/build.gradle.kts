@@ -47,6 +47,10 @@ gradlePlugin {
             id = "ify.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidTest") {
+            id = "ify.android.test"
+            implementationClass = "AndroidTestConventionPlugin"
+        }
         register("kotlinHilt") {
             id = "ify.kotlin.hilt"
             implementationClass = "KotlinHiltConventionPlugin"
@@ -62,6 +66,10 @@ gradlePlugin {
         register("kotlinLibraryRemote") {
             id = "ify.kotlin.library.remote"
             implementationClass = "KotlinLibraryRemoteConventionPlugin"
+        }
+        register("kotlinTest") {
+            id = "ify.kotlin.test"
+            implementationClass = "KotlinTestConventionPlugin"
         }
     }
 }

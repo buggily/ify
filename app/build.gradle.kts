@@ -49,9 +49,6 @@ dependencies {
     implementation(project(":domain:gender"))
     implementation(project(":domain:nationality"))
 
-    implementation(libs.kotlin)
-    implementation(libs.kotlinx.coroutines.android)
-
     implementation(libs.androidx.core)
     implementation(libs.androidx.core.splashscreen)
 
