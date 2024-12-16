@@ -26,7 +26,7 @@ class IfyViewModel @Inject constructor(
     init {
         IfyUiState(
             nameState = IfyUiState.NameState(
-                name = "Adam",
+                name = DEFAULT_NAME,
                 onChange = ::onNameChange,
                 onClear = ::onNameClear,
             ),
@@ -60,5 +60,9 @@ class IfyViewModel @Inject constructor(
 
     private fun setNameState(nameState: IfyUiState.NameState) = _uiState.update {
         it.copy(nameState = nameState)
+    }
+
+    companion object {
+        const val DEFAULT_NAME = "Adam"
     }
 }
