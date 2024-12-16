@@ -3,24 +3,27 @@
 androidx = "1.15.0"
 androidxActivity = "1.9.3"
 androidxSplashscreen = "1.0.1"
-androidxComposeBom = "2024.11.00"
+androidxComposeBom = "2024.12.01"
 androidxComposeCompiler = "1.5.10"
-androidxComposeNavigation = "2.8.4"
+androidxComposeNavigation = "2.8.5"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.8.7"
 
 googleDagger = "2.51"
 
+junit = "4.13.2"
+mockk = "1.13.13"
+
 kotlin = "2.0.21"
 kotlinxCoroutines = "1.9.0"
-kotlinxSerialization = "1.5.1"
+kotlinxSerialization = "1.6.3"
 
 retrofit = "2.11.0"
 retrofitKotlinxSerialization = "1.0.0"
 
 room = "2.6.1"
 
-androidGradlePlugin = "8.7.2"
+androidGradlePlugin = "8.7.3"
 
 [libraries]
 
@@ -59,11 +62,15 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 kotlin = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib-jdk8", version.ref = "kotlin" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlin-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinxSerialization" }
+
+junit =  { group = "junit", name = "junit", version.ref = "junit" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }

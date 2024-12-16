@@ -42,7 +42,7 @@ fun AgeScreen(
     }
 
     EndpointBox(
-        text = stringResource(R.string.agify),
+        endpointText = stringResource(R.string.agify),
         color = color,
         modifier = modifier,
     ) {

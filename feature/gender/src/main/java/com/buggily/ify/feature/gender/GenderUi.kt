@@ -43,7 +43,7 @@ fun GenderScreen(
     }
 
     EndpointBox(
-        text = stringResource(R.string.genderize),
+        endpointText = stringResource(R.string.genderize),
         color = color,
         modifier = modifier,
     ) {

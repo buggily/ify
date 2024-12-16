@@ -27,3 +27,8 @@ fun RemoteNationality.Country.toLocal(
     probability = probability,
     locale = locale,
 )
+
+fun RemoteNationality.toLocalWithCountries(): LocalNationality.WithCountries = LocalNationality.WithCountries(
+    nationality = toLocal(),
+    countries = countries.map { it.toLocal(name) },
+)

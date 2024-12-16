@@ -42,7 +42,7 @@ fun NationalityScreen(
     }
 
     EndpointBox(
-        text = stringResource(R.string.nationalize),
+        endpointText = stringResource(R.string.nationalize),
         color = color,
         modifier = modifier,
     ) {
