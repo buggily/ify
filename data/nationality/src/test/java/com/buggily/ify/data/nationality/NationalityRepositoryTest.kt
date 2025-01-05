@@ -11,15 +11,18 @@ import com.buggily.ify.remote.nationality.RemoteNationality
 import com.buggily.ify.remote.nationality.RemoteNationalitySourceable
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.io.IOException
+import java.util.Locale
 
 class NationalityRepositoryTest {
 
@@ -30,7 +33,7 @@ class NationalityRepositoryTest {
     private lateinit var nationalityRepository: NationalityRepository
 
     @get:Rule
-    val rule = CoroutineTestRule
+    val rule = CoroutineTestRule(StandardTestDispatcher())
 
     @Before
     fun before() {
@@ -42,12 +45,17 @@ class NationalityRepositoryTest {
             localNationalityCountrySource = localNationalityCountrySource,
         )
 
-        coEvery { localNationalitySource.insert(any()) } returns Unit
-        coEvery { localNationalityCountrySource.insert(any()) } returns Unit
+        coEvery {
+            localNationalitySource.insert(any())
+        } returns Unit
+
+        coEvery {
+            localNationalityCountrySource.insert(any())
+        } returns Unit
     }
 
     @Test
-    fun `get by name should return local response when local source has name`() = runTest {
+    fun `get by name returns local response when local source has name`() = runTest {
         val localNationality = LocalNationality(
             name = NAME,
             count = 0,
@@ -58,7 +66,9 @@ class NationalityRepositoryTest {
             countries = emptyList(),
         )
 
-        coEvery { localNationalitySource.getByName(NAME) } returns flowOf(localNationalityWithCountries)
+        coEvery {
+            localNationalitySource.getByName(NAME)
+        } returns flowOf(localNationalityWithCountries)
 
         Assert.assertEquals(
             nationalityRepository.getByName(NAME),
@@ -67,51 +77,98 @@ class NationalityRepositoryTest {
     }
 
     @Test
-    fun `get by name should return remote response when local source does not have name and remote source has name`() =
-        runTest {
-            val remoteNationality = RemoteNationality(
-                name = NAME,
-                countries = emptyList(),
-                count = 0,
-            )
+    fun `get by name returns remote response when local source does not have name and remote source has name`() = runTest {
+        val remoteCountry = RemoteNationality.Country(
+            probability = 1f,
+            locale = Locale.getDefault()
+        )
 
-            coEvery { localNationalitySource.getByName(NAME) } returns emptyFlow() andThen flowOf(remoteNationality.toLocalWithCountries())
-            coEvery { remoteNationalitySource.getByName(NAME) } returns ApiResult.Response(
-                code = HttpCode.Default,
-                body = remoteNationality,
-            )
+        val remoteCountries: List<RemoteNationality.Country> = listOf(
+            remoteCountry,
+        )
 
-            Assert.assertEquals(
-                nationalityRepository.getByName(NAME),
-                DataResult.Response.Remote(remoteNationality.toLocalWithCountries().to()),
-            )
+        val remoteNationality = RemoteNationality(
+            name = NAME,
+            countries = remoteCountries,
+            count = 0,
+        )
+
+        coEvery {
+            localNationalitySource.getByName(NAME)
+        } returns emptyFlow() andThen flowOf(remoteNationality.toLocalWithCountries())
+
+        coEvery {
+            remoteNationalitySource.getByName(NAME)
+        } returns ApiResult.Response(
+            code = HttpCode.Default,
+            body = remoteNationality,
+        )
+
+        Assert.assertEquals(
+            nationalityRepository.getByName(NAME),
+            DataResult.Response.Remote(remoteNationality.toLocalWithCountries().to()),
+        )
+
+        coVerify {
+            localNationalitySource.insert(remoteNationality.toLocal())
         }
 
+        coVerify {
+            localNationalityCountrySource.insert(remoteCountries.map { it.toLocal(NAME) })
+        }
+    }
+
     @Test
-    fun `get by name should return local failure when local source does not have name and remote source has name but insert fails`() =
-        runTest {
-            val remoteNationality = RemoteNationality(
-                name = NAME,
-                countries = emptyList(),
-                count = 0,
-            )
+    fun `get by name returns local failure when local source lacks name and remote source has name but insert fails`() = runTest {
+        val remoteCountry = RemoteNationality.Country(
+            probability = 1f,
+            locale = Locale.getDefault(),
+        )
 
-            coEvery { localNationalitySource.getByName(NAME) } returns emptyFlow()
-            coEvery { remoteNationalitySource.getByName(NAME) } returns ApiResult.Response(
-                code = HttpCode.Default,
-                body = remoteNationality,
-            )
+        val remoteCountries: List<RemoteNationality.Country> = listOf(
+            remoteCountry,
+        )
 
-            Assert.assertEquals(
-                nationalityRepository.getByName(NAME),
-                DataResult.Failure.Local,
-            )
+        val remoteNationality = RemoteNationality(
+            name = NAME,
+            countries = remoteCountries,
+            count = 0,
+        )
+
+        coEvery {
+            localNationalitySource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteNationalitySource.getByName(NAME)
+        } returns ApiResult.Response(
+            code = HttpCode.Default,
+            body = remoteNationality,
+        )
+
+        Assert.assertEquals(
+            nationalityRepository.getByName(NAME),
+            DataResult.Failure.Local,
+        )
+
+        coVerify {
+            localNationalitySource.insert(remoteNationality.toLocal())
         }
 
+        coVerify {
+            localNationalityCountrySource.insert(remoteCountries.map { it.toLocal(NAME) })
+        }
+    }
+
     @Test
-    fun `get by name should return remote api failure on api failure`() = runTest {
-        coEvery { localNationalitySource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteNationalitySource.getByName(NAME) } returns ApiResult.Failure.Api(
+    fun `get by name returns remote api failure on api failure`() = runTest {
+        coEvery {
+            localNationalitySource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteNationalitySource.getByName(NAME)
+        } returns ApiResult.Failure.Api(
             code = HttpCode.Default,
             fallbackBody = RemoteNationality.Error(MESSAGE),
         )
@@ -123,9 +180,14 @@ class NationalityRepositoryTest {
     }
 
     @Test
-    fun `get by name should return remote network failure on network failure`() = runTest {
-        coEvery { localNationalitySource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteNationalitySource.getByName(NAME) } returns ApiResult.Failure.Network(
+    fun `get by name returns remote network failure on network failure`() = runTest {
+        coEvery {
+            localNationalitySource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteNationalitySource.getByName(NAME)
+        } returns ApiResult.Failure.Network(
             exception = IOException(MESSAGE)
         )
 
@@ -137,8 +199,13 @@ class NationalityRepositoryTest {
 
     @Test
     fun `get by name should return remote else failure on else failure`() = runTest {
-        coEvery { localNationalitySource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteNationalitySource.getByName(NAME) } returns ApiResult.Failure.Else(
+        coEvery {
+            localNationalitySource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteNationalitySource.getByName(NAME)
+        } returns ApiResult.Failure.Else(
             throwable = Throwable(MESSAGE),
         )
 

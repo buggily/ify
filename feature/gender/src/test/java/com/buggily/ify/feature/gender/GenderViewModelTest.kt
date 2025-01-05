@@ -7,19 +7,23 @@ import com.buggily.ify.domain.gender.GetGenderByName
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GenderViewModelTest {
 
     private val getGenderByName: GetGenderByName = mockk()
     private lateinit var viewModel: GenderViewModel
 
     @get:Rule
-    val rule = CoroutineTestRule
+    val rule = CoroutineTestRule(StandardTestDispatcher())
 
     @Before
     fun before() {
@@ -28,7 +32,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state should be default on init`() = runTest {
+    fun `ui state is default on init`() = runTest {
         Assert.assertEquals(
             GenderUiState.Default,
             viewModel.uiState.value,
@@ -36,7 +40,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state should be default on name change with blank name`() = runTest {
+    fun `ui state is default on name change with blank name`() = runTest {
         viewModel.onNameChange(String())
 
         Assert.assertEquals(
@@ -46,7 +50,18 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state should be response on name change with response`() = runTest {
+    fun `ui state is loading on name change with name`() = runTest {
+        coEvery { getGenderByName(NAME) } returns DataResult.Failure.Local
+        viewModel.onNameChange(NAME)
+
+        Assert.assertEquals(
+            GenderUiState.Loading,
+            viewModel.uiState.value,
+        )
+    }
+
+    @Test
+    fun `ui state is response on name change with response`() = runTest {
         val ui = GenderUi(
             gender = null,
             nameText = NAME,
@@ -56,6 +71,7 @@ class GenderViewModelTest {
 
         coEvery { getGenderByName(NAME) } returns DataResult.Response.Remote(ui)
         viewModel.onNameChange(NAME)
+        runCurrent()
 
         Assert.assertEquals(
             GenderUiState.Response(ui),
@@ -64,9 +80,10 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state should be remote api failure on name change with remote api failure`() = runTest {
+    fun `ui state is remote api failure on name change with remote api failure`() = runTest {
         coEvery { getGenderByName(NAME) } returns DataResult.Failure.Remote.Api(MESSAGE)
         viewModel.onNameChange(NAME)
+        runCurrent()
 
         Assert.assertEquals(
             GenderUiState.Failure.Remote.Api(MESSAGE),
@@ -75,9 +92,10 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state should be remote network failure on name change with remote network failure`() = runTest {
+    fun `ui state is remote network failure on name change with remote network failure`() = runTest {
         coEvery { getGenderByName(NAME) } returns DataResult.Failure.Remote.Network(MESSAGE)
         viewModel.onNameChange(NAME)
+        runCurrent()
 
         Assert.assertEquals(
             GenderUiState.Failure.Remote.Network,
@@ -86,9 +104,10 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state should be else failure on name change with else failure`() = runTest {
+    fun `ui state is else failure on name change with else failure`() = runTest {
         coEvery { getGenderByName(NAME) } returns DataResult.Failure.Remote.Else(MESSAGE)
         viewModel.onNameChange(NAME)
+        runCurrent()
 
         Assert.assertEquals(
             GenderUiState.Failure.Else,

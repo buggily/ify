@@ -10,9 +10,11 @@ import com.buggily.ify.remote.gender.RemoteGender
 import com.buggily.ify.remote.gender.RemoteGenderSourceable
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -27,7 +29,7 @@ class GenderRepositoryTest {
     private lateinit var genderRepository: GenderRepository
 
     @get:Rule
-    val rule = CoroutineTestRule
+    val rule = CoroutineTestRule(StandardTestDispatcher())
 
     @Before
     fun before() {
@@ -38,11 +40,13 @@ class GenderRepositoryTest {
             localGenderSource = localGenderSource,
         )
 
-        coEvery { localGenderSource.insert(any()) } returns Unit
+        coEvery {
+            localGenderSource.insert(any())
+        } returns Unit
     }
 
     @Test
-    fun `get by name should return local response when local source has name`() = runTest {
+    fun `get by name returns local response when local source has name`() = runTest {
         val localGender = LocalGender(
             gender = null,
             name = NAME,
@@ -50,7 +54,9 @@ class GenderRepositoryTest {
             probability = 0f,
         )
 
-        coEvery { localGenderSource.getByName(NAME) } returns flowOf(localGender)
+        coEvery {
+            localGenderSource.getByName(NAME)
+        } returns flowOf(localGender)
 
         Assert.assertEquals(
             genderRepository.getByName(NAME),
@@ -59,7 +65,7 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name should return remote response when local source does not have name and remote source has name`() = runTest {
+    fun `get by name returns remote response when local source lacks name and remote source has name`() = runTest {
         val remoteGender = RemoteGender(
             gender = null,
             name = NAME,
@@ -67,8 +73,13 @@ class GenderRepositoryTest {
             probability = 0f,
         )
 
-        coEvery { localGenderSource.getByName(NAME) } returns emptyFlow() andThen flowOf(remoteGender.toLocal())
-        coEvery { remoteGenderSource.getByName(NAME) } returns ApiResult.Response(
+        coEvery {
+            localGenderSource.getByName(NAME)
+        } returns emptyFlow() andThen flowOf(remoteGender.toLocal())
+
+        coEvery {
+            remoteGenderSource.getByName(NAME)
+        } returns ApiResult.Response(
             code = HttpCode.Default,
             body = remoteGender,
         )
@@ -77,10 +88,14 @@ class GenderRepositoryTest {
             genderRepository.getByName(NAME),
             DataResult.Response.Remote(remoteGender.toLocal().to()),
         )
+
+        coVerify {
+            localGenderSource.insert(remoteGender.toLocal())
+        }
     }
 
     @Test
-    fun `get by name should return local failure when local source does not have name and remote source has name but insert fails`() = runTest {
+    fun `get by name returns local failure when local source lacks name and remote source has name but insert fails`() = runTest {
         val remoteGender = RemoteGender(
             name = NAME,
             gender = null,
@@ -88,8 +103,13 @@ class GenderRepositoryTest {
             probability = 0f,
         )
 
-        coEvery { localGenderSource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteGenderSource.getByName(NAME) } returns ApiResult.Response(
+        coEvery {
+            localGenderSource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteGenderSource.getByName(NAME)
+        } returns ApiResult.Response(
             code = HttpCode.Default,
             body = remoteGender,
         )
@@ -98,12 +118,21 @@ class GenderRepositoryTest {
             genderRepository.getByName(NAME),
             DataResult.Failure.Local,
         )
+
+        coVerify {
+            localGenderSource.insert(remoteGender.toLocal())
+        }
     }
 
     @Test
-    fun `get by name should return remote api failure on api failure`() = runTest {
-        coEvery { localGenderSource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteGenderSource.getByName(NAME) } returns ApiResult.Failure.Api(
+    fun `get by name returns remote api failure on api failure`() = runTest {
+        coEvery {
+            localGenderSource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteGenderSource.getByName(NAME)
+        } returns ApiResult.Failure.Api(
             code = HttpCode.Default,
             fallbackBody = RemoteGender.Error(MESSAGE),
         )
@@ -115,9 +144,14 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name should return remote network failure on network failure`() = runTest {
-        coEvery { localGenderSource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteGenderSource.getByName(NAME) } returns ApiResult.Failure.Network(
+    fun `get by name returns remote network failure on network failure`() = runTest {
+        coEvery {
+            localGenderSource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteGenderSource.getByName(NAME)
+        } returns ApiResult.Failure.Network(
             exception = IOException(MESSAGE)
         )
 
@@ -128,9 +162,14 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name should return remote else failure on else failure`() = runTest {
-        coEvery { localGenderSource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteGenderSource.getByName(NAME) } returns ApiResult.Failure.Else(
+    fun `get by name returns remote else failure on else failure`() = runTest {
+        coEvery {
+            localGenderSource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteGenderSource.getByName(NAME)
+        } returns ApiResult.Failure.Else(
             throwable = Throwable(MESSAGE),
         )
 

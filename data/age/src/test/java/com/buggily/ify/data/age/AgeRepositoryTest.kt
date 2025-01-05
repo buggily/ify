@@ -10,9 +10,11 @@ import com.buggily.ify.remote.age.RemoteAge
 import com.buggily.ify.remote.age.RemoteAgeSourceable
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -27,7 +29,7 @@ class AgeRepositoryTest {
     private lateinit var ageRepository: AgeRepository
 
     @get:Rule
-    val rule = CoroutineTestRule
+    val rule = CoroutineTestRule(StandardTestDispatcher())
 
     @Before
     fun before() {
@@ -38,18 +40,22 @@ class AgeRepositoryTest {
             localAgeSource = localAgeSource,
         )
 
-        coEvery { localAgeSource.insert(any()) } returns Unit
+        coEvery {
+            localAgeSource.insert(any())
+        } returns Unit
     }
 
     @Test
-    fun `get by name should return local response when local source has name`() = runTest {
+    fun `get by name returns local response when local source has name`() = runTest {
         val localAge = LocalAge(
             name = NAME,
             age = null,
             count = 0,
         )
 
-        coEvery { localAgeSource.getByName(NAME) } returns flowOf(localAge)
+        coEvery {
+            localAgeSource.getByName(NAME)
+        } returns flowOf(localAge)
 
         Assert.assertEquals(
             ageRepository.getByName(NAME),
@@ -58,15 +64,20 @@ class AgeRepositoryTest {
     }
 
     @Test
-    fun `get by name should return remote response when local source does not have name and remote source has name`() = runTest {
+    fun `get by name returns remote response when local source lacks name and remote source has name`() = runTest {
         val remoteAge = RemoteAge(
             name = NAME,
             age = null,
             count = 0,
         )
 
-        coEvery { localAgeSource.getByName(NAME) } returns emptyFlow() andThen flowOf(remoteAge.toLocal())
-        coEvery { remoteAgeSource.getByName(NAME) } returns ApiResult.Response(
+        coEvery {
+            localAgeSource.getByName(NAME)
+        } returns emptyFlow() andThen flowOf(remoteAge.toLocal())
+
+        coEvery {
+            remoteAgeSource.getByName(NAME)
+        } returns ApiResult.Response(
             code = HttpCode.Default,
             body = remoteAge,
         )
@@ -75,18 +86,27 @@ class AgeRepositoryTest {
             ageRepository.getByName(NAME),
             DataResult.Response.Remote(remoteAge.toLocal().to()),
         )
+
+        coVerify {
+            localAgeSource.insert(remoteAge.toLocal())
+        }
     }
 
     @Test
-    fun `get by name should return local failure when local source does not have name and remote source has name but insert fails`() = runTest {
+    fun `get by name returns local failure when local source lacks name and remote source has name but insert fails`() = runTest {
         val remoteAge = RemoteAge(
             name = NAME,
             age = null,
             count = 0,
         )
 
-        coEvery { localAgeSource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteAgeSource.getByName(NAME) } returns ApiResult.Response(
+        coEvery {
+            localAgeSource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteAgeSource.getByName(NAME)
+        } returns ApiResult.Response(
             code = HttpCode.Default,
             body = remoteAge,
         )
@@ -95,12 +115,21 @@ class AgeRepositoryTest {
             ageRepository.getByName(NAME),
             DataResult.Failure.Local,
         )
+
+        coVerify {
+            localAgeSource.insert(remoteAge.toLocal())
+        }
     }
 
     @Test
-    fun `get by name should return remote api failure on api failure`() = runTest {
-        coEvery { localAgeSource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteAgeSource.getByName(NAME) } returns ApiResult.Failure.Api(
+    fun `get by name returns remote api failure on api failure`() = runTest {
+        coEvery {
+            localAgeSource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteAgeSource.getByName(NAME)
+        } returns ApiResult.Failure.Api(
             code = HttpCode.Default,
             fallbackBody = RemoteAge.Error(MESSAGE),
         )
@@ -112,9 +141,14 @@ class AgeRepositoryTest {
     }
 
     @Test
-    fun `get by name should return remote network failure on network failure`() = runTest {
-        coEvery { localAgeSource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteAgeSource.getByName(NAME) } returns ApiResult.Failure.Network(
+    fun `get by name returns remote network failure on network failure`() = runTest {
+        coEvery {
+            localAgeSource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteAgeSource.getByName(NAME)
+        } returns ApiResult.Failure.Network(
             exception = IOException(MESSAGE)
         )
 
@@ -125,9 +159,14 @@ class AgeRepositoryTest {
     }
 
     @Test
-    fun `get by name should return remote else failure on else failure`() = runTest {
-        coEvery { localAgeSource.getByName(NAME) } returns emptyFlow()
-        coEvery { remoteAgeSource.getByName(NAME) } returns ApiResult.Failure.Else(
+    fun `get by name returns remote else failure on else failure`() = runTest {
+        coEvery {
+            localAgeSource.getByName(NAME)
+        } returns emptyFlow()
+
+        coEvery {
+            remoteAgeSource.getByName(NAME)
+        } returns ApiResult.Failure.Else(
             throwable = Throwable(MESSAGE),
         )
 
