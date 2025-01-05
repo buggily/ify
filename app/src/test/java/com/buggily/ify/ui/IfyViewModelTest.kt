@@ -1,10 +1,13 @@
 package com.buggily.ify.ui
 
 import com.buggily.ify.core.domain.FormatCapitalize
+import com.buggily.ify.core.test.CoroutineTestRule
 import io.mockk.clearAllMocks
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import java.util.Locale
 
@@ -12,6 +15,9 @@ class IfyViewModelTest {
 
     private val formatCapitalize = FormatCapitalize(Locale.getDefault())
     private lateinit var viewModel: IfyViewModel
+
+    @get:Rule
+    val rule = CoroutineTestRule(StandardTestDispatcher())
 
     @Before
     fun before() {
