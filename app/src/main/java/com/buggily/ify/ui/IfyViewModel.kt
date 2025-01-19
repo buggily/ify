@@ -26,16 +26,16 @@ class IfyViewModel @Inject constructor(
     init {
         IfyUiState(
             nameState = IfyUiState.NameState(
-                name = DEFAULT_NAME,
-                onChange = ::onNameChange,
-                onClear = ::onNameClear,
+                value = DEFAULT_NAME,
+                onValueChange = ::onNameChange,
+                onValueClear = ::onNameClear,
             ),
         ).let { _uiState = MutableStateFlow(it) }
 
-        name = uiState.map { formatCapitalize(it.nameState.name) }.debounce(1000).stateIn(
+        name = uiState.map { formatCapitalize(it.nameState.value) }.debounce(1000).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
-            initialValue = uiState.value.nameState.name,
+            initialValue = uiState.value.nameState.value,
         )
     }
 
@@ -48,11 +48,11 @@ class IfyViewModel @Inject constructor(
     )
 
     private fun setNameOfNameState(name: String) = uiState.value.let {
-        val onClear: (() -> Unit)? = if (name.isNotEmpty()) ::onNameClear else null
+        val onValueClear: (() -> Unit)? = if (name.isNotEmpty()) ::onNameClear else null
 
         val nameState: IfyUiState.NameState = it.nameState.copy(
-            name = name,
-            onClear = onClear,
+            value = name,
+            onValueClear = onValueClear,
         )
 
         setNameState(nameState)

@@ -19,7 +19,6 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
             configureAndroidCompose(this)
         }
 
-
         dependencies {
             with(getLibs()) {
                 add("implementation", platform(getLib("androidx.compose.bom")))
@@ -31,6 +30,9 @@ class AndroidLibraryComposeConventionPlugin : Plugin<Project> {
 
                 add("implementation", getLib("androidx.lifecycle.viewModel.compose"))
                 add("implementation", getLib("androidx.lifecycle.runtime.compose"))
+
+                add("androidTestImplementation", getLib("androidx.compose.ui.test"))
+                add("debugImplementation", getLib("androidx.compose.ui.test.manifest"))
             }
         }
     }

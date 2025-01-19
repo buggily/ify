@@ -40,7 +40,7 @@ fun AgeScreen(
     }
 
     EndpointBox(
-        endpointText = stringResource(R.string.agify),
+        endpointText = stringResource(R.string.age_agify),
         color = color,
         modifier = modifier,
     ) {
@@ -73,7 +73,7 @@ private fun AgeResponse(
             R.string.age_body,
             nameText,
             ageText ?: stringResource(CR.string.unknown),
-            countText
+            countText ?: stringResource(CR.string.unknown)
         )
     }
 
@@ -120,7 +120,7 @@ private fun AgeDefault(
     Text(
         text = stringResource(
             CR.string.enter,
-            stringResource(R.string.age)
+            stringResource(R.string.age_age)
         ),
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,

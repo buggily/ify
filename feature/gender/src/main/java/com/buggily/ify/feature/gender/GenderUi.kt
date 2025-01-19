@@ -41,7 +41,7 @@ fun GenderScreen(
     }
 
     EndpointBox(
-        endpointText = stringResource(R.string.genderize),
+        endpointText = stringResource(R.string.gender_genderize),
         color = color,
         modifier = modifier,
     ) {
@@ -87,8 +87,8 @@ private fun GenderResponse(
             R.string.gender_body,
             nameText,
             genderText,
-            probabilityText,
-            countText,
+            probabilityText ?: stringResource(CR.string.unknown),
+            countText ?: stringResource(CR.string.unknown),
         )
     }
 
@@ -135,7 +135,7 @@ private fun GenderDefault(
     Text(
         text = stringResource(
             CR.string.enter,
-            stringResource(R.string.gender)
+            stringResource(R.string.gender_gender)
         ),
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,

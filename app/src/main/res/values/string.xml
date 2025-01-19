@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app">ify</string>
-    <string name="name">name</string>
 
-    <string name="clear">clear</string>
+    <string name="ify_name">name</string>
+    <string name="ify_clear">clear</string>
 </resources>

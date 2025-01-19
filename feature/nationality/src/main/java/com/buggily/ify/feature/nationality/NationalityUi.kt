@@ -40,7 +40,7 @@ fun NationalityScreen(
     }
 
     EndpointBox(
-        endpointText = stringResource(R.string.nationalize),
+        endpointText = stringResource(R.string.nationality_nationalize),
         color = color,
         modifier = modifier,
     ) {
@@ -73,7 +73,7 @@ private fun NationalityResponse(
             R.string.nationality_body,
             nameText,
             nationsText ?: stringResource(CR.string.unknown),
-            countText,
+            countText ?: stringResource(CR.string.unknown),
         )
     }
 
@@ -120,7 +120,7 @@ private fun NationalityDefault(
     Text(
         text = stringResource(
             CR.string.enter,
-            stringResource(R.string.nationality)
+            stringResource(R.string.nationality_nationality)
         ),
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,

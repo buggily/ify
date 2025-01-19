@@ -74,9 +74,9 @@ fun IfyScreen(
 }
 
 @Composable
-private fun IfyScreen(
+fun IfyScreen(
     uiState: IfyUiState,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     IfyScreen(
         nameState = uiState.nameState,
@@ -157,8 +157,8 @@ private fun IfyBarTextField(
     modifier: Modifier = Modifier,
 ) {
     OutlinedTextField(
-        value = nameState.name,
-        onValueChange = nameState.onChange,
+        value = nameState.value,
+        onValueChange = nameState.onValueChange,
         label = { IfyBarTextFieldLabel() },
         trailingIcon = { IfyBarTextFieldTrailingIcon(nameState) },
         modifier = modifier,
@@ -170,7 +170,7 @@ private fun IfyBarTextFieldLabel(
     modifier: Modifier = Modifier,
 ) {
     Text(
-        text = stringResource(R.string.name),
+        text = stringResource(R.string.ify_name),
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier,
     )
@@ -181,15 +181,15 @@ private fun IfyBarTextFieldTrailingIcon(
     nameState: IfyUiState.NameState,
     modifier: Modifier = Modifier,
 ) {
-    val onClick: () -> Unit = nameState.onClear ?: return
+    val onClick: () -> Unit = nameState.onValueClear ?: return
 
     IconButton(
         onClick = onClick,
         modifier = modifier,
     ) {
         Icon(
-            painter = painterResource(R.drawable.clear),
-            contentDescription = stringResource(R.string.clear),
+            painter = painterResource(R.drawable.ify_clear),
+            contentDescription = stringResource(R.string.ify_clear),
         )
     }
 }

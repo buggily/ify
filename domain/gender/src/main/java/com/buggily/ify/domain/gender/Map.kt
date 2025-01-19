@@ -13,8 +13,8 @@ fun Gender.toUi(
     }
 
     val nameText: String = name
-    val countText: String = format.formatNumber(count)
-    val probabilityText: String = format.formatProbability(probability)
+    val countText: String? = format.formatNumber(count)
+    val probabilityText: String? = format.formatProbability(probability)
 
     return GenderUi(
         gender = gender,

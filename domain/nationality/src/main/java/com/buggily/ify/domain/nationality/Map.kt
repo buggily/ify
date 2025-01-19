@@ -7,7 +7,7 @@ fun Nationality.toUi(
     format: Format,
 ): NationalityUi {
     val nameText: String = name
-    val countText: String = format.formatNumber(count)
+    val countText: String? = format.formatNumber(count)
 
     val nationsText: String? = countries.takeUnless {
         it.isEmpty()
@@ -15,7 +15,7 @@ fun Nationality.toUi(
         it.probability
     }?.joinToString {
         val countryText: String = it.locale.getDisplayCountry(format.locale)
-        val percentageText: String = format.formatProbability(it.probability)
+        val percentageText: String? = format.formatProbability(it.probability)
         "$countryText ($percentageText%)"
     }
 

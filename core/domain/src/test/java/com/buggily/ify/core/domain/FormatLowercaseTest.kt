@@ -15,7 +15,7 @@ class FormatLowercaseTest {
     }
 
     @Test
-    fun `format lowercase lowercases`() {
+    fun formatLowercaseLowercases() {
         Assert.assertEquals(
             "abc",
             formatLowercase("ABC"),
