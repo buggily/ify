@@ -14,7 +14,9 @@ import androidx.navigation.compose.rememberNavController
 import com.buggily.ify.core.ui.ext.ZERO
 
 @Composable
-fun IfyApp(modifier: Modifier = Modifier) {
+fun IfyApp(
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
         contentWindowInsets = WindowInsets.ZERO,
         modifier = modifier,

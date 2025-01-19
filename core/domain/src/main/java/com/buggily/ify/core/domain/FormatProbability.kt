@@ -4,8 +4,8 @@ import kotlin.math.roundToInt
 
 class FormatProbability {
 
-    operator fun invoke(probability: Float): String {
-        val percentage: Float = probability * 100
-        return percentage.roundToInt().toString()
+    operator fun invoke(probability: Float?): String? = probability?.let {
+        val percentage: Float = it * 100
+        percentage.roundToInt().toString()
     }
 }

@@ -32,7 +32,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state is default on init`() = runTest {
+    fun uiStateIsDefaultOnInit() = runTest {
         Assert.assertEquals(
             GenderUiState.Default,
             viewModel.uiState.value,
@@ -40,7 +40,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state is default on name change with blank name`() = runTest {
+    fun uiStateIsDefaultOnNameChangeWithBlankName() = runTest {
         viewModel.onNameChange(String())
 
         Assert.assertEquals(
@@ -50,7 +50,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state is loading on name change with name`() = runTest {
+    fun uiStateIsLoadingOnNameChangeWithName() = runTest {
         coEvery { getGenderByName(NAME) } returns DataResult.Failure.Local
         viewModel.onNameChange(NAME)
 
@@ -61,7 +61,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state is response on name change with response`() = runTest {
+    fun uiStateIsResponseOnNameChangeWithResponse() = runTest {
         val ui = GenderUi(
             gender = null,
             nameText = NAME,
@@ -80,7 +80,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state is remote api failure on name change with remote api failure`() = runTest {
+    fun uiStateIsRemoteApiOnNameChangeWithRemoteApiFailure() = runTest {
         coEvery { getGenderByName(NAME) } returns DataResult.Failure.Remote.Api(MESSAGE)
         viewModel.onNameChange(NAME)
         runCurrent()
@@ -92,7 +92,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state is remote network failure on name change with remote network failure`() = runTest {
+    fun uiStateIsRemoteNetworkFailureOnNameChangeWithRemoteNetworkFailure() = runTest {
         coEvery { getGenderByName(NAME) } returns DataResult.Failure.Remote.Network(MESSAGE)
         viewModel.onNameChange(NAME)
         runCurrent()
@@ -104,7 +104,7 @@ class GenderViewModelTest {
     }
 
     @Test
-    fun `ui state is else failure on name change with else failure`() = runTest {
+    fun uiStateIsElseFailureOnNameChangeWithElseFailure() = runTest {
         coEvery { getGenderByName(NAME) } returns DataResult.Failure.Remote.Else(MESSAGE)
         viewModel.onNameChange(NAME)
         runCurrent()

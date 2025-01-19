@@ -26,53 +26,53 @@ class IfyViewModelTest {
     }
 
     @Test
-    fun `name is default name on init`() = runTest {
+    fun nameIsDefaultNameOnInit() = runTest {
         Assert.assertEquals(
             IfyViewModel.DEFAULT_NAME,
-            viewModel.uiState.value.nameState.name,
+            viewModel.uiState.value.nameState.value,
         )
     }
 
     @Test
-    fun `on name change updates name`() = runTest {
+    fun onNameChangeUpdatesName() = runTest {
         Assert.assertNotEquals(
             NAME,
-            viewModel.uiState.value.nameState.name,
+            viewModel.uiState.value.nameState.value,
         )
 
-        viewModel.uiState.value.nameState.onChange(NAME)
+        viewModel.uiState.value.nameState.onValueChange(NAME)
 
         Assert.assertEquals(
             NAME,
-            viewModel.uiState.value.nameState.name,
+            viewModel.uiState.value.nameState.value,
         )
     }
 
     @Test
-    fun `on clear name resets name`() = runTest {
+    fun onClearNameResetsName() = runTest {
         Assert.assertNotEquals(
             String(),
-            viewModel.uiState.value.nameState.name,
+            viewModel.uiState.value.nameState.value,
         )
 
-        viewModel.uiState.value.nameState.onClear?.invoke()
+        viewModel.uiState.value.nameState.onValueClear?.invoke()
 
         Assert.assertEquals(
             String(),
-            viewModel.uiState.value.nameState.name,
+            viewModel.uiState.value.nameState.value,
         )
     }
 
     @Test
-    fun `on clear is not null when name is not empty`() {
-        viewModel.uiState.value.nameState.onChange(NAME)
-        Assert.assertNotNull(viewModel.uiState.value.nameState.onClear)
+    fun onValueClearIsNotNullWhenNameIsNotEmpty() {
+        viewModel.uiState.value.nameState.onValueChange(NAME)
+        Assert.assertNotNull(viewModel.uiState.value.nameState.onValueClear)
     }
 
     @Test
-    fun `on clear is null when name is empty`() {
-        viewModel.uiState.value.nameState.onChange(String())
-        Assert.assertNull(viewModel.uiState.value.nameState.onClear)
+    fun onValueClearIsNullWhenNameIsEmpty() {
+        viewModel.uiState.value.nameState.onValueChange(String())
+        Assert.assertNull(viewModel.uiState.value.nameState.onValueClear)
     }
 
     private companion object {

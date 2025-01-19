@@ -5,8 +5,8 @@ data class IfyUiState(
 ) {
 
     data class NameState(
-        val name: String,
-        val onChange: (String) -> Unit,
-        val onClear: (() -> Unit)?,
+        val value: String,
+        val onValueChange: (String) -> Unit,
+        val onValueClear: (() -> Unit)?,
     )
 }

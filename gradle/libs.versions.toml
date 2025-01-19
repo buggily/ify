@@ -1,10 +1,10 @@
 [versions]
 
 androidx = "1.15.0"
-androidxActivity = "1.9.3"
+androidxActivity = "1.10.0"
 androidxSplashscreen = "1.0.1"
-androidxComposeBom = "2024.12.01"
-androidxComposeCompiler = "1.5.10"
+androidxCompose = "1.7.6"
+androidxComposeBom = "2025.01.00"
 androidxComposeNavigation = "2.8.5"
 androidxHilt = "1.2.0"
 androidxLifecycle = "2.8.7"
@@ -35,6 +35,9 @@ androidx-compose-material3-windowSizeClass = { group = "androidx.compose.materia
 
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "androidxCompose" }
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxComposeNavigation" }
 

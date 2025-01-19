@@ -15,7 +15,7 @@ class FormatUppercaseTest {
     }
 
     @Test
-    fun `format uppercase uppercases`() {
+    fun formatUppercaseUppercases() {
         Assert.assertEquals(
             "ABC",
             formatUppercase("abc"),

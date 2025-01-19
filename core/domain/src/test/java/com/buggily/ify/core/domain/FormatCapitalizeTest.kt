@@ -15,7 +15,7 @@ class FormatCapitalizeTest {
     }
 
     @Test
-    fun `format capitalize capitalizes`() {
+    fun formatCapitalizeCapitalizes() {
         Assert.assertEquals(
             "Hello",
             formatCapitalize("hello"),

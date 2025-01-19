@@ -46,7 +46,7 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name returns local response when local source has name`() = runTest {
+    fun getByNameReturnsLocalResponseWhenLocalSourceHasName() = runTest {
         val localGender = LocalGender(
             gender = null,
             name = NAME,
@@ -65,7 +65,7 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name returns remote response when local source lacks name and remote source has name`() = runTest {
+    fun getByNameReturnsRemoteResponseWhenLocalSourceLacksNameAndRemoteSourceHasName() = runTest {
         val remoteGender = RemoteGender(
             gender = null,
             name = NAME,
@@ -95,7 +95,7 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name returns local failure when local source lacks name and remote source has name but insert fails`() = runTest {
+    fun getByNameReturnsLocalFailureWhenLocalSourceLacksNameAndRemoteSourceHasNameButInsertFails() = runTest {
         val remoteGender = RemoteGender(
             name = NAME,
             gender = null,
@@ -125,7 +125,7 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name returns remote api failure on api failure`() = runTest {
+    fun getByNameReturnsRemoteApiFailureOnApiFailure() = runTest {
         coEvery {
             localGenderSource.getByName(NAME)
         } returns emptyFlow()
@@ -144,7 +144,7 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name returns remote network failure on network failure`() = runTest {
+    fun getByNameReturnsRemoteNetworkFailureOnNetworkFailure() = runTest {
         coEvery {
             localGenderSource.getByName(NAME)
         } returns emptyFlow()
@@ -162,7 +162,7 @@ class GenderRepositoryTest {
     }
 
     @Test
-    fun `get by name returns remote else failure on else failure`() = runTest {
+    fun getByNameReturnsRemoteElseFailureOnElseFailure() = runTest {
         coEvery {
             localGenderSource.getByName(NAME)
         } returns emptyFlow()

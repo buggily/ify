@@ -14,7 +14,7 @@ class FormatProbabilityTest {
     }
 
     @Test
-    fun `format probability generates percent`() {
+    fun formatProbabilityGeneratesPercent() {
         Assert.assertEquals(
             "50",
             formatProbability(.50f),
@@ -22,7 +22,7 @@ class FormatProbabilityTest {
     }
 
     @Test
-    fun `format probability rounds to nearest percent`() {
+    fun formatProbabilityRoundsToNearestPercent() {
         Assert.assertEquals(
             "51",
             formatProbability(.505f)

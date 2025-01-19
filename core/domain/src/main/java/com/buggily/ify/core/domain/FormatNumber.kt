@@ -6,5 +6,7 @@ class FormatNumber(
     private val numberFormat: NumberFormat,
 ) {
 
-    operator fun invoke(number: Int): String = numberFormat.format(number)
+    operator fun invoke(number: Int?): String? = number?.let {
+        numberFormat.format(it)
+    }
 }

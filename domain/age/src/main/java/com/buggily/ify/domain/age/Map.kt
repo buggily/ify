@@ -8,7 +8,7 @@ fun Age.toUi(
 ): AgeUi {
     val nameText: String = name
     val ageText: String? = age?.toString()
-    val countText: String = formatNumber(count)
+    val countText: String? = formatNumber(count)
 
     return AgeUi(
         nameText = nameText,
