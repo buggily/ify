@@ -52,7 +52,7 @@ class ApiResultCallAdapterFactory : CallAdapter.Factory() {
             responseType = responseBodyType,
             converter = converter,
         )
-    } catch (e: IllegalArgumentException) {
+    } catch (_: IllegalArgumentException) {
         null
     }
 }
