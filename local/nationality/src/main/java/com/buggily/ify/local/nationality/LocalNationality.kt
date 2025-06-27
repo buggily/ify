@@ -9,6 +9,7 @@ import com.buggily.ify.local.nationality.country.LocalNationalityCountry
 
 @Entity(tableName = LocalNationalityDao.TABLE_NAME)
 data class LocalNationality(
+
     @PrimaryKey
     @ColumnInfo(name = NAME)
     val name: String,
