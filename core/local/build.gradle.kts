@@ -12,7 +12,7 @@ dependencies {
     implementation(project(":local:gender"))
     implementation(project(":local:nationality"))
 
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room)
     implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
 }

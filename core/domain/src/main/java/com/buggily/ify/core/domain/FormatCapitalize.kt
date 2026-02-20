@@ -6,5 +6,5 @@ class FormatCapitalize(
     private val locale: Locale,
 ) {
 
-    operator fun invoke(string: String): String = string.capitalize(locale)
+    operator fun invoke(value: String): String = value.capitalize(locale)
 }

@@ -9,6 +9,7 @@ import com.buggily.ify.domain.gender.GetGenderByName
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class GenderViewModel @Inject constructor(
         MutableStateFlow(GenderUiState.Default)
 
     val uiState: StateFlow<GenderUiState>
-        get() = _uiState
+        get() = _uiState.asStateFlow()
 
     override fun onNameChange(name: String) {
         val genderState: GenderUiState = if (name.isBlank()) {

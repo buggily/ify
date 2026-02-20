@@ -1,4 +1,4 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.buggily.ify.configureAndroidCompose
 import ext.getLib
 import ext.getLibs

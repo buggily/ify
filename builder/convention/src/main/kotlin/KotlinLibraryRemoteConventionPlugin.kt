@@ -10,7 +10,6 @@ class KotlinLibraryRemoteConventionPlugin : Plugin<Project> {
         with(pluginManager) {
             apply("ify.kotlin.library")
             apply("ify.kotlin.hilt")
-            apply("org.jetbrains.kotlin.kapt")
             apply("org.jetbrains.kotlin.plugin.serialization")
         }
 

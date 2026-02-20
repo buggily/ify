@@ -8,7 +8,7 @@ internal class LocalNationalitySource(
 
     override fun getByName(
         name: String,
-    ): Flow<LocalNationality.WithCountries?> = localNationalityDao.getByName(
+    ): Flow<LocalNationalityWithCountries?> = localNationalityDao.getByName(
         name = name,
     )
 
