@@ -12,7 +12,7 @@ interface LocalNationalityDao {
 
     @Transaction
     @Query("SELECT * FROM $TABLE_NAME WHERE ${LocalNationality.NAME} = :name")
-    fun getByName(name: String): Flow<LocalNationality.WithCountries?>
+    fun getByName(name: String): Flow<LocalNationalityWithCountries?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(nationality: LocalNationality)

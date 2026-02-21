@@ -6,6 +6,7 @@ import com.buggily.ify.core.model.DataResult
 import com.buggily.ify.core.test.CoroutineTestRule
 import com.buggily.ify.local.nationality.LocalNationality
 import com.buggily.ify.local.nationality.LocalNationalitySourceable
+import com.buggily.ify.local.nationality.LocalNationalityWithCountries
 import com.buggily.ify.local.nationality.country.LocalNationalityCountrySourceable
 import com.buggily.ify.remote.nationality.RemoteNationality
 import com.buggily.ify.remote.nationality.RemoteNationalitySourceable
@@ -61,7 +62,7 @@ class NationalityRepositoryTest {
             count = 0,
         )
 
-        val localNationalityWithCountries = LocalNationality.WithCountries(
+        val localNationalityWithCountries = LocalNationalityWithCountries(
             nationality = localNationality,
             countries = emptyList(),
         )

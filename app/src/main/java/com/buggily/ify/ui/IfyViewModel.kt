@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -19,7 +20,7 @@ class IfyViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<IfyUiState>
-    val uiState: StateFlow<IfyUiState> get() = _uiState
+    val uiState: StateFlow<IfyUiState> get() = _uiState.asStateFlow()
 
     val name: StateFlow<String>
 
@@ -32,7 +33,9 @@ class IfyViewModel @Inject constructor(
             ),
         ).let { _uiState = MutableStateFlow(it) }
 
-        name = uiState.map { formatCapitalize(it.nameState.value) }.debounce(1000).stateIn(
+        name = uiState.map {
+            formatCapitalize(value = it.nameState.value)
+        }.debounce(1000).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
             initialValue = uiState.value.nameState.value,

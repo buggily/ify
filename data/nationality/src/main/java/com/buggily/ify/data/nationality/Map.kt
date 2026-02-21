@@ -1,10 +1,11 @@
 package com.buggily.ify.data.nationality
 
 import com.buggily.ify.local.nationality.LocalNationality
+import com.buggily.ify.local.nationality.LocalNationalityWithCountries
 import com.buggily.ify.local.nationality.country.LocalNationalityCountry
 import com.buggily.ify.remote.nationality.RemoteNationality
 
-fun LocalNationality.WithCountries.to(): Nationality = Nationality(
+fun LocalNationalityWithCountries.to(): Nationality = Nationality(
     name = nationality.name,
     count = nationality.count,
     countries = countries.map { it.to() },
@@ -28,7 +29,7 @@ fun RemoteNationality.Country.toLocal(
     locale = locale,
 )
 
-fun RemoteNationality.toLocalWithCountries(): LocalNationality.WithCountries = LocalNationality.WithCountries(
+fun RemoteNationality.toLocalWithCountries(): LocalNationalityWithCountries = LocalNationalityWithCountries(
     nationality = toLocal(),
     countries = countries.map { it.toLocal(name) },
 )
